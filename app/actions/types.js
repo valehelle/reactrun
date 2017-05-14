@@ -1,0 +1,13 @@
+export const SET_LOCATION = 'SET_LOCATION'
+export const UPDATE_LOCATION = 'UPDATE_LOCATION'
+export const UPDATE_LOCATION_LAPSE = 'UPDATE_LOCATION_LAPSE'
+
+export const UPDATE_TIMER = 'UPDATE_TIMER'
+export const STOP_TIMER = 'STOP_TIMER'
+export const PAUSE_TIMER = 'PAUSE_TIMER'
+
+export const STOP_JOGGING = 'STOP_JOGGING'
+export const START_JOGGING = 'START_JOGGING'
+export const PAUSE_JOGGING = 'PAUSE_JOGGING'
+
+export const SET_TAB = 'SET_TAB'
