@@ -13,6 +13,7 @@
     "react-native": "0.43.4",
     "react-navigation": "git+https://github.com/react-community/react-navigation.git",
     "react-redux": "^5.0.4",
+    "realm": "^1.3.0",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0"
