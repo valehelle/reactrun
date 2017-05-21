@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { TabNavigations } from './TabNavigations'
+import { Root } from './TabNavigations'
 
 
 class AppContainer extends Component {
 
     render(){
-        return <TabNavigations screenProps={{ ...this.props }}/>
+        return <Root screenProps={{ ...this.props }}/>
     }
 }
 

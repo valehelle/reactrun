@@ -1,18 +1,28 @@
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import Home from './Home'
 import Feed from './Feed'
+import Activity from './Activity'
+
+export const HomeStack = StackNavigator({
+    Home:{
+        screen: Home,
+        navigationOptions:{
+            title: 'Recharge',
+        }
+    },
+})
 
 export const TabNavigations = TabNavigator({
     Home: {
-        screen: Home,
+        screen: HomeStack,
         navigationOptions: {
             tabBarLabel: 'Home',
         },
     },
-    Feed: {
+    Events: {
         screen: Feed,
         navigationOptions: {
-            tabBarLabel: 'Feed'
+            tabBarLabel: 'Events'
         }
     }
 },{
@@ -22,4 +32,19 @@ export const TabNavigations = TabNavigator({
         },
         activeTintColor: 'yellow',
     }
+})
+
+export const Root = StackNavigator({
+    Tabs: {
+        screen: TabNavigations,
+    },
+    Activity: {
+        screen: Activity,
+        navigationOptions:{
+            title: 'Activity',
+        }
+    },
+}, {
+    mode: 'modal',
+    headerMode: 'none',
 })

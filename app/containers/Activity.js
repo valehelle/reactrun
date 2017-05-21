@@ -22,13 +22,15 @@ class Home extends Component{
         this.props.screenProps.stopJogging()
     }
     startStopPressed(){
-        if(this.props.isJogging){
-            this.props.screenProps.stopJogging()
-            this.props.screenProps.pauseTimer()
-        }else{
-            this.props.screenProps.startJogging()
-            this.props.screenProps.startTimer()
-        }
+        this.props.navigation.goBack()
+        return false
+        // if(this.props.isJogging){
+        //     this.props.screenProps.stopJogging()
+        //     this.props.screenProps.pauseTimer()
+        // }else{
+        //     this.props.screenProps.startJogging()
+        //     this.props.screenProps.startTimer()
+        // }
     }
     finishPressed(){
         this.props.screenProps.stopJogging()
