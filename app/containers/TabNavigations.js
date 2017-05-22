@@ -10,6 +10,8 @@ export const HomeStack = StackNavigator({
             title: 'Recharge',
         }
     },
+},{
+    headerMode: 'none',
 })
 
 export const TabNavigations = TabNavigator({
