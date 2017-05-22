@@ -37,7 +37,7 @@ export function startTracking(){
                 return dispatch(setLocation({ latlng: newLatLng }))
             }
         },
-        //(error) => alert(JSON.stringify(error)),    
+        (error) => alert(JSON.stringify(error)),    
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
     }
