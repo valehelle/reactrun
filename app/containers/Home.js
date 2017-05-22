@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux' 
-
+import realm from '../database/realm'
 const {
     View,
     TouchableHighlight,
@@ -17,6 +17,31 @@ class Home extends Component{
         this.props.navigation.navigate('Activity',{})
     }
     render(){
+        realm.write(() => {
+  let myEvent = realm.create('Event', {
+    name: 'Honda',
+    datestart: 'Honda',
+    dateend: 'Honda',
+    distance: 12,
+    runs: [],
+  });
+
+let runs = myEvent.runs
+ let run = realm.create('Run', {
+    date: 'aaaa',
+    time: 'bbbbb',
+    type: 'ccccc',
+    distance: 12,
+  });
+  runs.push(run);
+  runs.push(run)
+});
+
+// Query Realm for all cars with a high mileage
+let events = realm.objects('Event')
+
+// Will return a Results object with our 1 car
+console.log(events[events.length - 1].runs.length)
         return (
                 <View style={ styles.container }>
                     <View style = { styles.titleContainer }>
