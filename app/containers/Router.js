@@ -2,6 +2,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import Home from './Home'
 import Event from './Event'
 import Activity from './Activity'
+import CreateEvent from './CreateEvent'
 
 export const HomeStack = StackNavigator({
     Home:{
@@ -14,6 +15,22 @@ export const HomeStack = StackNavigator({
     headerMode: 'none',
 })
 
+export const EventStack = StackNavigator({
+    Event:{
+        screen: Event,
+        navigationOptions:{
+            title: 'Event',
+        }
+    },
+    CreateEvent:{
+        screen: CreateEvent,
+        navigationOptions:{
+            title: 'CreateEvent',
+        }
+    }
+})
+
+
 export const TabNavigations = TabNavigator({
     Home: {
         screen: HomeStack,
@@ -22,7 +39,7 @@ export const TabNavigations = TabNavigator({
         },
     },
     Event: {
-        screen: Event,
+        screen: EventStack,
         navigationOptions: {
             tabBarLabel: 'Event'
         }

@@ -76,6 +76,7 @@ console.log(events[events.length - 1].runs[0].laps.length)
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginTop: 20,
     },
     titleContainer: {
         flex: 1,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        searchedRecipes: state.searchedRecipes
+        
     }
 }
 

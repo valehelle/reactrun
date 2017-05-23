@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { Root } from './TabNavigations'
+import { Root } from './Router'
 
 
 class AppContainer extends Component {

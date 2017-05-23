@@ -1,17 +1,6 @@
 import Realm from 'realm';
 
 // Define your models and their properties
-class Run {}
-Run.schema = {
-  name: 'Run',
-  properties: {
-    date:  'date',
-    time: 'date',
-    type: 'string',
-    distance: 'int',
-    laps:  {type: 'list', objectType: 'Lapse'},
-  }
-}
 
 class Event {}
 Event.schema = {
@@ -22,6 +11,18 @@ Event.schema = {
     dateend: 'date',
     distance: 'int',
     runs: {type: 'list', objectType: 'Run'},
+  }
+}
+
+class Run {}
+Run.schema = {
+  name: 'Run',
+  properties: {
+    date:  'date',
+    time: 'date',
+    type: 'string',
+    distance: 'int',
+    laps:  {type: 'list', objectType: 'Lapse'},
   }
 }
 

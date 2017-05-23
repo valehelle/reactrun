@@ -2,50 +2,59 @@ import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux' 
 const {
-    ScrollView,
+    FlatList,
     View,
-    TextInput,
-    Image,
     TouchableHighlight,
-    Stylesheet,
     Text,
+    StyleSheet,
 } = ReactNative
 
-class Home extends Component{
-
-searchPressed(){
-    this.props.screenProps.fetchRecipesFeed('bacon,cucumber,banana')
-}
-
-recipes(){
-    return Object.keys(this.props.searchedRecipes).map( key => this.props.searchedRecipes[key])
-}
+class Event extends Component{
+    newEvent(){
+        this.props.navigation.navigate('CreateEvent',{})
+    }
 
     render(){
-        return <View style = {{marginTop: 20}} >
-                <View>
-                    <TouchableHighlight onPress={() => this.searchPressed()}>
-                        <Text>Touch Feed</Text>
-                    </TouchableHighlight>
-                </View>
-                <View>
-                    <ScrollView>
-                        {this.recipes().map(( recipe ) => {
-                            return <View key={recipe.id}>
-                                <Text>Name = { recipe.name }</Text>
+        return (
+            <View style = {styles.container} >
+                <FlatList
+                    style = {styles.eventList}
+                    data={[{key: 'a',babe: 'ala' }, {key: 'b', babe: 'ala'}]}
+                    renderItem={
+                        ({item}) => (
+                            <View>
+                                <Text>{item.key}</Text> 
+                                <Text>{item.babe}</Text>
                             </View>
-                        })}
-                        
-                    </ScrollView>
-                </View>
-        </View>
+                        )
+                    }
+                />
+                <TouchableHighlight style = {styles.bNewEvent} onPress={() => this.newEvent()}>
+                    <Text>Create New Event</Text>
+                </TouchableHighlight>
+            </View>
+        )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex:1,
+    },
+    eventList: {
+        backgroundColor: 'white',
+        flex: 1,
+    }, 
+    bNewEvent: {
+        backgroundColor: 'green',
+        height:40,
+    }, 
+})
 
 function mapStateToProps(state){
     return{
-        searchedRecipes: state.searchedRecipes
+        
     }
 }
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(Event)
