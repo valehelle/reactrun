@@ -20,28 +20,28 @@ class Home extends Component{
         realm.write(() => {
   let myEvent = realm.create('Event', {
     name: 'Honda',
-    datestart: 'Honda',
-    dateend: 'Honda',
+    datestart: new Date(),
+    dateend: new Date(),
     distance: 12,
     runs: [],
   });
 
 let runs = myEvent.runs
  let run = realm.create('Run', {
-    date: 'aaaa',
-    time: 'bbbbb',
+    date: new Date(),
+    time: new Date(),
     type: 'ccccc',
     distance: 12,
   });
   runs.push(run);
-  runs.push(run)
+  runs.push(run);
 });
 
 // Query Realm for all cars with a high mileage
 let events = realm.objects('Event')
 
 // Will return a Results object with our 1 car
-console.log(events[events.length - 1].runs.length)
+console.log(events[events.length - 1].runs[0].laps.length)
         return (
                 <View style={ styles.container }>
                     <View style = { styles.titleContainer }>

@@ -83,7 +83,7 @@ export function startTimer(){
             return dispatch(updateTimer(mainTimer))
 
 
-        },30)
+        },1000)
     }
 }
 function updateTimer(mainTimer){

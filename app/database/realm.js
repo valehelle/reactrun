@@ -5,10 +5,11 @@ class Run {}
 Run.schema = {
   name: 'Run',
   properties: {
-    date:  'string',
-    time: 'string',
+    date:  'date',
+    time: 'date',
     type: 'string',
     distance: 'int',
+    laps:  {type: 'list', objectType: 'Lapse'},
   }
 }
 
@@ -17,8 +18,8 @@ Event.schema = {
   name: 'Event',
   properties: {
     name:  'string',
-    datestart: 'string',
-    dateend: 'string',
+    datestart: 'date',
+    dateend: 'date',
     distance: 'int',
     runs: {type: 'list', objectType: 'Run'},
   }
@@ -29,10 +30,10 @@ class Lapse{}
 Lapse.schema = {
   name: 'Lapse',
   properties: {
-    time: 'string',
+    time: 'date',
     pace: 'string',
     distance: 'int',
   }
 }
 
-export default new Realm({schema: [Run, Event]})
+export default new Realm({schema: [Lapse, Run, Event]})

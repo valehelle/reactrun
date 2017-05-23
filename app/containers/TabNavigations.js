@@ -1,6 +1,6 @@
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import Home from './Home'
-import Feed from './Feed'
+import Event from './Event'
 import Activity from './Activity'
 
 export const HomeStack = StackNavigator({
@@ -21,10 +21,10 @@ export const TabNavigations = TabNavigator({
             tabBarLabel: 'Home',
         },
     },
-    Events: {
-        screen: Feed,
+    Event: {
+        screen: Event,
         navigationOptions: {
-            tabBarLabel: 'Events'
+            tabBarLabel: 'Event'
         }
     }
 },{
