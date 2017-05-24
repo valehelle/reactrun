@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import DatePicker from 'react-native-datepicker'
+import { NavigationActions } from 'react-navigation'
+
 const {
     TextInput,
     View,
@@ -14,7 +16,13 @@ class CreateEvent extends Component{
 
     constructor(props) {
         super(props);
-        this.state = { name: 'Name', distance: "", sdate: new Date(), edate: new Date() }
+        this.state = { 
+            name: 'Name', 
+            distance: '23',
+            weeklyrun: '3', 
+            sdate: new Date(), 
+            edate: new Date(),
+        }
     }
 
     onTextDistanceChanged(distance) {
@@ -27,29 +35,56 @@ class CreateEvent extends Component{
         this.setState({name: name})
     }
 
+    onTextWeeklyChanged(weeklyrun) {
+        // code to remove non-numeric characters from text
+        this.setState({weeklyrun: weeklyrun})
+    }
+
     newEvent(){
          this.props.screenProps.createEvent(this.state)
     }
+    componentDidUpdate() {
+        console.log(this.props.eventCreated)
+        if(this.props.eventCreated){
+        //Redirect to another screen
+        const resetAction = NavigationActions.reset({
+        index: 1,
+        actions: [
+            NavigationActions.navigate({routeName: 'Event'}),
+            NavigationActions.navigate({routeName: 'EventDetail'})
+        ]
+        })
+        this.props.navigation.dispatch(resetAction)
+
+
+        this.props.screenProps.createEventDone()
+        //Action for successfull
+        }
+    }
+
+
+
 
     render(){
 
-        if(this.props.eventCreated){
-            //Redirect to another screen
-            //Action for successfull
-            alert('SUCCESS')
-        }
         return (
             <View style = {styles.container} >
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     onChangeText={(text) => this.onTextNameChanged(text)}
-                    value={this.state.text}
+                    value={this.state.name}
                 />
                 <TextInput 
                     keyboardType = 'numeric'
                     style={{height: 40,}}
                     onChangeText = {(text)=> this.onTextDistanceChanged(text)}
                     value = {this.state.distance}
+                /> 
+                <TextInput 
+                    keyboardType = 'numeric'
+                    style={{height: 40,}}
+                    onChangeText = {(text)=> this.onTextWeeklyChanged(text)}
+                    value = {this.state.weeklyrun}
                 /> 
 
                 <DatePicker

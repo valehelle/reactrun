@@ -9,4 +9,9 @@ export const event = createReducer({
             eventCreated: action.eventCreated,
         })
     },
+    [types.CREATE_EVENT_DONE](state, action) {
+        return Object.assign({}, state, {
+            eventCreated: action.eventCreated,
+        })
+    },
 })

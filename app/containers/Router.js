@@ -3,6 +3,7 @@ import Home from './Home'
 import Event from './Event'
 import Activity from './Activity'
 import CreateEvent from './CreateEvent'
+import EventDetail from './EventDetail'
 
 export const HomeStack = StackNavigator({
     Home:{
@@ -25,9 +26,15 @@ export const EventStack = StackNavigator({
     CreateEvent:{
         screen: CreateEvent,
         navigationOptions:{
-            title: 'CreateEvent',
+            title: 'Create Event',
         }
-    }
+    },
+   EventDetail:{
+        screen: EventDetail,
+        navigationOptions:{
+            title: 'Event Detail',
+        }
+    },
 })
 
 

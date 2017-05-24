@@ -10,6 +10,7 @@ Event.schema = {
     datestart: 'date',
     dateend: 'date',
     distance: 'int',
+    weeklyrun: 'int',
     runs: {type: 'list', objectType: 'Run'},
   }
 }
