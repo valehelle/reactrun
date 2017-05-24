@@ -14,37 +14,47 @@ class CreateEvent extends Component{
 
     constructor(props) {
         super(props);
-        this.state = { text: 'Name',date: new Date() }
+        this.state = { name: 'Name', distance: "", sdate: new Date(), edate: new Date() }
     }
 
-    onTextChanged(text) {
+    onTextDistanceChanged(distance) {
         // code to remove non-numeric characters from text
-        this.setState({myNumber: text})
+        this.setState({distance: distance})
     }
 
+    onTextNameChanged(name) {
+        // code to remove non-numeric characters from text
+        this.setState({name: name})
+    }
 
     newEvent(){
-         this.setState ({ text: '2222',date: new Date() })
+         this.props.screenProps.createEvent(this.state)
     }
 
     render(){
+
+        if(this.props.eventCreated){
+            //Redirect to another screen
+            //Action for successfull
+            alert('SUCCESS')
+        }
         return (
             <View style = {styles.container} >
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(text) => this.setState({text})}
+                    onChangeText={(text) => this.onTextNameChanged(text)}
                     value={this.state.text}
                 />
                 <TextInput 
                     keyboardType = 'numeric'
                     style={{height: 40,}}
-                    onChangeText = {(text)=> this.onTextChanged(text)}
-                    value = {this.state.myNumber}
+                    onChangeText = {(text)=> this.onTextDistanceChanged(text)}
+                    value = {this.state.distance}
                 /> 
 
                 <DatePicker
                     style={{width: 200}}
-                    date={this.state.date}
+                    date={this.state.sdate}
                     mode="date"
                     placeholder="Select start date"
                     format="DD-MM-YYYY"
@@ -63,8 +73,33 @@ class CreateEvent extends Component{
                     }
                     // ... You can check the source to find the other keys.
                     }}
-                    onDateChange={(date) => {this.setState({date: date})}}
+                    onDateChange={(date) => {this.setState({sdate: date})}}
                 />
+
+                <DatePicker
+                    style={{width: 200}}
+                    date={this.state.edate}
+                    mode="date"
+                    placeholder="Select end date"
+                    format="DD-MM-YYYY"
+                    minDate="01-05-2016"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                    },
+                    dateInput: {
+                        marginLeft: 36
+                    }
+                    // ... You can check the source to find the other keys.
+                    }}
+                    onDateChange={(date) => {this.setState({edate: date})}}
+                />
+
 
                 <TouchableHighlight style = {styles.bNewEvent} onPress={() => this.newEvent()}>
                     <Text>Create Event</Text>
@@ -91,7 +126,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        
+        eventCreated: state.event.eventCreated,
     }
 }
 

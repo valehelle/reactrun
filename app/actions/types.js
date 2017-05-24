@@ -10,4 +10,5 @@ export const STOP_JOGGING = 'STOP_JOGGING'
 export const START_JOGGING = 'START_JOGGING'
 export const PAUSE_JOGGING = 'PAUSE_JOGGING'
 
-export const SET_TAB = 'SET_TAB'
+
+export const CREATE_EVENT = 'CREATE_EVENT'

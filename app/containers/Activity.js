@@ -10,17 +10,35 @@ const {
     Modal,
     Alert,
     ScrollView,
+    BackAndroid,
 } = ReactNative
+
+
 
 class Home extends Component{
 
+    constructor(props) {
+        super(props)
+        this.navigator = null;
+
+        this.handleBack = (() => {
+            this.finishAlert()
+            return true; //avoid closing the app
+        }).bind(this) //don't forget bind this, you will remenber anyway.
+    }
+
+
+
     componentDidMount() {
         this.props.screenProps.startTracking()
+        BackAndroid.addEventListener('hardwareBackPress',this.handleBack)
     }
 
     componentWillUnmount() {
+        BackAndroid.removeEventListener('hardwareBackPress',this.handleBack)
         this.props.screenProps.stopJogging()
     }
+
     startStopPressed(){
         if(this.props.isJogging){
             this.props.screenProps.stopJogging()
@@ -30,21 +48,24 @@ class Home extends Component{
             this.props.screenProps.startTimer()
         }
     }
+
     finishPressed(){
         this.props.screenProps.stopJogging()
         this.props.screenProps.pauseTimer()
         // Works on both iOS and Android
-        Alert.alert(
-        'Hey :)',
-        'Finish with your running?',
-        [
-            {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        { cancelable: false }
-        )
+        this.finishAlert()
     }
-
+    finishAlert(){
+        Alert.alert(
+            'Hey :)',
+            'Finish with your running?',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
+                {text: 'OK', onPress: () => this.props.navigation.goBack()},
+            ],
+            { cancelable: false }
+            )
+    }
     laps(){
         return Object.keys(this.props.laps).map( key => this.props.laps[key])
     }

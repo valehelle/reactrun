@@ -45,6 +45,7 @@ export const TabNavigations = TabNavigator({
         }
     }
 },{
+    tabBarPosition: 'bottom',
     tabBarOptions: {
         style: {
             backgroundColor: '#2B2B2B',
