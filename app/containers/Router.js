@@ -10,10 +10,12 @@ export const HomeStack = StackNavigator({
         screen: Home,
         navigationOptions:{
             title: 'Recharge',
+            headerStyle: {
+                backgroundColor: 'green',
+            },
+            headerTintColor: "white",
         }
     },
-},{
-    headerMode: 'none',
 })
 
 export const EventStack = StackNavigator({

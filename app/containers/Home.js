@@ -10,6 +10,7 @@ const {
     Modal,
     Alert,
     ScrollView,
+    StatusBar,
 } = ReactNative
 
 class Home extends Component{
@@ -19,6 +20,10 @@ class Home extends Component{
     render(){
         return (
                 <View style={ styles.container }>
+                    <StatusBar
+                        backgroundColor="dark-green"
+                        barStyle="light-content"
+                    />
                     <View style = { styles.titleContainer }>
                         <Text style = { styles.title }>Recharge Running</Text>
                     </View>
