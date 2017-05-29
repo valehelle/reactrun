@@ -21,7 +21,7 @@ class Home extends Component{
         return (
                 <View style={ styles.container }>
                     <StatusBar
-                        backgroundColor="dark-green"
+                        backgroundColor="green"
                         barStyle="light-content"
                     />
                     <View style = { styles.titleContainer }>

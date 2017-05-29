@@ -10,21 +10,28 @@ const {
 } = ReactNative
 
 class Event extends Component{
+
+    componentDidMount() {
+        this.props.screenProps.getEvents()
+    }
+
     newEvent(){
         this.props.navigation.navigate('CreateEvent',{})
     }
+
+     _keyExtractor = (item, index) => item.id;
 
     render(){
         return (
             <View style = {styles.container} >
                 <FlatList
                     style = {styles.eventList}
-                    data={[{key: 'a',babe: 'ala' }, {key: 'b', babe: 'ala'}]}
+                    data={this.props.events}
+                    keyExtractor={this._keyExtractor}
                     renderItem={
                         ({item}) => (
                             <View>
-                                <Text>{item.key}</Text> 
-                                <Text>{item.babe}</Text>
+                                <Text>{item.name}</Text> 
                             </View>
                         )
                     }
@@ -53,7 +60,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        
+        events: state.event.events,
     }
 }
 

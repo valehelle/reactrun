@@ -5,7 +5,9 @@ import Realm from 'realm';
 class Event {}
 Event.schema = {
   name: 'Event',
+  primaryKey: 'id',
   properties: {
+    id: 'int',
     name:  'string',
     datestart: 'date',
     dateend: 'date',
@@ -18,7 +20,9 @@ Event.schema = {
 class Run {}
 Run.schema = {
   name: 'Run',
+  primaryKey: 'id',
   properties: {
+    id: 'int',
     date:  'date',
     time: 'date',
     type: 'string',

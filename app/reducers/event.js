@@ -14,4 +14,9 @@ export const event = createReducer({
             eventCreated: action.eventCreated,
         })
     },
+    [types.GET_EVENT_LIST](state, action) {
+        return Object.assign({}, state, {
+            events: action.events,
+        })
+    },
 })

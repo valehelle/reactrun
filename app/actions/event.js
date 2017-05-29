@@ -46,3 +46,12 @@ export function createEventDone(state){
         eventCreated: false,
     }
 }
+
+
+export function getEvents(){
+    let events = realm.objects('Event');
+    return {
+        type: types.GET_EVENT_LIST,
+        events: events,
+    }
+}
