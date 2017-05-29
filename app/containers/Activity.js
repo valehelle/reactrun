@@ -52,19 +52,25 @@ class Home extends Component{
     finishPressed(){
         this.props.screenProps.stopJogging()
         this.props.screenProps.pauseTimer()
-        // Works on both iOS and Android
         this.finishAlert()
     }
+
+    runFinish(){
+        this.props.screenProps.saveRun()
+        //this.props.navigation.navigate('FinishActivity',{})
+    }
+
     finishAlert(){
-        Alert.alert(
-            'Hey :)',
-            'Finish with your running?',
-            [
-                {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
-                {text: 'OK', onPress: () => this.props.navigation.goBack()},
-            ],
-            { cancelable: false }
-            )
+        this.runFinish()
+        // Alert.alert(
+        //     'Hey :)',
+        //     'Finish with your running?',
+        //     [
+        //         {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
+        //         {text: 'OK', onPress: () => this.runFinish()},
+        //     ],
+        //     { cancelable: false }
+        //     )
     }
     laps(){
         return Object.keys(this.props.laps).map( key => this.props.laps[key])

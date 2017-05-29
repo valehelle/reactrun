@@ -49,7 +49,6 @@ export function redirectEventDetailsDone(){
         type: types.REDIRECT_EVENT_DETAILS_DONE,
         eventCreated: false,
         isEventIDUpdated: false,
-        eventID: null,
     }
 }
 
@@ -67,6 +66,7 @@ export function getEventDetails(){
     return(dispatch, getState) => {
         let eventID = getState().event.eventID
         let eventDetails = realm.objectForPrimaryKey('Event', eventID)
+        console.log(eventDetails.runs[0].distance)
         return dispatch(getEventDetail(eventDetails))
     }
 }

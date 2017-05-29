@@ -45,15 +45,15 @@ class CreateEvent extends Component{
     }
     componentDidUpdate() {
         if(this.props.eventCreated){
-        //Redirect to another screen
-        const resetAction = NavigationActions.reset({
-        index: 1,
-        actions: [
-            NavigationActions.navigate({routeName: 'Event'}),
-            NavigationActions.navigate({routeName: 'EventDetail'})
-        ]
-        })
-        this.props.navigation.dispatch(resetAction)
+            //Redirect to another screen
+            const resetAction = NavigationActions.reset({
+            index: 1,
+            actions: [
+                NavigationActions.navigate({routeName: 'Event'}),
+                NavigationActions.navigate({routeName: 'EventDetail'})
+            ]
+            })
+            this.props.navigation.dispatch(resetAction)
         }
     }
 

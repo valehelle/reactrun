@@ -25,7 +25,7 @@ Run.schema = {
   properties: {
     id: 'string',
     date:  'date',
-    time: 'date',
+    time: 'int',
     type: 'string',
     distance: 'int',
     laps:  {type: 'list', objectType: 'Lapse'},

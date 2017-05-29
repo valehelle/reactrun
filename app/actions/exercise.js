@@ -7,9 +7,9 @@ export function startTracking(){
             const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
             const prevLatLng = getState().location.prevLatLng
             const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
-            const prevDistance = getState().location.totalDistanceTravelled
+            const prevDistance = getState().location.previousDistanceTravelled
             if(getState().activity.isJogging){
-                if (totalDistance - prevDistance >= 100){
+                if (totalDistance - prevDistance >= 1000){
                     //Update the location,distance and also lapse.
                     const lastLapse = getState().activity.laps.length - 1
                     const prevLapseTime = getState().activity.prevLapseTime
@@ -20,7 +20,7 @@ export function startTracking(){
 
                     return dispatch(updateLocationLapse({ 
                         latlng: newLatLng,
-                        previousDistanceTravelled: prevDistance,
+                        previousDistanceTravelled: totalDistance,
                         totalDistanceTravelled: totalDistance,
                         laps: lapse,
                         prevLapseTime: newPrevLapseTime,

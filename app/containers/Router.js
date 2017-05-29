@@ -4,6 +4,7 @@ import Event from './Event'
 import Activity from './Activity'
 import CreateEvent from './CreateEvent'
 import EventDetail from './EventDetail'
+import FinishActivity from './FinishActivity'
 
 export const HomeStack = StackNavigator({
     Home:{
@@ -35,6 +36,12 @@ export const EventStack = StackNavigator({
         screen: EventDetail,
         navigationOptions:{
             title: 'Event Detail',
+        }
+    },   
+    FinishActivity:{
+        screen: FinishActivity,
+        navigationOptions:{
+            title: 'Run Detail',
         }
     },
 })
