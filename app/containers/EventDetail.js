@@ -12,7 +12,7 @@ class EventDetail extends Component{
 
     componentDidMount() {
         this.props.screenProps.getEventDetails()
-        
+        this.props.screenProps.redirectEventDetailsDone()
     }
 
 

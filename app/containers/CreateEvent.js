@@ -54,7 +54,6 @@ class CreateEvent extends Component{
         ]
         })
         this.props.navigation.dispatch(resetAction)
-        this.props.screenProps.createEventDone()
         }
     }
 

@@ -4,7 +4,7 @@ import * as types from '../actions/types'
 export const event = createReducer({
     'eventCreated': false,
     'eventID': null,
-    'setEventID': false,
+    'isEventIDUpdated': false,
     'eventDetails': {},
     }, {
     [types.CREATE_EVENT](state, action) {
@@ -13,10 +13,11 @@ export const event = createReducer({
             eventID: action.eventID,
         })
     },
-    [types.CREATE_EVENT_DONE](state, action) {
+    [types.REDIRECT_EVENT_DETAILS_DONE](state, action) {
         return Object.assign({}, state, {
             eventCreated: action.eventCreated,
-            setEventID: action.setEventID,
+            isEventIDUpdated: action.isEventIDUpdated,
+            eventID: action.eventID,
         })
     },
     [types.GET_EVENT_LIST](state, action) {
@@ -32,7 +33,7 @@ export const event = createReducer({
     [types.SET_CURRENT_EVENT_ID](state, action) {
         return Object.assign({}, state, {
             eventID: action.eventID,
-            setEventID: action.setEventID,
+            isEventIDUpdated: action.isEventIDUpdated,
         })
     },
 })

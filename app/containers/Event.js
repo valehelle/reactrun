@@ -24,9 +24,8 @@ class Event extends Component{
     }
 
     componentDidUpdate() {
-        if(this.props.setEventID){
-        this.props.navigation.navigate('EventDetail',{})
-        this.props.screenProps.createEventDone()
+        if(this.props.isEventIDUpdated){
+            this.props.navigation.navigate('EventDetail',{})
         }
     }
 
@@ -42,7 +41,7 @@ class Event extends Component{
                     renderItem={
                         ({item}) => (
                             <View>
-                                <TouchableHighlight style = {styles.bNewEvent} onPress={() => this.eventDetails(item.id)}>
+                                <TouchableHighlight  onPress={() => this.eventDetails(item.id)}>
                                      <Text>{item.name}</Text> 
                                  </TouchableHighlight>
                                 
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return{
         events: state.event.events,
-        setEventID: state.event.setEventID,
+        isEventIDUpdated: state.event.isEventIDUpdated,
     }
 }
 

@@ -44,11 +44,12 @@ export function createEvent(state){
 }
 
 
-export function createEventDone(){
+export function redirectEventDetailsDone(){
     return {
-        type: types.CREATE_EVENT_DONE,
+        type: types.REDIRECT_EVENT_DETAILS_DONE,
         eventCreated: false,
-        setEventID: false,
+        isEventIDUpdated: false,
+        eventID: null,
     }
 }
 
@@ -82,6 +83,6 @@ export function setCurEventID(ID){
     return {
         type: types.SET_CURRENT_EVENT_ID,
         eventID: ID,
-        setEventID: true,
+        isEventIDUpdated: true,
     }
 }
