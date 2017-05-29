@@ -44,7 +44,6 @@ class CreateEvent extends Component{
          this.props.screenProps.createEvent(this.state)
     }
     componentDidUpdate() {
-        console.log(this.props.eventCreated)
         if(this.props.eventCreated){
         //Redirect to another screen
         const resetAction = NavigationActions.reset({
@@ -55,10 +54,7 @@ class CreateEvent extends Component{
         ]
         })
         this.props.navigation.dispatch(resetAction)
-
-
         this.props.screenProps.createEventDone()
-        //Action for successfull
         }
     }
 

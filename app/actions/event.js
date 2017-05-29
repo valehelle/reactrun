@@ -4,9 +4,10 @@ var uuid = require('react-native-uuid');
 
 export function createEvent(state){
     try{
+        let eventID = uuid.v4()
         realm.write(() => {
             let myEvent = realm.create('Event', {
-                id: uuid.v4(),
+                id: eventID,
                 name: state.name,
                 datestart: state.sdate,
                 dateend: state.edate,
@@ -30,6 +31,7 @@ export function createEvent(state){
         return {
             type: types.CREATE_EVENT,
             eventCreated: true,
+            eventID:eventID, 
         }
 
     }catch(e){
@@ -42,10 +44,11 @@ export function createEvent(state){
 }
 
 
-export function createEventDone(state){
+export function createEventDone(){
     return {
         type: types.CREATE_EVENT_DONE,
         eventCreated: false,
+        setEventID: false,
     }
 }
 
@@ -55,5 +58,30 @@ export function getEvents(){
     return {
         type: types.GET_EVENT_LIST,
         events: events,
+    }
+}
+
+export function getEventDetails(){
+
+    return(dispatch, getState) => {
+        let eventID = getState().event.eventID
+        let eventDetails = realm.objectForPrimaryKey('Event', eventID)
+        return dispatch(getEventDetail(eventDetails))
+    }
+}
+
+function getEventDetail(eventDetails){
+    return {
+        type: types.GET_EVENT_DETAILS,
+        eventDetails: eventDetails,
+    }
+}
+
+
+export function setCurEventID(ID){
+    return {
+        type: types.SET_CURRENT_EVENT_ID,
+        eventID: ID,
+        setEventID: true,
     }
 }

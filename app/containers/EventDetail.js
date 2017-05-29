@@ -9,9 +9,17 @@ const {
 } = ReactNative
 
 class EventDetail extends Component{
+
+    componentDidMount() {
+        this.props.screenProps.getEventDetails()
+        
+    }
+
+
     render(){
         return (
             <View style = {styles.container} >
+                <Text>{this.props.eventDetails.name}</Text>
             </View>
         )
     }
@@ -33,7 +41,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        
+        eventDetails: state.event.eventDetails,
     }
 }
 

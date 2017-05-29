@@ -19,6 +19,17 @@ class Event extends Component{
         this.props.navigation.navigate('CreateEvent',{})
     }
 
+    eventDetails(ID){
+        this.props.screenProps.setCurEventID(ID)
+    }
+
+    componentDidUpdate() {
+        if(this.props.setEventID){
+        this.props.navigation.navigate('EventDetail',{})
+        this.props.screenProps.createEventDone()
+        }
+    }
+
      _keyExtractor = (item, index) => item.id;
 
     render(){
@@ -31,7 +42,10 @@ class Event extends Component{
                     renderItem={
                         ({item}) => (
                             <View>
-                                <Text>{item.name}</Text> 
+                                <TouchableHighlight style = {styles.bNewEvent} onPress={() => this.eventDetails(item.id)}>
+                                     <Text>{item.name}</Text> 
+                                 </TouchableHighlight>
+                                
                             </View>
                         )
                     }
@@ -61,6 +75,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return{
         events: state.event.events,
+        setEventID: state.event.setEventID,
     }
 }
 
