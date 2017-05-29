@@ -7,12 +7,13 @@ Event.schema = {
   name: 'Event',
   primaryKey: 'id',
   properties: {
-    id: 'int',
+    id: 'string',
     name:  'string',
     datestart: 'date',
     dateend: 'date',
     distance: 'int',
     weeklyrun: 'int',
+    datecreated: 'date',
     runs: {type: 'list', objectType: 'Run'},
   }
 }
@@ -22,7 +23,7 @@ Run.schema = {
   name: 'Run',
   primaryKey: 'id',
   properties: {
-    id: 'int',
+    id: 'string',
     date:  'date',
     time: 'date',
     type: 'string',
