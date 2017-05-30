@@ -61,12 +61,20 @@ export function getEvents(){
     }
 }
 
+export function getLatestEvent(){
+    let latestEvent = realm.objects('Event').sorted('datecreated',true)[0];
+    return {
+        type: types.GET_LATEST_EVENT,
+        latestEvent: latestEvent,
+    }
+}
+
+
 export function getEventDetails(){
 
     return(dispatch, getState) => {
         let eventID = getState().event.eventID
         let eventDetails = realm.objectForPrimaryKey('Event', eventID)
-        console.log(eventDetails.runs[0].distance)
         return dispatch(getEventDetail(eventDetails))
     }
 }

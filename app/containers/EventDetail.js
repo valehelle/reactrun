@@ -20,6 +20,9 @@ class EventDetail extends Component{
     startRunning(){
         this.props.navigation.navigate('Activity',{})
     }
+    runDetails(){
+        
+    }
 
     _keyExtractor = (item, index) => item.id;
 
@@ -35,7 +38,7 @@ class EventDetail extends Component{
                     renderItem={
                         ({item}) => (
                             <View>
-                                <TouchableHighlight  onPress={() => this.eventDetails(item.id)}>
+                                <TouchableHighlight  onPress={() => this.runDetails(item.id)}>
                                      <Text>{item.distance}</Text> 
                                  </TouchableHighlight>
                                 

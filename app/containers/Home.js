@@ -14,6 +14,11 @@ const {
 } = ReactNative
 
 class Home extends Component{
+
+    componentDidMount() {
+        this.props.screenProps.getLatestEvent()
+    }
+
     startRunning(){
         this.props.navigation.navigate('Activity',{})
     }
@@ -25,10 +30,10 @@ class Home extends Component{
                         barStyle="light-content"
                     />
                     <View style = { styles.titleContainer }>
-                        <Text style = { styles.title }>Recharge Running</Text>
+                        <Text style = { styles.title }>{this.props.event.name}</Text>
                     </View>
                     <View style = { styles.totalDistanceContainer } >
-                        <Text style = { styles.title }>21 KM</Text>
+                        <Text style = { styles.title }>{this.props.event.distance} KM</Text>
                         <Text style = { styles.daysLeft }>5 Days left</Text>
                     </View>
                     <View style = { styles.distanceContainer }>
@@ -95,7 +100,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        
+        event: state.event.latestEvent,
     }
 }
 

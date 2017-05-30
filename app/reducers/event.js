@@ -6,6 +6,7 @@ export const event = createReducer({
     'eventID': null,
     'isEventIDUpdated': false,
     'eventDetails': {},
+    'latestEvent': {},
     }, {
     [types.CREATE_EVENT](state, action) {
         return Object.assign({}, state, {
@@ -23,7 +24,12 @@ export const event = createReducer({
         return Object.assign({}, state, {
             events: action.events,
         })
-    },    
+    },
+    [types.GET_LATEST_EVENT](state, action) {
+        return Object.assign({}, state, {
+            latestEvent: action.latestEvent,
+        })
+    },   
     [types.GET_EVENT_DETAILS](state, action) {
         return Object.assign({}, state, {
             eventDetails: action.eventDetails,
