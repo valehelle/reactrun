@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
-import TimeFormatter from 'minutes-seconds-milliseconds'
+import { TimeFormatter, mToKM } from '../lib/lib.js'
+
 const {
     View,
     TouchableHighlight,
@@ -83,12 +84,15 @@ class Home extends Component{
             </View>
         )
     }
+
+
     _renderTimers(){
         return (
             <View style = { styles.timerWrapper }>
                 <View style = { styles.timerWrapperInner }>
+
                     <Text style = { styles.mainTimer }>{ TimeFormatter(this.props.mainTimer) }</Text>
-                    <Text style = { styles.distance }>{parseFloat(this.props.totalDistance).toFixed(0)}</Text>
+                    <Text style = { styles.distance }>{mToKM(this.props.totalDistance)}</Text>
                     <Text style = { styles.meter }>Meter</Text>
                 </View>
             </View>

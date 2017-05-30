@@ -3,6 +3,7 @@ import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import DatePicker from 'react-native-datepicker'
 import { NavigationActions } from 'react-navigation'
+import { toDate } from '../lib/lib'
 
 const {
     TextInput,
@@ -57,9 +58,6 @@ class CreateEvent extends Component{
         }
     }
 
-
-
-
     render(){
 
         return (
@@ -103,7 +101,7 @@ class CreateEvent extends Component{
                     }
                     // ... You can check the source to find the other keys.
                     }}
-                    onDateChange={(date) => {this.setState({sdate: date})}}
+                    onDateChange={(date) => {this.setState({sdate: toDate(date)})}}
                 />
 
                 <DatePicker
@@ -127,7 +125,7 @@ class CreateEvent extends Component{
                     }
                     // ... You can check the source to find the other keys.
                     }}
-                    onDateChange={(date) => {this.setState({edate: date})}}
+                    onDateChange={(date) => {this.setState({edate: toDate(date)})}}
                 />
 
 

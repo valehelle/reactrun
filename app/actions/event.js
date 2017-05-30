@@ -14,6 +14,7 @@ export function createEvent(state){
                 distance: parseInt(state.distance),
                 weeklyrun: parseInt(state.weeklyrun),
                 datecreated: new Date(),
+                distanceTravelled: 0,
                 runs: [],
             });
 
@@ -35,6 +36,7 @@ export function createEvent(state){
         }
 
     }catch(e){
+        alert(e + state.sdate + '}} ' + state.edate)
         return {
             type: types.CREATE_EVENT_FAIL,
             eventCreated: false,
@@ -63,11 +65,17 @@ export function getEvents(){
 
 export function getLatestEvent(){
     let latestEvent = realm.objects('Event').sorted('datecreated',true)[0];
-    let eventID = latestEvent.id
-    return {
-        type: types.GET_LATEST_EVENT,
-        latestEvent: latestEvent,
-        eventID: eventID,
+    try{
+        let eventID = latestEvent.id
+        return {
+            type: types.GET_LATEST_EVENT,
+            latestEvent: latestEvent,
+            eventID: eventID,
+        }
+    }catch(e){
+        return {
+            type: types.GET_LATEST_EVENT_EMPTY,
+        }
     }
 }
 

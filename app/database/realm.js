@@ -14,6 +14,7 @@ Event.schema = {
     distance: 'int',
     weeklyrun: 'int',
     datecreated: 'date',
+    distanceTravelled: 'int',
     runs: {type: 'list', objectType: 'Run'},
   }
 }

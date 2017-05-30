@@ -19,6 +19,10 @@ export function saveRun(){
                 type: 'Run',
                 distance: getState().location.totalDistanceTravelled,
             });
+            let distanceTravelled = eventDetail.distanceTravelled + getState().location.totalDistanceTravelled
+            realm.create('Event',{id: eventID,distanceTravelled: distanceTravelled},true)
+
+
             event.push(run);
         })
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
+import { getToday, daysLeft, mToKM } from '../lib/lib'
 
 const {
     View,
@@ -34,11 +35,11 @@ class Home extends Component{
                     </View>
                     <View style = { styles.totalDistanceContainer } >
                         <Text style = { styles.title }>{this.props.event.distance} KM</Text>
-                        <Text style = { styles.daysLeft }>5 Days left</Text>
+                        <Text style = { styles.daysLeft }>{daysLeft(this.props.event.dateend)} Days left</Text>
                     </View>
                     <View style = { styles.distanceContainer }>
                         <View style = { styles.totalDistanceRunContainer }>
-                            <Text style = { styles.totalDistanceRun }>10 KM run</Text>
+                            <Text style = { styles.totalDistanceRun }>{mToKM(this.props.event.distanceTravelled)} KM run</Text>
                         </View>
                         <View style = { styles.totalDistanceLeftContainer }>
                             <Text style = { styles.totalDistanceLeft }>12 KM left</Text>
