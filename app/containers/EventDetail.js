@@ -21,7 +21,7 @@ class EventDetail extends Component{
         this.props.navigation.navigate('Activity',{})
     }
     runDetails(){
-        
+        this.props.navigation.navigate('FinishActivity',{})
     }
 
     _keyExtractor = (item, index) => item.id;

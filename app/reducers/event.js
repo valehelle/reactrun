@@ -27,6 +27,7 @@ export const event = createReducer({
     },
     [types.GET_LATEST_EVENT](state, action) {
         return Object.assign({}, state, {
+            eventID: action.eventID,
             latestEvent: action.latestEvent,
         })
     },   

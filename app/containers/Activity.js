@@ -57,7 +57,7 @@ class Home extends Component{
 
     runFinish(){
         this.props.screenProps.saveRun()
-        //this.props.navigation.navigate('FinishActivity',{})
+        this.props.navigation.navigate('FinishActivity',{})
     }
 
     finishAlert(){

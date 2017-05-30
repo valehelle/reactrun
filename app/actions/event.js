@@ -63,9 +63,11 @@ export function getEvents(){
 
 export function getLatestEvent(){
     let latestEvent = realm.objects('Event').sorted('datecreated',true)[0];
+    let eventID = latestEvent.id
     return {
         type: types.GET_LATEST_EVENT,
         latestEvent: latestEvent,
+        eventID: eventID,
     }
 }
 
