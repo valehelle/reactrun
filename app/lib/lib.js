@@ -26,3 +26,12 @@ export function mToKM(m){
     let km = m / 1000;
     return km.toFixed(2)
 }
+export function getDate(){
+     curr = new Date; // get current date
+         first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+         last = first + 6; // last day is the first day + 6
+
+         firstday = new Date(curr.setDate(first)).toUTCString();
+         lastday = new Date(curr.setDate(curr.getDate()+6)).toUTCString();
+         return(firstday + 'aa' + lastday)
+}

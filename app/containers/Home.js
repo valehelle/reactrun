@@ -23,6 +23,7 @@ class Home extends Component{
     startRunning(){
         this.props.navigation.navigate('Activity',{})
     }
+
     render(){
         return (
                 <View style={ styles.container }>
@@ -42,12 +43,11 @@ class Home extends Component{
                             <Text style = { styles.totalDistanceRun }>{mToKM(this.props.event.distanceTravelled)} KM run</Text>
                         </View>
                         <View style = { styles.totalDistanceLeftContainer }>
-                            <Text style = { styles.totalDistanceLeft }>12 KM left</Text>
+                            <Text style = { styles.totalDistanceLeft }>{this.props.event.distance - mToKM(this.props.event.distanceTravelled)} KM left</Text>
                         </View>
                         <View style = { styles.distanceWeekLeftContainer }>
-                            <Text style = { styles.distanceWeekLeft }>5 KM left this week</Text>
+                            <Text style = { styles.distanceWeekLeft }>   5 KM left this week</Text>
                         </View>
-
                     </View>
                     <View style = { styles.startHistoryContainer }>
                         <TouchableHighlight underlayColor='#777' onPress={() => this.startRunning()} style = { styles.buttonRun }>
