@@ -26,12 +26,21 @@ export function mToKM(m){
     let km = m / 1000;
     return km.toFixed(2)
 }
-export function getDate(){
-     curr = new Date; // get current date
-         first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-         last = first + 6; // last day is the first day + 6
-
-         firstday = new Date(curr.setDate(first)).toUTCString();
-         lastday = new Date(curr.setDate(curr.getDate()+6)).toUTCString();
-         return(firstday + 'aa' + lastday)
+export function getDayWeekFirst(){
+    let curr = new Date; // get current date
+    let first = curr.getDate() - curr.getDay() // First day is the day of the month - the day of the week
+    let firstday = new Date(curr.setDate(first))
+    return firstday
+}
+export function getDayWeekLast(){
+    let curr = new Date // get current date
+    let lastday = new Date(curr.setDate(curr.getDate()+6))
+    return lastday
+}
+export function getWeekLeft(days){
+    let weeks = days/7
+    if(days % 7 > 0){
+        weeks++
+    }
+    return Math.floor(weeks)
 }

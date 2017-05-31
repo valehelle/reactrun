@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
-import { getToday, daysLeft, mToKM } from '../lib/lib'
+
 
 const {
     View,
@@ -32,21 +32,26 @@ class Home extends Component{
                         barStyle="light-content"
                     />
                     <View style = { styles.titleContainer }>
-                        <Text style = { styles.title }>{this.props.event.name}</Text>
+                        <Text style = { styles.title }>{this.props.name}</Text>
                     </View>
                     <View style = { styles.totalDistanceContainer } >
-                        <Text style = { styles.title }>{this.props.event.distance} KM</Text>
-                        <Text style = { styles.daysLeft }>{daysLeft(this.props.event.dateend)} Days left</Text>
+                        <Text style = { styles.title }>{this.props.totalDistance} KM</Text>
+                        <Text style = { styles.daysLeft }>{this.props.daysLeft} Days left</Text>
                     </View>
                     <View style = { styles.distanceContainer }>
                         <View style = { styles.totalDistanceRunContainer }>
-                            <Text style = { styles.totalDistanceRun }>{mToKM(this.props.event.distanceTravelled)} KM run</Text>
+                            <Text style = { styles.totalDistanceRun }>{this.props.overallDistanceTravelled} KM run</Text>
                         </View>
                         <View style = { styles.totalDistanceLeftContainer }>
-                            <Text style = { styles.totalDistanceLeft }>{this.props.event.distance - mToKM(this.props.event.distanceTravelled)} KM left</Text>
+                            <Text style = { styles.totalDistanceLeft }>{this.props.overallDistanceLeft} KM left</Text>
+                        </View>
+                    </View>
+                    <View style = { styles.distanceContainer }>
+                        <View style = { styles.distanceWeekLeftContainer }>
+                            <Text style = { styles.distanceWeekLeft }>{this.props.distanceWeekly} KM a week</Text>
                         </View>
                         <View style = { styles.distanceWeekLeftContainer }>
-                            <Text style = { styles.distanceWeekLeft }>   5 KM left this week</Text>
+                            <Text style = { styles.distanceWeekLeft }>You ran {this.props.distanceWeeklyRun}KM this week.</Text>
                         </View>
                     </View>
                     <View style = { styles.startHistoryContainer }>
@@ -101,7 +106,14 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        event: state.event.latestEvent,
+        name: state.latestEvent.name,
+        totalDistance: state.latestEvent.totalDistance,
+        distanceWeeklyLeft: state.latestEvent.distanceWeeklyLeft,
+        distanceWeekly: state.latestEvent.distanceWeekly,
+        daysLeft: state.latestEvent.daysLeft,
+        overallDistanceTravelled: state.latestEvent.overallDistanceTravelled,
+        overallDistanceLeft: state.latestEvent.overallDistanceLeft,
+        distanceWeeklyRun: state.latestEvent.distanceWeeklyRun
     }
 }
 

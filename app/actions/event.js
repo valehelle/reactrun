@@ -1,5 +1,6 @@
 import * as types from './types'
 import realm from '../database/realm'
+import { getToday, daysLeft, mToKM, getWeekLeft, getDayWeekFirst, getDayWeekLast } from '../lib/lib'
 var uuid = require('react-native-uuid');
 
 export function createEvent(state){
@@ -64,15 +65,42 @@ export function getEvents(){
 }
 
 export function getLatestEvent(){
-    let latestEvent = realm.objects('Event').sorted('datecreated',true)[0];
+    let latestEvent = realm.objects('Event').sorted('datecreated',true)[0]
     try{
         let eventID = latestEvent.id
+        let days = daysLeft(latestEvent.dateend)
+        let overallDistanceTravelled = mToKM(latestEvent.distanceTravelled)
+        let overallDistanceLeft = latestEvent.distance - overallDistanceTravelled
+        let totalDistance = latestEvent.distance
+        let name = latestEvent.name
+        let weekLeft = getWeekLeft(days)
+        let distanceWeekly = totalDistance / weekLeft
+        let runs = latestEvent.runs.filtered('date >= $0 AND date <= $1',getDayWeekFirst(),getDayWeekLast())
+        let distanceWeeklyRun = 0
+        if(runs.length > 0){
+            for(let i = 0;i<runs.length;i++){
+                let run = runs[i]
+                distanceWeeklyRun = distanceWeeklyRun + run.distance
+            }
+        }
+        distanceWeeklyRun = mToKM(distanceWeeklyRun)
+        let distanceWeeklyLeft = 0
+
         return {
             type: types.GET_LATEST_EVENT,
-            latestEvent: latestEvent,
+            event: latestEvent,
             eventID: eventID,
+            daysLeft: days,
+            overallDistanceTravelled: overallDistanceTravelled,
+            overallDistanceLeft: overallDistanceLeft,
+            name: name,
+            totalDistance: totalDistance,
+            distanceWeeklyLeft: distanceWeeklyLeft,
+            distanceWeekly: distanceWeekly,
+            distanceWeeklyRun: distanceWeeklyRun
         }
     }catch(e){
+        alert(e)
         return {
             type: types.GET_LATEST_EVENT_EMPTY,
         }

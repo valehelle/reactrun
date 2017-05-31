@@ -6,7 +6,7 @@ export const event = createReducer({
     'eventID': null,
     'isEventIDUpdated': false,
     'eventDetails': {},
-    'latestEvent': {},
+    'events': [],
     }, {
     [types.CREATE_EVENT](state, action) {
         return Object.assign({}, state, {
@@ -24,13 +24,7 @@ export const event = createReducer({
         return Object.assign({}, state, {
             events: action.events,
         })
-    },
-    [types.GET_LATEST_EVENT](state, action) {
-        return Object.assign({}, state, {
-            eventID: action.eventID,
-            latestEvent: action.latestEvent,
-        })
-    },   
+    },  
     [types.GET_EVENT_DETAILS](state, action) {
         return Object.assign({}, state, {
             eventDetails: action.eventDetails,
@@ -42,4 +36,31 @@ export const event = createReducer({
             isEventIDUpdated: action.isEventIDUpdated,
         })
     },
+})
+
+export const latestEvent = createReducer({
+    event: {},
+    distanceWeeklyLeft: 0,
+    distanceWeekly: 0,
+    overallDistanceTravelled: 0,
+    overallDistanceLeft: 0,
+    daysLeft: 0,
+    name: '',
+    totalDistance: 0,
+    distanceWeeklyRun: 0,
+    }, {
+    [types.GET_LATEST_EVENT](state, action) {
+        return Object.assign({}, state, {
+            eventID: action.eventID,
+            event: action.event,
+            distanceWeeklyLeft: action.distanceWeeklyLeft,
+            overalldistanceTravelled: action.overallDistanceTravelled,
+            overalldistanceLeft: action.overallDistanceLeft,
+            daysLeft: action.daysLeft,
+            name: action.name,
+            totalDistance: action.totalDistance,
+            distanceWeekly: action.distanceWeekly,
+            distanceWeeklyRun: action.distanceWeeklyRun,
+        })
+    }, 
 })
