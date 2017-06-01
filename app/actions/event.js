@@ -94,7 +94,8 @@ export function getLatestEvent(){
             }
         }
         distanceWeeklyRun = mToKM(distanceWeeklyRun)
-        let distanceWeeklyLeft = 0
+        let distanceWeeklyLeft = distanceWeekly - distanceWeeklyRun
+
 
         return {
             type: types.GET_LATEST_EVENT,

@@ -55,6 +55,9 @@ class Home extends Component{
                         <View style = { styles.distanceWeekLeftContainer }>
                             <Text style = { styles.distanceWeekLeft }>You ran {this.props.distanceWeeklyRun}KM this week.</Text>
                         </View>
+                        <View style = { styles.distanceWeekLeftContainer }>
+                            <Text style = { styles.distanceWeekLeft }>{this.props.distanceWeeklyLeft}KM left this week.</Text>
+                        </View>
                     </View>
                     <View style = { styles.startHistoryContainer }>
                         <TouchableHighlight underlayColor='#777' onPress={() => this.startRunning()} style = { styles.buttonRun }>
@@ -117,6 +120,7 @@ function mapStateToProps(state){
         overallDistanceTravelled: state.latestEvent.overallDistanceTravelled,
         overallDistanceLeft: state.latestEvent.overallDistanceLeft,
         distanceWeeklyRun: state.latestEvent.distanceWeeklyRun,
+        distanceWeeklyRunLeft: state.latestEvent.distanceWeeklyRunLeft,
         eventCreated: state.event.eventCreated,
         isEventIDUpdated: state.event.isEventIDUpdated,
     }
