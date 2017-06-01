@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import { TimeFormatter, mToKM } from '../lib/lib.js'
+import { NavigationActions } from 'react-navigation'
 
 const {
     View,
@@ -58,14 +59,15 @@ class Home extends Component{
     }
 
     runFinish(){
-        this.props.screenProps.saveRun()
-        this.props.navigation.navigate('FinishActivity',{})
+        if(this.props.isActive){
+            this.props.screenProps.saveRun()
+            this.props.navigation.navigate('FinishActivity',{})
+        }else{
+            const backAction = NavigationActions.back({
+            })
+            this.props.navigation.dispatch(backAction)
+        }
         this.props.screenProps.stopTracking()
-    }
-
-    componentWillUnmount(){
-        alert('unmount')
-        
     }
 
     finishAlert(){
