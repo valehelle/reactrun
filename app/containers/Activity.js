@@ -38,6 +38,7 @@ class Home extends Component{
     componentWillUnmount() {
         BackAndroid.removeEventListener('hardwareBackPress',this.handleBack)
         this.props.screenProps.stopJogging()
+        this.props.screenProps.stopTracking()
     }
 
     startStopPressed(){
@@ -59,6 +60,12 @@ class Home extends Component{
     runFinish(){
         this.props.screenProps.saveRun()
         this.props.navigation.navigate('FinishActivity',{})
+        this.props.screenProps.stopTracking()
+    }
+
+    componentWillUnmount(){
+        alert('unmount')
+        
     }
 
     finishAlert(){

@@ -39,7 +39,14 @@ export function startTracking(){
         },
         (error) => alert(JSON.stringify(error)),    
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-        );
+        )
+    }
+}
+
+export function stopTracking(){
+    navigator.geolocation.clearWatch(this.watchID)
+    return {
+        type: types.STOP_TRACKING,
     }
 }
 

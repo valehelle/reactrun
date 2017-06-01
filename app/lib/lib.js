@@ -20,7 +20,9 @@ export function getToday(){
 }
 export function daysLeft(endDate){
     let ms = endDate - getToday()
-    return  days = (ms / (1000*60*60*24))
+    let days = (ms / (1000*60*60*24))
+
+    return  Math.ceil(days)
 }
 export function mToKM(m){
     let km = m / 1000;

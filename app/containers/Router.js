@@ -19,6 +19,25 @@ export const HomeStack = StackNavigator({
     },
 })
 
+export const EventDetailStack = StackNavigator({
+   EventDetail:{
+        screen: EventDetail,
+        navigationOptions:{
+            title: 'Event Detail',
+        }
+    },   
+    FinishActivity:{
+        screen: FinishActivity,
+        navigationOptions:{
+            title: 'Run Detail',
+        }
+    },
+},{
+    headerMode: 'none'
+})
+
+
+
 export const EventStack = StackNavigator({
     Event:{
         screen: Event,
@@ -32,19 +51,11 @@ export const EventStack = StackNavigator({
             title: 'Create Event',
         }
     },
-   EventDetail:{
-        screen: EventDetail,
-        navigationOptions:{
-            title: 'Event Detail',
-        }
-    },   
-    FinishActivity:{
-        screen: FinishActivity,
-        navigationOptions:{
-            title: 'Run Detail',
-        }
+   EventDetailStack:{
+        screen: EventDetailStack,
     },
 })
+
 
 
 export const TabNavigations = TabNavigator({

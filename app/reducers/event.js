@@ -7,6 +7,7 @@ export const event = createReducer({
     'isEventIDUpdated': false,
     'eventDetails': {},
     'events': [],
+    'goToDetail': false,
     }, {
     [types.CREATE_EVENT](state, action) {
         return Object.assign({}, state, {
@@ -17,7 +18,7 @@ export const event = createReducer({
     [types.REDIRECT_EVENT_DETAILS_DONE](state, action) {
         return Object.assign({}, state, {
             eventCreated: action.eventCreated,
-            isEventIDUpdated: action.isEventIDUpdated,
+            goToDetail: action.goToDetail,
         })
     },
     [types.GET_EVENT_LIST](state, action) {
@@ -33,29 +34,33 @@ export const event = createReducer({
     [types.SET_CURRENT_EVENT_ID](state, action) {
         return Object.assign({}, state, {
             eventID: action.eventID,
-            isEventIDUpdated: action.isEventIDUpdated,
+        })
+    },    
+    [types.GO_TO_DETAIL](state, action) {
+        return Object.assign({}, state, {
+            goToDetail: action.goToDetail,
         })
     },
 })
 
 export const latestEvent = createReducer({
-    event: {},
-    distanceWeeklyLeft: 0,
-    distanceWeekly: 0,
-    overallDistanceTravelled: 0,
-    overallDistanceLeft: 0,
-    daysLeft: 0,
-    name: '',
-    totalDistance: 0,
-    distanceWeeklyRun: 0,
+    'event': {},
+    'distanceWeeklyLeft': 0,
+    'distanceWeekly': 0,
+    'overallDistanceTravelled': 0,
+    'overallDistanceLeft': 0,
+    'daysLeft': 0,
+    'name': '',
+    'totalDistance': 0,
+    'distanceWeeklyRun': 0,
+    'eventID': ''
     }, {
     [types.GET_LATEST_EVENT](state, action) {
         return Object.assign({}, state, {
             eventID: action.eventID,
-            event: action.event,
             distanceWeeklyLeft: action.distanceWeeklyLeft,
-            overalldistanceTravelled: action.overallDistanceTravelled,
-            overalldistanceLeft: action.overallDistanceLeft,
+            overallDistanceTravelled: action.overallDistanceTravelled,
+            overallDistanceLeft: action.overallDistanceLeft,
             daysLeft: action.daysLeft,
             name: action.name,
             totalDistance: action.totalDistance,

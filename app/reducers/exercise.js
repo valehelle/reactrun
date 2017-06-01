@@ -22,6 +22,14 @@ export const location = createReducer({
             previousDistanceTravelled: action.locationLapse.previousDistanceTravelled,
         })
     },
+    [types.STOP_TRACKING](state, action) {
+        return Object.assign({}, state, {
+            prevLatLng: 0,
+            totalDistanceTravelled: 0,
+            previousDistanceTravelled: 0,
+        })
+    },
+    
 
 
 })
@@ -48,6 +56,14 @@ export const activity = createReducer({
             prevLapseTime: action.locationLapse.prevLapseTime, 
         })
     },
+    [types.STOP_TRACKING](state, action) {
+        return Object.assign({}, state, {
+            'isJogging': false,
+            'isActive': false,
+            'laps': [],
+            'prevLapseTime': 0
+        })
+    },
 })
 
 
@@ -70,6 +86,14 @@ export const timer = createReducer({
         return Object.assign({}, state, {
            isPause: true,
            prevTimer: action.prevTimer,
+        })
+    },
+    [types.STOP_TRACKING](state, action) {
+        return Object.assign({}, state, {
+            'mainTimer': null,
+            'mainTimerStart': null,
+            'isPause': false,
+            'prevTimer': null,
         })
     },
 })

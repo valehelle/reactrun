@@ -21,8 +21,10 @@ class Home extends Component{
     }
 
     startRunning(){
+        this.props.screenProps.setCurEventID(this.props.eventID)
         this.props.navigation.navigate('Activity',{})
     }
+
 
     render(){
         return (
@@ -107,13 +109,16 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return{
         name: state.latestEvent.name,
+        eventID: state.latestEvent.eventID,
         totalDistance: state.latestEvent.totalDistance,
         distanceWeeklyLeft: state.latestEvent.distanceWeeklyLeft,
         distanceWeekly: state.latestEvent.distanceWeekly,
         daysLeft: state.latestEvent.daysLeft,
         overallDistanceTravelled: state.latestEvent.overallDistanceTravelled,
         overallDistanceLeft: state.latestEvent.overallDistanceLeft,
-        distanceWeeklyRun: state.latestEvent.distanceWeeklyRun
+        distanceWeeklyRun: state.latestEvent.distanceWeeklyRun,
+        eventCreated: state.event.eventCreated,
+        isEventIDUpdated: state.event.isEventIDUpdated,
     }
 }
 

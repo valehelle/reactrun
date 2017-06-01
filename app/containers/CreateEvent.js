@@ -51,7 +51,7 @@ class CreateEvent extends Component{
             index: 1,
             actions: [
                 NavigationActions.navigate({routeName: 'Event'}),
-                NavigationActions.navigate({routeName: 'EventDetail'})
+                NavigationActions.navigate({routeName: 'EventDetailStack'})
             ]
             })
             this.props.navigation.dispatch(resetAction)

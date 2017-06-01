@@ -21,10 +21,11 @@ class Event extends Component{
 
     eventDetails(ID){
         this.props.screenProps.setCurEventID(ID)
+        this.props.screenProps.goToDetail()
     }
 
     componentDidUpdate() {
-        if(this.props.isEventIDUpdated){
+        if(this.props.goToDetail){
             this.props.navigation.navigate('EventDetail',{})
         }
     }
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return{
         events: state.event.events,
-        isEventIDUpdated: state.event.isEventIDUpdated,
+        goToDetail: state.event.goToDetail,
     }
 }
 

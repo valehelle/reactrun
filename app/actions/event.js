@@ -51,7 +51,7 @@ export function redirectEventDetailsDone(){
     return {
         type: types.REDIRECT_EVENT_DETAILS_DONE,
         eventCreated: false,
-        isEventIDUpdated: false,
+        goToDetail: false,
     }
 }
 
@@ -69,17 +69,27 @@ export function getLatestEvent(){
     try{
         let eventID = latestEvent.id
         let days = daysLeft(latestEvent.dateend)
-        let overallDistanceTravelled = mToKM(latestEvent.distanceTravelled)
+        let allruns = latestEvent.runs
+        let overallDistanceTravelled = 0
+        if(allruns.length > 0){
+            for(let i = 0;i<allruns.length;i++){
+                let run = allruns[i]
+                overallDistanceTravelled = overallDistanceTravelled + run.distance
+            }
+        }
+        overallDistanceTravelled = mToKM(overallDistanceTravelled)
         let overallDistanceLeft = latestEvent.distance - overallDistanceTravelled
         let totalDistance = latestEvent.distance
+
         let name = latestEvent.name
+        let id = latestEvent.id
         let weekLeft = getWeekLeft(days)
         let distanceWeekly = totalDistance / weekLeft
-        let runs = latestEvent.runs.filtered('date >= $0 AND date <= $1',getDayWeekFirst(),getDayWeekLast())
+        let weekruns = latestEvent.runs.filtered('date >= $0 AND date <= $1',getDayWeekFirst(),getDayWeekLast())
         let distanceWeeklyRun = 0
-        if(runs.length > 0){
-            for(let i = 0;i<runs.length;i++){
-                let run = runs[i]
+        if(weekruns.length > 0){
+            for(let i = 0;i<weekruns.length;i++){
+                let run = weekruns[i]
                 distanceWeeklyRun = distanceWeeklyRun + run.distance
             }
         }
@@ -97,7 +107,7 @@ export function getLatestEvent(){
             totalDistance: totalDistance,
             distanceWeeklyLeft: distanceWeeklyLeft,
             distanceWeekly: distanceWeekly,
-            distanceWeeklyRun: distanceWeeklyRun
+            distanceWeeklyRun: distanceWeeklyRun,
         }
     }catch(e){
         alert(e)
@@ -129,6 +139,12 @@ export function setCurEventID(ID){
     return {
         type: types.SET_CURRENT_EVENT_ID,
         eventID: ID,
-        isEventIDUpdated: true,
+    }
+}
+
+export function goToDetail(){
+    return {
+        type: types.GO_TO_DETAIL,
+        goToDetail: true,
     }
 }
