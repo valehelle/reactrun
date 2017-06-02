@@ -85,6 +85,7 @@ export function getLatestEvent(){
         let id = latestEvent.id
         let weekLeft = getWeekLeft(days)
         let distanceWeekly = totalDistance / weekLeft
+        distanceWeekly = Math.round(distanceWeekly * 100) / 100
         let weekruns = latestEvent.runs.filtered('date >= $0 AND date <= $1',getDayWeekFirst(),getDayWeekLast())
         let distanceWeeklyRun = 0
         if(weekruns.length > 0){
@@ -95,7 +96,7 @@ export function getLatestEvent(){
         }
         distanceWeeklyRun = mToKM(distanceWeeklyRun)
         let distanceWeeklyLeft = distanceWeekly - distanceWeeklyRun
-
+        distanceWeeklyLeft = Math.round(distanceWeeklyLeft * 100) / 100
 
         return {
             type: types.GET_LATEST_EVENT,
