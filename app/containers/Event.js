@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux' 
+import { NavigationActions } from 'react-navigation'
 const {
     FlatList,
     View,
@@ -26,7 +27,15 @@ class Event extends Component{
 
     componentDidUpdate() {
         if(this.props.goToDetail){
-            this.props.navigation.navigate('EventDetail',{})
+            //Redirect to another screen
+            const resetAction = NavigationActions.reset({
+            index: 1,
+            actions: [
+                NavigationActions.navigate({routeName: 'Event'}),
+                NavigationActions.navigate({routeName: 'EventDetailStack'})
+            ]
+            })
+            this.props.navigation.dispatch(resetAction)
         }
     }
 
