@@ -156,7 +156,6 @@ class Home extends Component{
                 </View>
                 <View style = { styles.middle } >
                     { this._renderDistance() }
-                    { this._renderLapse() }
                 </View>
                 <View style = { styles.bottom }>
                     { this._renderButtons() }

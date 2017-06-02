@@ -37,26 +37,35 @@ class Home extends Component{
                         <Text style = { styles.title }>{this.props.name}</Text>
                     </View>
                     <View style = { styles.totalDistanceContainer } >
-                        <Text style = { styles.title }>{this.props.totalDistance} KM</Text>
-                        <Text style = { styles.daysLeft }>{this.props.daysLeft} Days left</Text>
+                        <Text style = { styles.totalDistance }>{this.props.totalDistance}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
                     </View>
                     <View style = { styles.distanceContainer }>
-                        <View style = { styles.totalDistanceRunContainer }>
-                            <Text style = { styles.totalDistanceRun }>{this.props.overallDistanceTravelled} KM run</Text>
+                        <View style = { styles.daysLeftContainer }>
+                            <Text style = { styles.daysLeftText }>{this.props.daysLeft} </Text>
+                            <Text style = { styles.distanceWeekSmallText }>Days Left</Text>
                         </View>
-                        <View style = { styles.totalDistanceLeftContainer }>
-                            <Text style = { styles.totalDistanceLeft }>{this.props.overallDistanceLeft} KM left</Text>
+                        <View style = { styles.totalDistanceCurrentContainer }>
+                            <View style = { styles.totalDistanceRunContainer }>
+                                <Text style = { styles.totalDistanceRunText }>{this.props.overallDistanceTravelled}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                                <Text style = { styles.distanceWeekSmallText }>Ran</Text>
+                            </View>
                         </View>
                     </View>
-                    <View style = { styles.distanceContainer }>
-                        <View style = { styles.distanceWeekLeftContainer }>
-                            <Text style = { styles.distanceWeekLeft }>{this.props.distanceWeekly} KM a week</Text>
-                        </View>
-                        <View style = { styles.distanceWeekLeftContainer }>
-                            <Text style = { styles.distanceWeekLeft }>You ran {this.props.distanceWeeklyRun}KM this week.</Text>
-                        </View>
-                        <View style = { styles.distanceWeekLeftContainer }>
-                            <Text style = { styles.distanceWeekLeft }>{this.props.distanceWeeklyLeft}KM left this week.</Text>
+                    <View style = { styles.distanceWeekContainer }>
+                        <Text style = { styles.distanceWeekSmallText }>This Week</Text>
+                        <View style = {styles.distanceWeekRowContainer}>
+                            <View style = { styles.distanceWeekLeftContainer }>
+                                <Text style = { styles.distanceWeekText }>{this.props.distanceWeekly}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                                <Text style = { styles.distanceWeekSmallText }>Needed</Text>
+                            </View>
+                            <View style = { styles.distanceWeekLeftContainer }>
+                                <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyRun}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                                <Text style = { styles.distanceWeekSmallText }>Ran</Text>
+                            </View>
+                            <View style = { styles.distanceWeekLeftContainer }>
+                                <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                                <Text style = { styles.distanceWeekSmallText }>Left</Text>
+                            </View>
                         </View>
                     </View>
                     <View style = { styles.startHistoryContainer }>
@@ -78,14 +87,18 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     totalDistanceContainer: {
-        flex: 1,
+        flex: 2,
+        flexDirection: 'row',
     },
     eventDateContainer: {
-        flex: 1,
+        flex: 2,
     },
     distanceContainer: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'row',
+    },
+    distanceWeekContainer: {
+        flex: 3,
     },
     startHistoryContainer: {
         flex: 1,
@@ -94,6 +107,54 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         fontSize: 30,
+        
+    },
+    totalDistance: {
+        textAlign: 'center',
+        fontSize: 50,
+        fontWeight: 'bold',
+    },
+    daysLeftContainer: {
+        flex: 1,
+    },
+    totalDistanceContainer: {
+        flex: 2,
+    },
+    daysLeftText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    totalDistanceCurrentContainer: {
+        flex: 1,
+    },
+    totalDistanceLeftContainer: {
+        flex: 1,
+    },
+    totalDistanceRunText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    totalDistanceLeftText: {
+        textAlign: 'center',
+        fontSize: 20,
+    },
+    distanceWeekRowContainer: {
+        flex: 3,
+        flexDirection: 'row',
+    },
+    distanceWeekLeftContainer:{
+        flex: 1,
+    },
+    distanceWeekSmallText: {
+        textAlign: 'center',
+        fontSize: 13, 
+    },
+    distanceWeekText: {
+        textAlign: 'center',
+        fontSize: 20, 
+        fontWeight: 'bold',
     },
     buttonRun: {
         height: 30,
@@ -101,9 +162,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'green',
+        borderRadius:1,
     },    
     buttonRunText: {
         color: 'white',
+        
     },
 
 })
