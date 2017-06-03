@@ -112,7 +112,6 @@ export function getLatestEvent(){
             distanceWeeklyRun: distanceWeeklyRun,
         }
     }catch(e){
-        alert(e)
         return {
             type: types.GET_LATEST_EVENT_EMPTY,
         }

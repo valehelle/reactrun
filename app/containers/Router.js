@@ -5,17 +5,29 @@ import Activity from './Activity'
 import CreateEvent from './CreateEvent'
 import EventDetail from './EventDetail'
 import FinishActivity from './FinishActivity'
+import { primary, headerTint } from '../lib/colors'
+import React from 'react'
+import ReactNative from 'react-native'
+import { _renderHeaderButton } from '../components/header'
+
+const {
+    Image,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+} = ReactNative
+
 
 export const HomeStack = StackNavigator({
     Home:{
         screen: Home,
-        navigationOptions:{
+        navigationOptions:({ navigation }) => ({
             title: 'Recharge',
             headerStyle: {
-                backgroundColor: 'green',
+                backgroundColor: primary,
             },
-            headerTintColor: "white",
-        }
+            headerTintColor: headerTint,
+        })
     },
 })
 
@@ -63,21 +75,30 @@ export const TabNavigations = TabNavigator({
         screen: HomeStack,
         navigationOptions: {
             tabBarLabel: 'Home',
+                tabBarIcon: ({ tintColor }) => (
+                    <Image
+                        source={require('../icons/ic_home_black_24dp_2x.png')}
+                        style={[styles.icon, {tintColor: tintColor}]}
+                    />
+                ),
         },
     },
     Event: {
         screen: EventStack,
         navigationOptions: {
-            tabBarLabel: 'Event'
+            tabBarLabel: 'Event',
+                tabBarIcon: ({ tintColor }) => (
+                    <Image
+                        source={require('../icons/ic_directions_run_black_24dp_2x.png')}
+                        style={[styles.icon, {tintColor: tintColor}]}
+                    />
+                ),
         }
     }
 },{
     tabBarPosition: 'bottom',
     tabBarOptions: {
-        style: {
-            backgroundColor: '#2B2B2B',
-        },
-        activeTintColor: 'yellow',
+        activeTintColor: primary,
     }
 })
 
@@ -95,3 +116,11 @@ export const Root = StackNavigator({
     mode: 'modal',
     headerMode: 'none',
 })
+
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 26,
+    height: 26,
+  },
+});
