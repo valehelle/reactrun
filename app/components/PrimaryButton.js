@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { secondary, primaryTextButton } from '../lib/colors'
 const {
     View,
-    TouchableHighlight,
+    TouchableOpacity,
     StyleSheet,
     Text,
 
@@ -25,23 +25,23 @@ class PrimaryButton extends Component {
         } = this.state.viewState
 
         return(
-            <TouchableHighlight onPress={() => onPress()} style = { styles.buttonRun }>
-                <Text style = { styles.buttonRunText }>{ title }</Text>
-            </TouchableHighlight>
+            <TouchableOpacity activeOpacity={ 0.8 } onPress={() => onPress()} style = { styles.button }>
+                <Text style = { styles.buttonText }>{ title }</Text>
+            </TouchableOpacity>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    buttonRun: {
+    button: {
         height: 30,
-        width: 80,
+        width: 150,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: secondary,
         borderRadius: 1,
     },    
-    buttonRunText: {
+    buttonText: {
         color: primaryTextButton,
         
     },

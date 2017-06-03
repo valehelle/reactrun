@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
+import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter } from '../lib/lib'
+import PrimaryButton from  '../components/PrimaryButton'
+
+
 const {
     View,
     TouchableHighlight,
+    TouchableOpacity,
     Text,
     StyleSheet,
     FlatList,
+    ScrollView,
 } = ReactNative
 
 class EventDetail extends Component{
@@ -17,39 +23,61 @@ class EventDetail extends Component{
         
     }
 
-    startRunning(){
+    startButtonPress(){
         this.props.navigation.navigate('Activity',{})
     }
-    runDetails(){
+    runDetailsPressed(){
         this.props.navigation.navigate('FinishActivity',{})
     }
 
     _keyExtractor = (item, index) => item.id;
 
+        
+    runs(){
+        return Object.keys(this.props.runs).map( key => this.props.runs[key])
+    }
+
     render(){
-        console.log(this.props.eventDetails.runs)
         return (
+            <ScrollView>
             <View style = {styles.container} >
-                <Text>{this.props.eventDetails.name}</Text>
-                <FlatList
-                    style = {styles.eventList}
-                    data={this.props.eventDetails.runs}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={
-                        ({item}) => (
-                            <View>
-                                <TouchableHighlight  onPress={() => this.runDetails(item.id)}>
-                                     <Text>{item.distance}</Text> 
-                                 </TouchableHighlight>
-                                
-                            </View>
-                        )
-                    }
-                />
-                <TouchableHighlight underlayColor='#777' onPress={() => this.startRunning()} style = { styles.buttonRun }>
-                    <Text style = { styles.buttonRunText }>Start</Text>
-                </TouchableHighlight>
+                <View style = { styles.eventDetailContainer }>
+                    <Text style = { styles.nameText }>{ this.props.name }</Text>
+                    <View style = { styles.nameContainer }>
+                        <Text style = { styles.sub } >{ DateFormatter(this.props.dateStart) } until { DateFormatter(this.props.dateEnd) }</Text>
+                        <Text>{ this.props.daysLeft } days left </Text>
+                    </View>
+                    <Text style = { styles.totalTitle } >Overall</Text>
+                    <View style = { styles.totalContainer }>
+                        <Text style = { styles.sub } >{this.props.totalDistance} KM total distance</Text>
+                        <Text style = { styles.sub } >{this.props.overallDistanceTravelled} KM distance ran</Text>
+                        <Text>{this.props.overallDistanceLeft} KM distance left</Text>
+                        
+                    </View>
+                    <Text style = { styles.totalTitle } >Weekly</Text>
+                    <View style = { styles.totalContainer }>
+                        <Text style = { styles.sub }>{this.props.distanceWeekly} KM weekly run needed</Text>
+                        <Text style = { styles.sub }>{this.props.distanceWeeklyRun} KM ran this week</Text>
+                        <Text>{this.props.distanceWeeklyLeft} KM run left for this week</Text>
+                    </View>
+                </View>
+                <View style = { styles.startContainer }>
+                    <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+                </View>
+                <Text style = { styles.totalTitle } >Runs</Text>
+                <View style = { styles.runList }>
+                {
+                    this.runs().map(( runs ) => {
+                            return (
+                                <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed()} key= { runs.id }>
+                                    <Text>{ mToKM(runs.distance) } KM run in { TimeNiceFormatter(runs.time) } on { DateNiceFormatter(runs.date) } </Text>
+                                </TouchableOpacity>
+                            )
+                        }) 
+                }
+                </View>
             </View>
+            </ScrollView>
         )
     }
 }
@@ -58,10 +86,25 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
     },
-    eventList: {
+    nameContainer: {
         backgroundColor: 'white',
-        flex: 1,
-    }, 
+        padding: 10,
+        marginBottom: 15,    
+    },
+    nameText: {
+        marginTop: 10,
+        paddingLeft: 5,
+        marginBottom: 2,
+    },
+    totalContainer: {
+        backgroundColor: 'white',
+        padding: 10,
+        marginBottom: 15,       
+    },
+    totalTitle:{
+        paddingLeft: 5,
+        marginBottom: 2,
+    },
     bNewEvent: {
         backgroundColor: 'green',
         height:40,
@@ -76,11 +119,35 @@ const styles = StyleSheet.create({
     buttonRunText: {
         color: 'white',
     },
+    runWrapper: {
+        padding: 10,
+        backgroundColor: 'white',
+        marginBottom: 5,
+    },
+    startContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    sub: {
+        marginBottom: 5,
+    }
 })
 
 function mapStateToProps(state){
     return{
-        eventDetails: state.event.eventDetails,
+        name: state.currentEvent.name,
+        eventID: state.currentEvent.eventID,
+        totalDistance: state.currentEvent.totalDistance,
+        daysLeft: state.currentEvent.daysLeft,
+        overallDistanceTravelled: state.currentEvent.overallDistanceTravelled,
+        overallDistanceLeft: state.currentEvent.overallDistanceLeft,
+        runs: state.currentEvent.runs,
+        dateStart: state.currentEvent.dateStart,
+        dateEnd: state.currentEvent.dateEnd,
+        distanceWeeklyRun: state.currentEvent.distanceWeeklyRun,
+        distanceWeeklyLeft: state.currentEvent.distanceWeeklyLeft,
+        distanceWeekly: state.currentEvent.distanceWeekly,
     }
 }
 

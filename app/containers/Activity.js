@@ -3,6 +3,8 @@ import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import { TimeFormatter, mToKM } from '../lib/lib.js'
 import { NavigationActions } from 'react-navigation'
+import { secondary, primaryTextButton } from '../lib/colors'
+import PrimaryButton from '../components/PrimaryButton'
 
 const {
     View,
@@ -33,6 +35,7 @@ class Home extends Component{
 
     componentDidMount() {
         this.props.screenProps.startTracking()
+        this.props.screenProps.getEventDetails()
         BackAndroid.addEventListener('hardwareBackPress',this.handleBack)
     }
 
@@ -71,16 +74,25 @@ class Home extends Component{
     }
 
     finishAlert(){
-        this.runFinish()
-        // Alert.alert(
-        //     'Hey :)',
-        //     'Finish with your running?',
-        //     [
-        //         {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
-        //         {text: 'OK', onPress: () => this.runFinish()},
-        //     ],
-        //     { cancelable: false }
-        //     )
+        if(this.props.isActive){
+            let title = 'Congrats!'
+            let sub = 'Finish with your running?'
+            if(this.props.distanceWeekly < this.props.totalDistance){
+                title = 'Dont give up yet!'
+                sub = 'Are you sure you want to stop?'
+            }
+            Alert.alert(
+                title,
+                sub,
+                [
+                    {text: 'No', onPress: () => console.log('Cancel Pressed')},
+                    {text: 'Yes', onPress: () => this.runFinish()},
+                ],
+                { cancelable: false }
+                )
+        }else{
+            this.runFinish()
+        }
     }
     laps(){
         return Object.keys(this.props.laps).map( key => this.props.laps[key])
@@ -89,7 +101,7 @@ class Home extends Component{
     _renderTitle(){
         return (
             <View style = { styles.header }>
-                <Text style = { styles.title }>ReRun</Text>
+                <Text style = { styles.title }>{ this.props.name }</Text>
             </View>
         )
     }
@@ -102,7 +114,7 @@ class Home extends Component{
 
                     <Text style = { styles.mainTimer }>{ TimeFormatter(this.props.mainTimer) }</Text>
                     <Text style = { styles.distance }>{mToKM(this.props.totalDistance)}</Text>
-                    <Text style = { styles.meter }>Meter</Text>
+                    <Text style = { styles.meter }>KM</Text>
                 </View>
             </View>
         )
@@ -147,20 +159,41 @@ class Home extends Component{
         )
     }
 
+    _renderExitButton(){
+        return (
+            <View style = { styles.buttonWrapper }>
+                <PrimaryButton states={{title: 'Exit'  ,onPress: this.finishPressed.bind(this)}} />
+            </View>
+        )
+    }
+
+    _renderGoal(){
+        return (
+            <View style = { styles.goalWrapper }>
+                <Text style={ styles.meter } >Goal</Text>
+                <Text style={ styles.distance } >{ this.props.distanceWeekly }</Text>
+                <Text style={ styles.meter } >KM </Text>
+                { this._renderExitButton() }
+            </View>
+        )
+    }
+
     render(){
         return (
-            <View style={ styles.container }>
-                <View style = {styles.top}>
-                    { this._renderTitle() }
-                    { this._renderTimers() }
+           
+                <View style={ styles.container }>
+                    <View style = {styles.top}>
+                        { this._renderTitle() }
+                        { this._renderTimers() }
+                    </View>
+                    <View style = { styles.middle } >
+                        { this._renderButtons() }
+                    </View>
+                    <View style = { styles.bottom }>
+                        { this._renderGoal() }
+                    </View>
                 </View>
-                <View style = { styles.middle } >
-                    { this._renderDistance() }
-                </View>
-                <View style = { styles.bottom }>
-                    { this._renderButtons() }
-                </View>
-            </View>
+            
         )
     }
 }
@@ -195,7 +228,7 @@ const styles = StyleSheet.create({
         flex: 2,
     },
     bottom: {
-        flex: 2,
+        flex: 3,
     },
     mainTimer: {
         fontSize: 18,
@@ -213,7 +246,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 15,
-        paddingBottom: 30,
     },
     buttonStart: {
         height: 80,
@@ -229,7 +261,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+        backgroundColor: 'rgba(255, 255, 0, 0.2)',
     },
     buttonFinishActive: {
         height: 80,
@@ -237,7 +269,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 0, 0.2)',
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
     },
     buttonFinishUnactive: {
         height: 80,
@@ -245,19 +277,30 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 0, 0.1)',
+        backgroundColor: 'rgba(255, 0, 0, 0.1)',
+    },
+    buttonExit: {        
+        height: 80,
+        width: 80,
+        borderRadius: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: secondary,
+    },
+    exitTextBtn: {
+        color: primaryTextButton,
     },
     startBtn: {
         color: '#00cc00',
     },
     finishBtnActive: {
-        color: 'yellow',
+        color: '#FF0000',
     },
     finishBtnUnactive: {
-        color: 'grey',
+        color: 'rgba(255, 0, 0, 0.4)',
     },
     stopBtn: {
-        color: '#FF0000'
+        color: 'yellow'
     },
     meter: {
         textAlign: 'center',
@@ -274,8 +317,8 @@ const styles = StyleSheet.create({
     distanceWrapper: {
         flex: 1,
     },
-    distanceWrapperInner: {
-
+    goalWrapper: {
+        flex: 1,
     }
 })
 
@@ -287,6 +330,9 @@ function mapStateToProps(state){
         isActive: state.activity.isActive,
         isJogging: state.activity.isJogging,
         laps: state.activity.laps,
+        name: state.currentEvent.name,
+        distanceWeekly: state.currentEvent.distanceWeekly,
+        distanceWeeklyLeft: state.currentEvent.distanceWeeklyLeft,
     }
 }
 

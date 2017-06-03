@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     title: {
-        fontSize: 30,
+        fontSize: 25,
     },
     eventDetailContainer:{
         flex: 8,

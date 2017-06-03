@@ -1,6 +1,6 @@
 import * as types from './types'
 import realm from '../database/realm'
-import { getToday, daysLeft, mToKM, getWeekLeft, getDayWeekFirst, getDayWeekLast } from '../lib/lib'
+import { getToday, daysLeft, mToKM, getWeekLeft, getDayWeekFirst, getDayWeekLast, daysBetween } from '../lib/lib'
 var uuid = require('react-native-uuid');
 
 export function createEvent(state){
@@ -37,7 +37,6 @@ export function createEvent(state){
         }
 
     }catch(e){
-        alert(e + state.sdate + '}} ' + state.edate)
         return {
             type: types.CREATE_EVENT_FAIL,
             eventCreated: false,
@@ -84,7 +83,10 @@ export function getLatestEvent(){
         let name = latestEvent.name
         let id = latestEvent.id
         let weekLeft = getWeekLeft(days)
-        let distanceWeekly = totalDistance / weekLeft
+        let distanceWeekly = 0
+        if( weekLeft > 0){
+            distanceWeekly = totalDistance / weekLeft
+        }
         distanceWeekly = Math.round(distanceWeekly * 100) / 100
         let weekruns = latestEvent.runs.filtered('date >= $0 AND date <= $1',getDayWeekFirst(),getDayWeekLast())
         let distanceWeeklyRun = 0
@@ -97,7 +99,9 @@ export function getLatestEvent(){
         distanceWeeklyRun = mToKM(distanceWeeklyRun)
         let distanceWeeklyLeft = distanceWeekly - distanceWeeklyRun
         distanceWeeklyLeft = Math.round(distanceWeeklyLeft * 100) / 100
-
+        if(distanceWeeklyLeft < 0){
+            distanceWeeklyLeft = 0
+        }
         return {
             type: types.GET_LATEST_EVENT,
             event: latestEvent,
@@ -123,18 +127,72 @@ export function getEventDetails(){
 
     return(dispatch, getState) => {
         let eventID = getState().event.eventID
-        let eventDetails = realm.objectForPrimaryKey('Event', eventID)
-        return dispatch(getEventDetail(eventDetails))
+        let currentEvent = realm.objectForPrimaryKey('Event', eventID)
+        try{
+            let eventID = currentEvent.id
+            let days = daysLeft(currentEvent.dateend)
+            let allruns = currentEvent.runs.sorted('date',true);
+            let overallDistanceTravelled = 0
+            let runs = []
+            if(allruns.length > 0){
+                for(let i = 0;i<allruns.length;i++){
+                    let run = allruns[i]
+                    runs.push(run)
+                    overallDistanceTravelled = overallDistanceTravelled + run.distance
+                }
+            }
+            overallDistanceTravelled = mToKM(overallDistanceTravelled)
+            let overallDistanceLeft = currentEvent.distance - overallDistanceTravelled
+            let totalDistance = currentEvent.distance
+
+            let name = currentEvent.name
+            let id = currentEvent.id
+            let weekLeft = getWeekLeft(days)
+            let distanceWeekly = 0
+            if( weekLeft > 0){
+                distanceWeekly = totalDistance / weekLeft
+            }
+            distanceWeekly = Math.round(distanceWeekly * 100) / 100
+            let weekruns = currentEvent.runs.filtered('date >= $0 AND date <= $1',getDayWeekFirst(),getDayWeekLast())
+            let distanceWeeklyRun = 0
+            if(weekruns.length > 0){
+                for(let i = 0;i<weekruns.length;i++){
+                    let run = weekruns[i]
+                    distanceWeeklyRun = distanceWeeklyRun + run.distance
+                }
+            }
+
+            distanceWeeklyRun = mToKM(distanceWeeklyRun)
+            let distanceWeeklyLeft = distanceWeeklyLeft =  distanceWeekly - distanceWeeklyRun
+            if(distanceWeeklyLeft < 0){
+                distanceWeeklyLeft = 0
+            }
+
+            return dispatch({
+                type: types.GET_CURRENT_EVENT,
+                event: currentEvent,
+                eventID: eventID,
+                daysLeft: days,
+                overallDistanceTravelled: overallDistanceTravelled,
+                overallDistanceLeft: overallDistanceLeft,
+                name: name,
+                totalDistance: totalDistance,
+                runs: runs,
+                dateStart: currentEvent.datestart,
+                dateEnd: currentEvent.dateend,
+                distanceWeeklyLeft: distanceWeeklyLeft,
+                distanceWeekly: distanceWeekly,
+                distanceWeeklyRun: distanceWeeklyRun,
+            })
+
+        }catch(e){
+            console.log(e)
+            return dispatch({
+                type: types.GET_CURRENT_EVENT_FAIL,
+            })
+        }
     }
 }
-
-function getEventDetail(eventDetails){
-    return {
-        type: types.GET_EVENT_DETAILS,
-        eventDetails: eventDetails,
-    }
-}
-
 
 export function setCurEventID(ID){
     return {

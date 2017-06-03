@@ -3,7 +3,9 @@ import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import DatePicker from 'react-native-datepicker'
 import { NavigationActions } from 'react-navigation'
-import { toDate } from '../lib/lib'
+import { toDate, addMonths } from '../lib/lib'
+import { TextField } from 'react-native-material-textfield';
+import PrimaryButton from  '../components/PrimaryButton'
 
 const {
     TextInput,
@@ -41,7 +43,7 @@ class CreateEvent extends Component{
         this.setState({weeklyrun: weeklyrun})
     }
 
-    newEvent(){
+    createPressed(){
          this.props.screenProps.createEvent(this.state)
     }
     componentDidUpdate() {
@@ -62,76 +64,44 @@ class CreateEvent extends Component{
 
         return (
             <View style = {styles.container} >
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                <TextField
                     onChangeText={(text) => this.onTextNameChanged(text)}
                     value={this.state.name}
+                    label= 'Name'
                 />
-                <TextInput 
+                <TextField 
                     keyboardType = 'numeric'
-                    style={{height: 40,}}
                     onChangeText = {(text)=> this.onTextDistanceChanged(text)}
                     value = {this.state.distance}
+                    label= 'Distance'
                 /> 
-                <TextInput 
-                    keyboardType = 'numeric'
-                    style={{height: 40,}}
-                    onChangeText = {(text)=> this.onTextWeeklyChanged(text)}
-                    value = {this.state.weeklyrun}
-                /> 
-
+                <Text style = {styles.sDateText}>Start Date</Text>
                 <DatePicker
-                    style={{width: 200}}
                     date={this.state.sdate}
-                    mode="date"
-                    placeholder="Select start date"
-                    format="DD-MM-YYYY"
-                    minDate="01-05-2016"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                    dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0
-                    },
-                    dateInput: {
-                        marginLeft: 36
-                    }
-                    // ... You can check the source to find the other keys.
-                    }}
-                    onDateChange={(date) => {this.setState({sdate: toDate(date)})}}
+                    mode='date'
+                    placeholder='Select start date'
+                    format='DD-MM-YYYY'
+                    minDate={new Date()}
+                    confirmBtnText='Confirm'
+                    cancelBtnText='Cancel'
+                    showIcon= {false}
+                    onDateChange={(date) => {this.setState({sdate: toDate(date), edate: addMonths(toDate(date),1)})}}
                 />
-
+                <Text style = {styles.eDateText}>End Date</Text>
                 <DatePicker
-                    style={{width: 200}}
                     date={this.state.edate}
-                    mode="date"
-                    placeholder="Select end date"
-                    format="DD-MM-YYYY"
-                    minDate="01-05-2016"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                    dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0
-                    },
-                    dateInput: {
-                        marginLeft: 36
-                    }
-                    // ... You can check the source to find the other keys.
-                    }}
+                    mode='date'
+                    placeholder='Select end date'
+                    format='DD-MM-YYYY'
+                    minDate={this.state.sdate}
+                    confirmBtnText='Confirm'
+                    cancelBtnText='Cancel'
+                    showIcon= {false}
                     onDateChange={(date) => {this.setState({edate: toDate(date)})}}
                 />
-
-
-                <TouchableHighlight style = {styles.bNewEvent} onPress={() => this.newEvent()}>
-                    <Text>Create Event</Text>
-                </TouchableHighlight>
+                <View style = { styles.startContainer }>
+                    <PrimaryButton states={{title: 'Create'  ,onPress: this.createPressed.bind(this)}} />
+                </View>
             </View>
         )
     }
@@ -139,8 +109,8 @@ class CreateEvent extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
         flex:1,
+        padding: 20,
     },
     eventList: {
         backgroundColor: 'white',
@@ -150,6 +120,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
         height:40,
     }, 
+    sDateText: {
+        marginTop: 15,
+    },
+    eDateText: {
+        marginTop: 15,
+    },
+    startContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 50,
+    },
 })
 
 function mapStateToProps(state){

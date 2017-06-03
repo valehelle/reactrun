@@ -21,13 +21,13 @@ const {
 export const HomeStack = StackNavigator({
     Home:{
         screen: Home,
-        navigationOptions:({ navigation }) => ({
+        navigationOptions:{
             title: 'Recharge',
             headerStyle: {
                 backgroundColor: primary,
             },
             headerTintColor: headerTint,
-        })
+        }
     },
 })
 
@@ -36,15 +36,24 @@ export const EventDetailStack = StackNavigator({
         screen: EventDetail,
         navigationOptions:{
             title: 'Event Detail',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
         }
     },   
     FinishActivity:{
         screen: FinishActivity,
         navigationOptions:{
             title: 'Run Detail',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
         }
     },
-},{
+},
+{
     headerMode: 'none'
 })
 
@@ -55,12 +64,20 @@ export const EventStack = StackNavigator({
         screen: Event,
         navigationOptions:{
             title: 'Event',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
         }
     },
     CreateEvent:{
         screen: CreateEvent,
         navigationOptions:{
             title: 'Create Event',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
         }
     },
    EventDetailStack:{
@@ -97,6 +114,7 @@ export const TabNavigations = TabNavigator({
     }
 },{
     tabBarPosition: 'bottom',
+    lazy: true,
     tabBarOptions: {
         activeTintColor: primary,
     }

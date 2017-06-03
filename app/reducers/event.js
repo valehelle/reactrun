@@ -25,11 +25,6 @@ export const event = createReducer({
         return Object.assign({}, state, {
             events: action.events,
         })
-    },  
-    [types.GET_EVENT_DETAILS](state, action) {
-        return Object.assign({}, state, {
-            eventDetails: action.eventDetails,
-        })
     },
     [types.SET_CURRENT_EVENT_ID](state, action) {
         return Object.assign({}, state, {
@@ -41,6 +36,40 @@ export const event = createReducer({
             goToDetail: action.goToDetail,
         })
     },
+})
+
+export const currentEvent = createReducer({
+    'event': {},
+    'distanceWeeklyLeft': 0,
+    'distanceWeekly': 0,
+    'overallDistanceTravelled': 0,
+    'overallDistanceLeft': 0,
+    'daysLeft': 0,
+    'name': '',
+    'totalDistance': 0,
+    'distanceWeeklyRun': 0,
+    'eventID': '',
+    'runs': [],
+    'dateStart': new Date(),
+    'dateEnd': new Date(),
+    }, {
+    [types.GET_CURRENT_EVENT](state, action) {
+        return Object.assign({}, state, {
+            eventID: action.eventID,
+            overallDistanceTravelled: action.overallDistanceTravelled,
+            overallDistanceLeft: action.overallDistanceLeft,
+            daysLeft: action.daysLeft,
+            name: action.name,
+            totalDistance: action.totalDistance,
+            runs: action.runs,
+            dateStart: action.dateStart,
+            dateEnd: action.dateEnd,
+            distanceWeekly: action.distanceWeekly,
+            distanceWeeklyRun: action.distanceWeeklyRun,
+            distanceWeeklyLeft: action.distanceWeeklyLeft,
+        })
+    },
+    
 })
 
 export const latestEvent = createReducer({
@@ -58,7 +87,6 @@ export const latestEvent = createReducer({
     [types.GET_LATEST_EVENT](state, action) {
         return Object.assign({}, state, {
             eventID: action.eventID,
-            distanceWeeklyLeft: action.distanceWeeklyLeft,
             overallDistanceTravelled: action.overallDistanceTravelled,
             overallDistanceLeft: action.overallDistanceLeft,
             daysLeft: action.daysLeft,
@@ -66,6 +94,7 @@ export const latestEvent = createReducer({
             totalDistance: action.totalDistance,
             distanceWeekly: action.distanceWeekly,
             distanceWeeklyRun: action.distanceWeeklyRun,
+            distanceWeeklyLeft: action.distanceWeeklyLeft,
         })
     },
     
