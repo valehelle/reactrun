@@ -79,6 +79,7 @@ export function startJogging(){
     return {
         type: types.START_JOGGING,
         mainTimerStart: new Date,
+        countTimer: ''
     }
 }
 export function startTimer(){
@@ -132,5 +133,17 @@ export function stopJogging(){
 
 }
 
+export function updateCountDownTimer({ countTimer }){
+    return {
+        type: types.UPDATE_COUNT_DOWN_TIMER,
+        countTimer,
+    }
+}
+export function stopCountDownTimer({ countTimer }){
+    return {
+        type: types.STOP_COUNT_DOWN_TIMER,
+        countTimer,
+    }
+}
 
 

@@ -73,6 +73,8 @@ export const timer = createReducer({
     'mainTimerStart': null,
     'isPause': false,
     'prevTimer': null,
+    'countTimer': 5,
+    'isCountDown': false,
     }, {
     [types.UPDATE_TIMER](state, action) {
         return Object.assign({}, state, {
@@ -81,6 +83,8 @@ export const timer = createReducer({
     },[types.START_JOGGING](state, action) {
         return Object.assign({}, state, {
            mainTimerStart: action.mainTimerStart,
+           countTimer: action.countTimer,
+           isCountDown: false,
         })
     },[types.PAUSE_TIMER](state, action) {
         return Object.assign({}, state, {
@@ -94,6 +98,20 @@ export const timer = createReducer({
             'mainTimerStart': null,
             'isPause': false,
             'prevTimer': null,
+            'countTimer': 5,
+            'isCountDown': false,
+        })
+    },
+    [types.UPDATE_COUNT_DOWN_TIMER](state, action) {
+        return Object.assign({}, state, {
+            'countTimer': action.countTimer,
+            'isCountDown': true,
+        })
+    },
+    [types.STOP_COUNT_DOWN_TIMER](state, action) {
+        return Object.assign({}, state, {
+            'countTimer': action.countTimer,
+            'isCountDown': false,
         })
     },
 })

@@ -23,6 +23,9 @@ class Home extends Component{
 
     constructor(props) {
         super(props)
+
+        this.state = {isCountDown: false, countTimer: 5};
+
         this.navigator = null;
 
         this.handleBack = (() => {
@@ -30,7 +33,6 @@ class Home extends Component{
             return true; //avoid closing the app
         }).bind(this) //don't forget bind this, you will remenber anyway.
     }
-
 
 
     componentDidMount() {
@@ -43,16 +45,42 @@ class Home extends Component{
         BackAndroid.removeEventListener('hardwareBackPress',this.handleBack)
         this.props.screenProps.stopJogging()
         this.props.screenProps.stopTracking()
+        clearInterval(this.countInterval)
     }
 
     startStopPressed(){
-        if(this.props.isJogging){
-            this.props.screenProps.stopJogging()
-            this.props.screenProps.pauseTimer()
-        }else{
-            this.props.screenProps.startJogging()
-            this.props.screenProps.startTimer()
+        if(this.state.countTimer === ''){
+            if(this.props.isJogging){
+                this.props.screenProps.stopJogging()
+                this.props.screenProps.pauseTimer()
+            }else{
+                this.props.screenProps.startJogging()
+                this.props.screenProps.startTimer()
+            }
+        }else if (!this.state.isCountDown){
+            this.setState({isCountDown: true})
+            this.startCountDown()
         }
+    }
+
+
+    startCountDown(){
+            if(this.state.countTimer === 5){
+                this.countInterval = setInterval(() => {
+                    countTimer = this.state.countTimer
+                    countTimer = countTimer - 1
+                    if(countTimer < 1 ){
+                        countTimer = ''  
+                    }
+                    if(countTimer < 1){
+                        clearInterval(this.countInterval)
+                        this.setState({countTimer: countTimer})
+                        this.startStopPressed()
+                    }
+                    this.setState({countTimer: countTimer})
+
+                },1000)
+            }
     }
 
     finishPressed(){
@@ -152,6 +180,7 @@ class Home extends Component{
                 <TouchableHighlight underlayColor='#777' disabled= { !this.props.isActive } onPress={() => this.finishPressed()} style={ [styles.buttonFinishUnactive, this.props.isActive && styles.buttonFinishActive] }>
                     <Text style = { [styles.finishBtnUnactive, this.props.isActive && styles.finishBtnActive] }>Finish</Text>
                 </TouchableHighlight>
+                <Text style={ styles.meter }>{ this.state.countTimer }</Text>
                 <TouchableHighlight underlayColor='#777' onPress={() => this.startStopPressed()}  style={ [styles.buttonStart, this.props.isJogging && styles.buttonStop] }>
                     <Text style={ [styles.startBtn, this.props.isJogging && styles.stopBtn] } >{ this.props.isJogging? 'Stop' : 'Start' }</Text>
                 </TouchableHighlight>
@@ -332,6 +361,7 @@ function mapStateToProps(state){
     return{
         totalDistance: state.location.totalDistanceTravelled,
         mainTimer: state.timer.mainTimer,
+        countTimer: state.timer.countTimer,
         isPause: state.timer.isPause,
         isActive: state.activity.isActive,
         isJogging: state.activity.isJogging,

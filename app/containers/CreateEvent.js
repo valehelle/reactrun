@@ -20,8 +20,8 @@ class CreateEvent extends Component{
     constructor(props) {
         super(props);
         this.state = { 
-            name: 'Name', 
-            distance: '23',
+            name: '', 
+            distance: '21',
             weeklyrun: '3', 
             sdate: new Date(), 
             edate: new Date(),
@@ -30,7 +30,19 @@ class CreateEvent extends Component{
 
     onTextDistanceChanged(distance) {
         // code to remove non-numeric characters from text
-        this.setState({distance: distance})
+        let pattern = /^\d+$/
+        var res = pattern.test(distance);
+        if(res){
+            this.setState({distance: distance})
+        }else{
+            let distance = this.state.distance
+            if(distance.length > 1){
+                distance.substr(0,(distance.length - 1))
+            }else{
+                distance = ''
+            }
+            this.setState({distance: distance})
+        }
     }
 
     onTextNameChanged(name) {
