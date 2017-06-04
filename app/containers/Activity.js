@@ -3,7 +3,7 @@ import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import { TimeFormatter, mToKM } from '../lib/lib.js'
 import { NavigationActions } from 'react-navigation'
-import { secondary, primaryTextButton } from '../lib/colors'
+import { secondary, primaryTextButton, primary } from '../lib/colors'
 import PrimaryButton from '../components/PrimaryButton'
 
 const {
@@ -77,7 +77,7 @@ class Home extends Component{
         if(this.props.isActive){
             let title = 'Congrats!'
             let sub = 'Finish with your running?'
-            if(this.props.distanceWeekly < this.props.totalDistance){
+            if(this.props.distanceWeekly > mToKM(this.props.totalDistance)){
                 title = 'Dont give up yet!'
                 sub = 'Are you sure you want to stop?'
             }
@@ -171,7 +171,7 @@ class Home extends Component{
         return (
             <View style = { styles.goalWrapper }>
                 <Text style={ styles.meter } >Goal</Text>
-                <Text style={ styles.distance } >{ this.props.distanceWeekly }</Text>
+                <Text style={ styles.distance } >{ this.props.distanceGoal }</Text>
                 <Text style={ styles.meter } >KM </Text>
                 { this._renderExitButton() }
             </View>
@@ -182,15 +182,17 @@ class Home extends Component{
         return (
            
                 <View style={ styles.container }>
-                    <View style = {styles.top}>
-                        { this._renderTitle() }
-                        { this._renderTimers() }
-                    </View>
-                    <View style = { styles.middle } >
-                        { this._renderButtons() }
-                    </View>
-                    <View style = { styles.bottom }>
-                        { this._renderGoal() }
+                    <View style = {styles.content}>
+                        <View style = {styles.top}>
+                            { this._renderTitle() }
+                            { this._renderTimers() }
+                        </View>
+                        <View style = { styles.middle } >
+                            { this._renderButtons() }
+                        </View>
+                        <View style = { styles.bottom }>
+                            { this._renderGoal() }
+                        </View>
                     </View>
                 </View>
             
@@ -203,17 +205,21 @@ const styles = StyleSheet.create({
     container:{
         paddingTop: 20,
         flex: 1,
-        backgroundColor: '#000000',
+        backgroundColor: primary,
+    },
+    content: {
+        flex: 1,
+        backgroundColor: 'black',
     },
     header: {
-        borderBottomWidth: 0.5,
         paddingTop: 20,
         paddingBottom: 10,
-        backgroundColor: '#2B2B2B',
+        backgroundColor: primary,
     },
     title: {
         alignSelf: 'center',
         fontWeight: '600',
+        fontSize: 17,
         color: '#FFFFFF'
     },
     timerWrapper: {
@@ -333,6 +339,7 @@ function mapStateToProps(state){
         name: state.currentEvent.name,
         distanceWeekly: state.currentEvent.distanceWeekly,
         distanceWeeklyLeft: state.currentEvent.distanceWeeklyLeft,
+        distanceGoal: state.currentEvent.distanceGoal,
     }
 }
 

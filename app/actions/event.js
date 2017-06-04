@@ -143,6 +143,7 @@ export function getEventDetails(){
             }
             overallDistanceTravelled = mToKM(overallDistanceTravelled)
             let overallDistanceLeft = currentEvent.distance - overallDistanceTravelled
+            overallDistanceLeft = overallDistanceLeft.toFixed(2)
             let totalDistance = currentEvent.distance
 
             let name = currentEvent.name
@@ -167,6 +168,7 @@ export function getEventDetails(){
             if(distanceWeeklyLeft < 0){
                 distanceWeeklyLeft = 0
             }
+            let distanceGoal = (distanceWeekly / 3).toFixed(2)
 
             return dispatch({
                 type: types.GET_CURRENT_EVENT,
@@ -183,6 +185,7 @@ export function getEventDetails(){
                 distanceWeeklyLeft: distanceWeeklyLeft,
                 distanceWeekly: distanceWeekly,
                 distanceWeeklyRun: distanceWeeklyRun,
+                distanceGoal: distanceGoal,
             })
 
         }catch(e){

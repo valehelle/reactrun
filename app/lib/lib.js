@@ -10,7 +10,6 @@ export function TimeFormatter(ms) {
 }
 
 export function TimeNiceFormatter(ms) {
-    
     let date = new Date(ms)
     let time = ''
     if(date.getUTCHours() > 0 && date.getUTCMinutes() > 0 && date.getUTCSeconds() > 0){
@@ -22,9 +21,9 @@ export function TimeNiceFormatter(ms) {
     }else if(date.getUTCHours() > 0){
         time = date.getUTCHours() + ' hours '
     }else if(date.getUTCMinutes() > 0 && date.getUTCSeconds() > 0){
-        time = date.getUTCMinutes() + 'minutes and ' + date.getUTCSeconds() + ' seconds'
+        time = date.getUTCMinutes() + ' minutes and ' + date.getSeconds() + ' seconds'
     }else if(date.getUTCMinutes() > 0){
-        time = date.getUTCMinutes() + 'minutes'
+        time = date.getUTCMinutes() + ' minutes'
     }else if (date.getUTCSeconds() > 0){
         time = date.getUTCSeconds() + ' seconds'
     }else {
@@ -72,6 +71,7 @@ export function mToKM(m){
     let km = m / 1000;
     return km.toFixed(2)
 }
+
 export function getDayWeekFirst(){
     let curr = new Date; // get current date
     let first = curr.getDate() - curr.getDay() // First day is the day of the month - the day of the week
@@ -79,16 +79,19 @@ export function getDayWeekFirst(){
     firstday.setHours(0,0,0,0)
     return firstday
 }
+
 export function getDayWeekLast(){
     let curr = new Date // get current date
     let lastday = new Date(curr.setDate(curr.getDate()+6))
     lastday.setHours(0,0,0,0)
     return lastday
 }
+
 export function getWeekLeft(days){
     let weeks = days/7
     return Math.ceil(weeks)
 }
+
 export function addMonths (date, count) {
   if (date && count) {
     var m, d = (date = new Date(+date)).getDate()

@@ -26,7 +26,8 @@ class EventDetail extends Component{
     startButtonPress(){
         this.props.navigation.navigate('Activity',{})
     }
-    runDetailsPressed(){
+    runDetailsPressed(id){
+        this.props.screenProps.setRunDetailID(id)
         this.props.navigation.navigate('FinishActivity',{})
     }
 
@@ -44,7 +45,7 @@ class EventDetail extends Component{
                 <View style = { styles.eventDetailContainer }>
                     <Text style = { styles.nameText }>{ this.props.name }</Text>
                     <View style = { styles.nameContainer }>
-                        <Text style = { styles.sub } >{ DateFormatter(this.props.dateStart) } until { DateFormatter(this.props.dateEnd) }</Text>
+                        <Text style = { styles.sub } >{ DateNiceFormatter(this.props.dateStart) } until { DateNiceFormatter(this.props.dateEnd) }</Text>
                         <Text>{ this.props.daysLeft } days left </Text>
                     </View>
                     <Text style = { styles.totalTitle } >Overall</Text>
@@ -69,7 +70,7 @@ class EventDetail extends Component{
                 {
                     this.runs().map(( runs ) => {
                             return (
-                                <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed()} key= { runs.id }>
+                                <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id )} key= { runs.id }>
                                     <Text>{ mToKM(runs.distance) } KM run in { TimeNiceFormatter(runs.time) } on { DateNiceFormatter(runs.date) } </Text>
                                 </TouchableOpacity>
                             )

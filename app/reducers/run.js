@@ -22,6 +22,30 @@ export const run = createReducer({
             previousDistanceTravelled: action.locationLapse.previousDistanceTravelled,
         })
     },
-
+})
+export const runDetail = createReducer({
+    'id': '',
+    'distance': 0,
+    'pace': 0,
+    'time': Date.now()
+    }, {
+    [types.SET_RUN_DETAIL_ID](state, action) {
+        return Object.assign({}, state, {
+            id: action.id
+        })
+    },
+    [types.SAVE_RUN](state, action) {
+        return Object.assign({}, state, {
+            id: action.id
+        })
+    },
+    [types.GET_RUN_DETAIL](state, action) {
+        return Object.assign({}, state, {
+            id: action.runDetails.id,
+            distance: action.runDetails.distance,
+            time: action.runDetails.time,
+            pace: action.runDetails.pace,
+        })
+    },
 
 })
