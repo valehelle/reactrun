@@ -4,8 +4,10 @@ import { connect } from 'react-redux'
 import DatePicker from 'react-native-datepicker'
 import { NavigationActions } from 'react-navigation'
 import { toDate, addMonths } from '../lib/lib'
-import { TextField } from 'react-native-material-textfield';
+import { TextField } from 'react-native-material-textfield'
 import PrimaryButton from  '../components/PrimaryButton'
+var dismissKeyboard = require('dismissKeyboard')
+
 
 const {
     TextInput,
@@ -13,6 +15,8 @@ const {
     TouchableHighlight,
     Text,
     StyleSheet,
+    TouchableWithoutFeedback,
+    Keyboard,
 } = ReactNative
 
 class CreateEvent extends Component{
@@ -71,10 +75,14 @@ class CreateEvent extends Component{
             this.props.navigation.dispatch(resetAction)
         }
     }
+    dismissKeyboardAction() {
+        dismissKeyboard();
+    }
 
     render(){
 
         return (
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style = {styles.container} >
                 <TextField
                     onChangeText={(text) => this.onTextNameChanged(text)}
@@ -86,6 +94,7 @@ class CreateEvent extends Component{
                     onChangeText = {(text)=> this.onTextDistanceChanged(text)}
                     value = {this.state.distance}
                     label= 'Distance'
+                    onSubmitEditing={ ()=> this.dismissKeyboardAction()}
                 /> 
                 <Text style = {styles.sDateText}>Start Date</Text>
                 <DatePicker
@@ -115,6 +124,7 @@ class CreateEvent extends Component{
                     <PrimaryButton states={{title: 'Create'  ,onPress: this.createPressed.bind(this)}} />
                 </View>
             </View>
+            </TouchableWithoutFeedback>
         )
     }
 }
