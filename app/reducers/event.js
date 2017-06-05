@@ -53,6 +53,7 @@ export const currentEvent = createReducer({
     'dateStart': new Date(),
     'dateEnd': new Date(),
     'distanceGoal': 0,
+    'isEventNew': false,
     }, {
     [types.GET_CURRENT_EVENT](state, action) {
         return Object.assign({}, state, {
@@ -69,6 +70,12 @@ export const currentEvent = createReducer({
             distanceWeeklyRun: action.distanceWeeklyRun,
             distanceWeeklyLeft: action.distanceWeeklyLeft,
             distanceGoal: action.distanceGoal,
+            isEventNew: false,
+        })
+    },
+    [types.CREATE_EVENT](state, action) {
+        return Object.assign({}, state, {
+            isEventNew: true,
         })
     },
     

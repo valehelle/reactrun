@@ -21,6 +21,9 @@ class Home extends Component{
         this.props.screenProps.getLatestEvent()
 
     }
+    componentDidUpdate() {
+        this.props.screenProps.getLatestEvent()
+    }
 
     startButtonPress(){
         if(this.props.eventID != ''){
@@ -216,6 +219,7 @@ function mapStateToProps(state){
         distanceWeeklyRunLeft: state.latestEvent.distanceWeeklyRunLeft,
         eventCreated: state.event.eventCreated,
         isEventIDUpdated: state.event.isEventIDUpdated,
+        isEventNew: state.event.isEventNew,
     }
 }
 

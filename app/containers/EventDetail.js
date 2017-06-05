@@ -72,6 +72,7 @@ class EventDetail extends Component{
                             return (
                                 <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id )} key= { runs.id }>
                                     <Text>{ mToKM(runs.distance) } KM run in { TimeNiceFormatter(runs.time) } on { DateNiceFormatter(runs.date) } </Text>
+                                    <Text>Your pace is {runs.pace} meters per minute</Text>
                                 </TouchableOpacity>
                             )
                         }) 
@@ -149,6 +150,7 @@ function mapStateToProps(state){
         distanceWeeklyRun: state.currentEvent.distanceWeeklyRun,
         distanceWeeklyLeft: state.currentEvent.distanceWeeklyLeft,
         distanceWeekly: state.currentEvent.distanceWeekly,
+        pace: state.currentEvent.pace,
     }
 }
 

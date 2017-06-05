@@ -180,9 +180,9 @@ class Home extends Component{
                 <TouchableHighlight underlayColor='#777' disabled= { !this.props.isActive } onPress={() => this.finishPressed()} style={ [styles.buttonFinishUnactive, this.props.isActive && styles.buttonFinishActive] }>
                     <Text style = { [styles.finishBtnUnactive, this.props.isActive && styles.finishBtnActive] }>Finish</Text>
                 </TouchableHighlight>
-                <Text style={ styles.meter }>{ this.state.countTimer }</Text>
+                <Text style={ styles.countTimerText }>{ this.state.countTimer }</Text>
                 <TouchableHighlight underlayColor='#777' onPress={() => this.startStopPressed()}  style={ [styles.buttonStart, this.props.isJogging && styles.buttonStop] }>
-                    <Text style={ [styles.startBtn, this.props.isJogging && styles.stopBtn] } >{ this.props.isJogging? 'Stop' : 'Start' }</Text>
+                    <Text style={ [styles.startBtn, this.props.isJogging && styles.stopBtn] } >{ this.props.isJogging? 'Pause' : 'Start' }</Text>
                 </TouchableHighlight>
             </View>
         )
@@ -215,7 +215,6 @@ class Home extends Component{
                         { this._renderTitle() }
                     </View>
                     <View style = {styles.content}>
-                        <ScrollView style = {{flex: 1,}}>
                             <View style = { styles.middle } >
                                 { this._renderTimers() }
                                 { this._renderButtons() }
@@ -223,7 +222,6 @@ class Home extends Component{
                             <View style = { styles.bottom }>
                                 { this._renderGoal() }
                             </View>
-                        </ScrollView>
                     </View>
                 </View>
             
@@ -234,9 +232,7 @@ class Home extends Component{
 const styles = StyleSheet.create({
 
     container:{
-        paddingTop: 10,
         flex: 1,
-        backgroundColor: primary,
     },
     content: {
         flex: 14,
@@ -244,7 +240,6 @@ const styles = StyleSheet.create({
     },
     header: {
         paddingBottom: 10,
-        backgroundColor: primary,
     },
     title: {
         alignSelf: 'center',
@@ -258,7 +253,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     top: {
-        flex: 1,
+        flex: 2,
+        backgroundColor: 'black',
+        justifyContent: 'center', 
     },
     middle: {
         flex: 1,
@@ -313,7 +310,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 0, 0, 0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
     },
     buttonExit: {        
         height: 80,
@@ -333,7 +330,7 @@ const styles = StyleSheet.create({
         color: '#FF0000',
     },
     finishBtnUnactive: {
-        color: 'rgba(255, 0, 0, 0.4)',
+        color: 'rgba(255, 255, 255, 0.4)',
     },
     stopBtn: {
         color: 'yellow'
@@ -355,7 +352,11 @@ const styles = StyleSheet.create({
     },
     goalWrapper: {
         flex: 1,
-    }
+    },
+    countTimerText: {
+        textAlign: 'center',
+        color: 'red',
+    },
 })
 
 function mapStateToProps(state){

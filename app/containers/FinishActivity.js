@@ -20,7 +20,7 @@ class FinishActivity extends Component{
                 <View style = { styles.detailWrapper } >
                     <Text>You ran <Text style = {styles.totalDistanceText}> {this.props.distance} </Text>KM</Text>
                     <Text>in {this.props.time}</Text>
-                    <Text>Your pace is {this.props.pace} meters per second</Text>
+                    <Text>Your pace is {this.props.pace} meters per minute</Text>
                 </View>
             </View>
         )

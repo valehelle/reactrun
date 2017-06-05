@@ -127,12 +127,24 @@ export const TabNavigations = TabNavigator({
     }
 })
 
+export const ActivityStack = StackNavigator({
+    Activity: {
+        screen: Activity,
+        navigationOptions:{
+            title: 'Activity',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },
+})
 export const Root = StackNavigator({
     Tabs: {
         screen: TabNavigations,
     },
     Activity: {
-        screen: Activity,
+        screen: ActivityStack,
         navigationOptions:{
             title: 'Activity',
         }

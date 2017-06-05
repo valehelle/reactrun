@@ -4,43 +4,40 @@ import { getToday, daysLeft, mToKM, getWeekLeft, getDayWeekFirst, getDayWeekLast
 var uuid = require('react-native-uuid');
 
 export function createEvent(state){
-    try{
-        let eventID = uuid.v4()
-        realm.write(() => {
-            let myEvent = realm.create('Event', {
-                id: eventID,
-                name: state.name,
-                datestart: state.sdate,
-                dateend: state.edate,
-                distance: parseInt(state.distance),
-                weeklyrun: parseInt(state.weeklyrun),
-                datecreated: new Date(),
-                distanceTravelled: 0,
-                runs: [],
-            });
+    if(state.name != '' && state.distance != '' && state.distance > 0){
+        try{
+            let eventID = uuid.v4()
+            realm.write(() => {
+                let myEvent = realm.create('Event', {
+                    id: eventID,
+                    name: state.name,
+                    datestart: state.sdate,
+                    dateend: state.edate,
+                    distance: parseInt(state.distance),
+                    weeklyrun: parseInt(state.weeklyrun),
+                    datecreated: new Date(),
+                    distanceTravelled: 0,
+                    runs: [],
+                });
+            })
 
-    // let runs = myEvent.runs
-    //  let run = realm.create('Run', {
-    //     date: new Date(),
-    //     time: new Date(),
-    //     type: 'ccccc',
-    //     distance: 12,
-    //   });
-    //   runs.push(run);
-    //   runs.push(run);
-        })
+            return {
+                type: types.CREATE_EVENT,
+                eventCreated: true,
+                eventID:eventID, 
+            }
 
-        return {
-            type: types.CREATE_EVENT,
-            eventCreated: true,
-            eventID:eventID, 
+        }catch(e){
+            return {
+                type: types.CREATE_EVENT_FAIL,
+                eventCreated: false,
+            }
         }
-
-    }catch(e){
+    }else{
         return {
             type: types.CREATE_EVENT_FAIL,
             eventCreated: false,
-        }
+        }   
     }
 
 }
@@ -137,6 +134,10 @@ export function getEventDetails(){
             if(allruns.length > 0){
                 for(let i = 0;i<allruns.length;i++){
                     let run = allruns[i]
+                    let pace = run.distance / run.time
+                    pace = pace * 60000
+                    pace = pace.toFixed(0)
+                    run.pace = pace
                     runs.push(run)
                     overallDistanceTravelled = overallDistanceTravelled + run.distance
                 }
