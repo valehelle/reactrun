@@ -130,13 +130,14 @@ export const TabNavigations = TabNavigator({
 export const ActivityStack = StackNavigator({
     Activity: {
         screen: Activity,
-        navigationOptions:{
-            title: 'Activity',
+        navigationOptions: ({navigation}) => ({
+            title: `${navigation.state.params.name}`,
             headerStyle: {
                 backgroundColor: primary,
             },
             headerTintColor: headerTint,
-        }
+        }),
+
     },
 })
 export const Root = StackNavigator({
@@ -145,9 +146,7 @@ export const Root = StackNavigator({
     },
     Activity: {
         screen: ActivityStack,
-        navigationOptions:{
-            title: 'Activity',
-        }
+
     },
 }, {
     mode: 'modal',

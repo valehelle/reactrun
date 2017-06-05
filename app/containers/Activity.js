@@ -211,9 +211,6 @@ class Home extends Component{
         return (
            
                 <View style={ styles.container }>
-                    <View style = {styles.top}>
-                        { this._renderTitle() }
-                    </View>
                     <View style = {styles.content}>
                             <View style = { styles.middle } >
                                 { this._renderTimers() }
@@ -235,8 +232,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     content: {
-        flex: 14,
+        flex: 1,
         backgroundColor: 'black',
+        paddingTop: 10,
     },
     header: {
         paddingBottom: 10,

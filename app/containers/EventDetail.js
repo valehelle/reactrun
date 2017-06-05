@@ -24,7 +24,7 @@ class EventDetail extends Component{
     }
 
     startButtonPress(){
-        this.props.navigation.navigate('Activity',{})
+        this.props.navigation.navigate('Activity',{ name: this.props.name })
     }
     runDetailsPressed(id){
         this.props.screenProps.setRunDetailID(id)

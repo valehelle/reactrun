@@ -28,7 +28,7 @@ class Home extends Component{
     startButtonPress(){
         if(this.props.eventID != ''){
             this.props.screenProps.setCurEventID(this.props.eventID)
-            this.props.navigation.navigate('Activity',{})
+            this.props.navigation.navigate('Activity',{ name: this.props.name })
         }else{
             this.props.navigation.navigate('CreateEvent',{})
         }
