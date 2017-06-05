@@ -104,12 +104,12 @@ export const TabNavigations = TabNavigator({
         screen: EventStack,
         navigationOptions: {
             tabBarLabel: 'Event',
-                tabBarIcon: ({ tintColor }) => (
+            tabBarIcon: ({ tintColor }) => (
                     <Image
                         source={require('../icons/ic_directions_run_black_24dp_2x.png')}
                         style={[styles.icon, {tintColor: tintColor}]}
                     />
-                ),
+            ),
         }
     }
 },{
@@ -117,6 +117,13 @@ export const TabNavigations = TabNavigator({
     lazy: true,
     tabBarOptions: {
         activeTintColor: primary,
+        inactiveTintColor: 'grey',
+        style: {
+                backgroundColor: 'white',
+        },
+        indicatorStyle:{
+            backgroundColor: primary,
+        }
     }
 })
 

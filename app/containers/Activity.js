@@ -211,17 +211,19 @@ class Home extends Component{
         return (
            
                 <View style={ styles.container }>
+                    <View style = {styles.top}>
+                        { this._renderTitle() }
+                    </View>
                     <View style = {styles.content}>
-                        <View style = {styles.top}>
-                            { this._renderTitle() }
-                            { this._renderTimers() }
-                        </View>
-                        <View style = { styles.middle } >
-                            { this._renderButtons() }
-                        </View>
-                        <View style = { styles.bottom }>
-                            { this._renderGoal() }
-                        </View>
+                        <ScrollView style = {{flex: 1,}}>
+                            <View style = { styles.middle } >
+                                { this._renderTimers() }
+                                { this._renderButtons() }
+                            </View>
+                            <View style = { styles.bottom }>
+                                { this._renderGoal() }
+                            </View>
+                        </ScrollView>
                     </View>
                 </View>
             
@@ -232,16 +234,15 @@ class Home extends Component{
 const styles = StyleSheet.create({
 
     container:{
-        paddingTop: 20,
+        paddingTop: 10,
         flex: 1,
         backgroundColor: primary,
     },
     content: {
-        flex: 1,
+        flex: 14,
         backgroundColor: 'black',
     },
     header: {
-        paddingTop: 20,
         paddingBottom: 10,
         backgroundColor: primary,
     },
@@ -257,13 +258,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     top: {
-        flex: 3,
+        flex: 1,
     },
     middle: {
-        flex: 2,
+        flex: 1,
     },
     bottom: {
-        flex: 3,
+        flex: 1,
     },
     mainTimer: {
         fontSize: 18,

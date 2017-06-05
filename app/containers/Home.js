@@ -106,7 +106,6 @@ class Home extends Component{
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        marginTop: 10,
     },
     container: {
         flex: 1,
@@ -128,7 +127,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     startContainer: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
