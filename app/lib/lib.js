@@ -56,8 +56,11 @@ export function getToday(){
 export function daysLeft(endDate){
     let ms = endDate - getToday()
     let days = (ms / (1000*60*60*24))
-
-    return  Math.ceil(days)
+    days = Math.ceil(days)
+    if(days < 0){
+        days = 0
+    }
+    return  days
 }
 
 export function daysBetween(sDate, eDate){
