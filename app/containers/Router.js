@@ -22,7 +22,7 @@ export const HomeStack = StackNavigator({
     Home:{
         screen: Home,
         navigationOptions:{
-            title: 'Recharge',
+            title: 'Home',
             headerStyle: {
                 backgroundColor: primary,
             },
@@ -79,6 +79,8 @@ export const TabNavigations = TabNavigator({
 },{
     tabBarOptions: {
         activeTintColor: primary,
+        showIcon : true,
+        showLabel: false,
         inactiveTintColor: 'grey',
         style: {
                 backgroundColor: 'white',
