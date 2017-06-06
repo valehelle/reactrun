@@ -102,7 +102,7 @@ class CreateEvent extends Component{
                     mode='date'
                     placeholder='Select start date'
                     format='DD-MM-YYYY'
-                    minDate={new Date()}
+                    minDate={new Date(2017,0,0,0,0,0)}
                     confirmBtnText='Confirm'
                     cancelBtnText='Cancel'
                     showIcon= {false}
