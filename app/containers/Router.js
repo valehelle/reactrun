@@ -29,35 +29,9 @@ export const HomeStack = StackNavigator({
             headerTintColor: headerTint,
         }
     },
+},{
+    headerMode: 'none',
 })
-
-export const EventDetailStack = StackNavigator({
-   EventDetail:{
-        screen: EventDetail,
-        navigationOptions:{
-            title: 'Event Detail',
-            headerStyle: {
-                backgroundColor: primary,
-            },
-            headerTintColor: headerTint,
-        }
-    },   
-    FinishActivity:{
-        screen: FinishActivity,
-        navigationOptions:{
-            title: 'Run Detail',
-            headerStyle: {
-                backgroundColor: primary,
-            },
-            headerTintColor: headerTint,
-        }
-    },
-},
-{
-    headerMode: 'none'
-})
-
-
 
 export const EventStack = StackNavigator({
     Event:{
@@ -70,20 +44,10 @@ export const EventStack = StackNavigator({
             headerTintColor: headerTint,
         }
     },
-    CreateEvent:{
-        screen: CreateEvent,
-        navigationOptions:{
-            title: 'Create Event',
-            headerStyle: {
-                backgroundColor: primary,
-            },
-            headerTintColor: headerTint,
-        }
-    },
-   EventDetailStack:{
-        screen: EventDetailStack,
-    },
-})
+},{
+    headerMode: 'none',
+}
+)
 
 
 
@@ -113,8 +77,6 @@ export const TabNavigations = TabNavigator({
         }
     }
 },{
-    tabBarPosition: 'bottom',
-    lazy: true,
     tabBarOptions: {
         activeTintColor: primary,
         inactiveTintColor: 'grey',
@@ -127,11 +89,16 @@ export const TabNavigations = TabNavigator({
     }
 })
 
-export const ActivityStack = StackNavigator({
+
+export const Root = StackNavigator({
+    Tabs: {
+        screen: TabNavigations,
+    },
     Activity: {
         screen: Activity,
         navigationOptions: ({navigation}) => ({
             title: `${navigation.state.params.name}`,
+            headerLeft: null,
             headerStyle: {
                 backgroundColor: primary,
             },
@@ -139,18 +106,39 @@ export const ActivityStack = StackNavigator({
         }),
 
     },
-})
-export const Root = StackNavigator({
-    Tabs: {
-        screen: TabNavigations,
+   EventDetail:{
+        screen: EventDetail,
+        navigationOptions:{
+            title: 'Event Detail',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },   
+    FinishActivity:{
+        screen: FinishActivity,
+        navigationOptions:{
+            title: 'Run Detail',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
     },
-    Activity: {
-        screen: ActivityStack,
+    CreateEvent:{
+        screen: CreateEvent,
+        navigationOptions:{
+            title: 'Create Event',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },
 
-    },
 }, {
     mode: 'modal',
-    headerMode: 'none',
 })
 
 

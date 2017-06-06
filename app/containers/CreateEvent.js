@@ -68,8 +68,8 @@ class CreateEvent extends Component{
             const resetAction = NavigationActions.reset({
             index: 1,
             actions: [
-                NavigationActions.navigate({routeName: 'Event'}),
-                NavigationActions.navigate({routeName: 'EventDetailStack'})
+                NavigationActions.navigate({routeName: 'Tabs'}),
+                NavigationActions.navigate({routeName: 'EventDetail'})
             ]
             })
             this.props.navigation.dispatch(resetAction)

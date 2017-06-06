@@ -30,7 +30,7 @@ class Event extends Component{
     componentDidUpdate() {
         if(this.props.goToDetail){
             //Redirect to another screen
-            this.props.navigation.navigate('EventDetailStack',{})
+            this.props.navigation.navigate('EventDetail',{})
         }
     }
 
@@ -39,10 +39,13 @@ class Event extends Component{
     render(){
         return (
             <View style = { styles.container } >
+
+                <FlatList
+                ListHeaderComponent={() =>                  
                 <View style = {styles.buttonContainer}>
                     <PrimaryButton  states={{title: 'Create Event'  ,onPress: this.createEventPressed.bind(this)}} />
-                </View>
-                <FlatList
+                </View> 
+                }
                     style = { styles.eventListContainer } 
                     data={ this.props.events }
                     keyExtractor={ this._keyExtractor }
@@ -76,9 +79,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: 'white',
-        paddingTop: 10,
-        paddingBottom: 10,
+        marginBottom: 10,
     },
     eventList:{
         backgroundColor: 'white',

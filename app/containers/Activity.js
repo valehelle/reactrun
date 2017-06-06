@@ -29,7 +29,7 @@ class Home extends Component{
         this.navigator = null;
 
         this.handleBack = (() => {
-            this.finishAlert()
+            this.finishPressed()
             return true; //avoid closing the app
         }).bind(this) //don't forget bind this, you will remenber anyway.
     }
@@ -92,7 +92,15 @@ class Home extends Component{
     runFinish(){
         if(this.props.isActive){
             this.props.screenProps.saveRun()
-            this.props.navigation.navigate('FinishActivity',{})
+            const resetAction = NavigationActions.reset({
+            index: 2,
+            actions: [
+                NavigationActions.navigate({routeName: 'Tabs'}),
+                NavigationActions.navigate({routeName: 'EventDetail'}),
+                NavigationActions.navigate({routeName: 'FinishActivity'})
+            ]
+            })
+            this.props.navigation.dispatch(resetAction)
         }else{
             const backAction = NavigationActions.back({
             })
