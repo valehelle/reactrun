@@ -30,7 +30,8 @@ class Event extends Component{
     componentDidUpdate() {
         if(this.props.goToDetail){
             //Redirect to another screen
-            this.props.navigation.navigate('EventDetail',{})
+            this.props.navigation.navigate('EventDetailStack',{})
+
         }
     }
 

@@ -47,6 +47,7 @@ class EventDetail extends Component{
                     <View style = { styles.nameContainer }>
                         <Text style = { styles.sub } >{ DateNiceFormatter(this.props.dateStart) } until { DateNiceFormatter(this.props.dateEnd) }</Text>
                         <Text>{ this.props.daysLeft } days left </Text>
+                        <Text>{ this.props.bibNumber } Bib Number</Text>
                     </View>
                     <Text style = { styles.totalTitle } >Overall</Text>
                     <View style = { styles.totalContainer }>
@@ -151,6 +152,7 @@ function mapStateToProps(state){
         distanceWeeklyLeft: state.currentEvent.distanceWeeklyLeft,
         distanceWeekly: state.currentEvent.distanceWeekly,
         pace: state.currentEvent.pace,
+        bibNumber: state.currentEvent.bibNumber,
     }
 }
 

@@ -92,15 +92,7 @@ class Home extends Component{
     runFinish(){
         if(this.props.isActive){
             this.props.screenProps.saveRun()
-            const resetAction = NavigationActions.reset({
-            index: 2,
-            actions: [
-                NavigationActions.navigate({routeName: 'Tabs'}),
-                NavigationActions.navigate({routeName: 'EventDetail'}),
-                NavigationActions.navigate({routeName: 'FinishActivity'})
-            ]
-            })
-            this.props.navigation.dispatch(resetAction)
+            this.props.navigation.navigate('FinishActivity',{})
         }else{
             const backAction = NavigationActions.back({
             })

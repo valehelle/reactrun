@@ -29,7 +29,31 @@ export const HomeStack = StackNavigator({
             headerTintColor: headerTint,
         }
     },
-},{
+})
+
+export const EventDetailStack = StackNavigator({
+   EventDetail:{
+        screen: EventDetail,
+        navigationOptions:{
+            title: 'Event Detail',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },   
+    FinishActivity:{
+        screen: FinishActivity,
+        navigationOptions:{
+            title: 'Run Detail',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },
+
+}, {
     headerMode: 'none',
 })
 
@@ -44,8 +68,28 @@ export const EventStack = StackNavigator({
             headerTintColor: headerTint,
         }
     },
+    CreateEvent:{
+        screen: CreateEvent,
+        navigationOptions:{
+            title: 'Create Event',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },
+    EventDetailStack:{
+        screen: EventDetailStack,
+        navigationOptions:{
+            title: 'Event',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },
 },{
-    headerMode: 'none',
+    initialRouteName: 'Event',
 }
 )
 
@@ -77,6 +121,7 @@ export const TabNavigations = TabNavigator({
         }
     }
 },{
+    tabBarPosition: 'bottom',
     tabBarOptions: {
         activeTintColor: primary,
         showIcon : true,
@@ -91,11 +136,7 @@ export const TabNavigations = TabNavigator({
     }
 })
 
-
-export const Root = StackNavigator({
-    Tabs: {
-        screen: TabNavigations,
-    },
+export const ActivityStack = StackNavigator({
     Activity: {
         screen: Activity,
         navigationOptions: ({navigation}) => ({
@@ -108,39 +149,19 @@ export const Root = StackNavigator({
         }),
 
     },
-   EventDetail:{
-        screen: EventDetail,
-        navigationOptions:{
-            title: 'Event Detail',
-            headerStyle: {
-                backgroundColor: primary,
-            },
-            headerTintColor: headerTint,
-        }
-    },   
-    FinishActivity:{
-        screen: FinishActivity,
-        navigationOptions:{
-            title: 'Run Detail',
-            headerStyle: {
-                backgroundColor: primary,
-            },
-            headerTintColor: headerTint,
-        }
+})
+
+export const Root = StackNavigator({
+    Tabs: {
+        screen: TabNavigations,
     },
-    CreateEvent:{
-        screen: CreateEvent,
-        navigationOptions:{
-            title: 'Create Event',
-            headerStyle: {
-                backgroundColor: primary,
-            },
-            headerTintColor: headerTint,
-        }
+    Activity: {
+        screen: ActivityStack,
     },
 
 }, {
     mode: 'modal',
+    headerMode: 'none',
 })
 
 

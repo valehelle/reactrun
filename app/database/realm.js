@@ -15,6 +15,7 @@ Event.schema = {
     weeklyrun: 'int',
     datecreated: 'date',
     distanceTravelled: 'int',
+    bibNumber: 'string',
     runs: {type: 'list', objectType: 'Run'},
   }
 }

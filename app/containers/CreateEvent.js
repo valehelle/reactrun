@@ -26,6 +26,7 @@ class CreateEvent extends Component{
         this.state = { 
             name: '', 
             distance: '21',
+            bibNumber: '',
             weeklyrun: '3', 
             sdate: new Date(), 
             edate: new Date(),
@@ -50,10 +51,12 @@ class CreateEvent extends Component{
     }
 
     onTextNameChanged(name) {
-        // code to remove non-numeric characters from text
         this.setState({name: name})
     }
-
+    
+    onTextBibNumberChanged(bibNumber) {
+        this.setState({bibNumber: bibNumber})
+    }
     onTextWeeklyChanged(weeklyrun) {
         // code to remove non-numeric characters from text
         this.setState({weeklyrun: weeklyrun})
@@ -68,8 +71,8 @@ class CreateEvent extends Component{
             const resetAction = NavigationActions.reset({
             index: 1,
             actions: [
-                NavigationActions.navigate({routeName: 'Tabs'}),
-                NavigationActions.navigate({routeName: 'EventDetail'})
+                NavigationActions.navigate({routeName: 'Event'}),
+                NavigationActions.navigate({routeName: 'EventDetailStack'})
             ]
             })
             this.props.navigation.dispatch(resetAction)
@@ -88,6 +91,11 @@ class CreateEvent extends Component{
                     onChangeText={(text) => this.onTextNameChanged(text)}
                     value={this.state.name}
                     label= 'Name'
+                />
+                <TextField
+                    onChangeText={(text) => this.onTextBibNumberChanged(text)}
+                    value={this.state.bibNumber}
+                    label= 'Bib Number'
                 />
                 <TextField 
                     keyboardType = 'numeric'

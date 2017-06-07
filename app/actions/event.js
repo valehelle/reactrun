@@ -17,6 +17,7 @@ export function createEvent(state){
                     weeklyrun: parseInt(state.weeklyrun),
                     datecreated: new Date(),
                     distanceTravelled: 0,
+                    bibNumber: state.bibNumber,
                     runs: [],
                 });
             })
@@ -78,6 +79,7 @@ export function getLatestEvent(){
         let totalDistance = latestEvent.distance
 
         let name = latestEvent.name
+        let bibNumber = latestEvent.bibNumber
         let id = latestEvent.id
         let weekLeft = getWeekLeft(days)
         let distanceWeekly = 0
@@ -111,6 +113,7 @@ export function getLatestEvent(){
             distanceWeeklyLeft: distanceWeeklyLeft,
             distanceWeekly: distanceWeekly,
             distanceWeeklyRun: distanceWeeklyRun,
+            bibNumber: bibNumber,
         }
     }catch(e){
         return {
@@ -148,6 +151,7 @@ export function getEventDetails(){
             let totalDistance = currentEvent.distance
 
             let name = currentEvent.name
+            let bibNumber = currentEvent.bibNumber
             let id = currentEvent.id
             let weekLeft = getWeekLeft(days)
             let distanceWeekly = 0
@@ -187,6 +191,7 @@ export function getEventDetails(){
                 distanceWeekly: distanceWeekly,
                 distanceWeeklyRun: distanceWeeklyRun,
                 distanceGoal: distanceGoal,
+                bibNumber: bibNumber,
             })
 
         }catch(e){

@@ -61,7 +61,7 @@ class Home extends Component{
                         </View>
                         <View style = { styles.distanceContainer }>
                             <View style = { styles.daysLeftContainer }>
-                                <Text style = { styles.daysLeftText }>{this.props.daysLeft} </Text>
+                                <Text style = { styles.daysLeftText }>{this.props.daysLeft}</Text>
                                 <Text style = { styles.distanceWeekSmallText }>Days Left</Text>
                             </View>
                             <View style = { styles.totalDistanceCurrentContainer }>
@@ -220,6 +220,7 @@ function mapStateToProps(state){
         eventCreated: state.event.eventCreated,
         isEventIDUpdated: state.event.isEventIDUpdated,
         isEventNew: state.event.isEventNew,
+        bibNumber: state.latestEvent.bibNumber,
     }
 }
 
