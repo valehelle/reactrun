@@ -47,33 +47,35 @@ class EventDetail extends Component{
                     <View style = { styles.nameContainer }>
                         <Text>Start Date: <Text style = { styles.sub }>{ DateNiceFormatter(this.props.dateStart) } </Text></Text>
                         <Text>End Date: <Text style = { styles.sub }>{ DateNiceFormatter(this.props.dateEnd) } </Text></Text>
-                        <Text>Days Left: <Text style = { styles.sub }>{ this.props.daysLeft }</Text></Text>
+                        <Text>Days Left: <Text style = { styles.sub }>{ this.props.daysLeft.toString() }</Text></Text>
                         <Text>Bib Number: <Text style = { styles.sub }>{ this.props.bibNumber }</Text></Text>
                     </View>
                     <Text style = { styles.totalTitle } >Overall (KM)</Text>
                     <View style = { styles.totalContainer }>
-                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.totalDistance }</Text></Text>
-                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.overallDistanceTravelled }</Text></Text>
-                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.overallDistanceLeft }</Text></Text>
+                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.totalDistance.toString() }</Text></Text>
+                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.overallDistanceTravelled.toString() }</Text></Text>
+                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.overallDistanceLeft.toString() }</Text></Text>
                     </View>
                     <Text style = { styles.totalTitle } >Weekly (KM)</Text>
                     <View style = { styles.totalContainer }>
-                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.distanceWeekly }</Text></Text>
-                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.distanceWeeklyRun }</Text></Text>
-                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.distanceWeeklyLeft }</Text></Text>
+                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.distanceWeekly.toString() }</Text></Text>
+                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.distanceWeeklyRun.toString() }</Text></Text>
+                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.distanceWeeklyLeft.toString() }</Text></Text>
                     </View>
                 </View>
                 <View style = { styles.startContainer }>
                     <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
                 </View>
-                <Text style = { styles.totalTitle } >Runs</Text>
+                <Text style = { styles.totalTitle } >Runs (KM)</Text>
                 <View style = { styles.runList }>
                 {
                     this.runs().map(( runs ) => {
                             return (
                                 <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id )} key= { runs.id }>
-                                    <Text>{ mToKM(runs.distance) } KM run in { TimeNiceFormatter(runs.time) } on { DateNiceFormatter(runs.date) } </Text>
-                                    <Text>Your pace is {runs.pace} meters per minute</Text>
+                                    <Text>Distance: { mToKM(runs.distance) }</Text>
+                                    <Text>Time: { TimeNiceFormatter(runs.time) }</Text>
+                                    <Text>Pace: {runs.pace}</Text>
+                                    <Text>Date: { DateNiceFormatter(runs.date) }</Text> 
                                 </TouchableOpacity>
                             )
                         }) 

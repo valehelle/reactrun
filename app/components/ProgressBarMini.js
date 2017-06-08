@@ -20,7 +20,7 @@ export default class ProgressBarMini extends React.Component {
         reachedBarColor: '#5E8CAD',
         reachedBarHeight: 2,
         unreachedBarColor: '#CFCFCF',
-        unreachedBarHeight: 1,
+        unreachedBarHeight: 2,
         showValue: true
     };
 

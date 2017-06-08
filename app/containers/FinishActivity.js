@@ -18,9 +18,10 @@ class FinishActivity extends Component{
         return (
             <View style = { styles.container } >
                 <View style = { styles.detailWrapper } >
-                    <Text>You ran <Text style = {styles.totalDistanceText}> {this.props.distance} </Text>KM</Text>
-                    <Text>in {this.props.time}</Text>
-                    <Text>Your pace is {this.props.pace} meters per minute</Text>
+                    <Text>Distance: { this.props.distance }</Text>
+                    <Text>Time: { this.props.time }</Text>
+                    <Text>Pace: { this.props.pace }</Text>
+                    <Text>Date: { this.props.date }</Text>
                 </View>
             </View>
         )
@@ -48,6 +49,7 @@ function mapStateToProps(state){
         distance: state.runDetail.distance,
         time: state.runDetail.time,
         pace: state.runDetail.pace,
+        date: state.runDetail.date,
     }
 }
 

@@ -27,7 +27,8 @@ export const runDetail = createReducer({
     'id': '',
     'distance': 0,
     'pace': 0,
-    'time': Date.now()
+    'time': Date.now(),
+    'date': Date.now(),
     }, {
     [types.SET_RUN_DETAIL_ID](state, action) {
         return Object.assign({}, state, {
@@ -45,6 +46,7 @@ export const runDetail = createReducer({
             distance: action.runDetails.distance,
             time: action.runDetails.time,
             pace: action.runDetails.pace,
+            date: action.runDetails.date,
         })
     },
 

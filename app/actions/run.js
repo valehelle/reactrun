@@ -1,6 +1,6 @@
 import * as types from './types'
 import realm from '../database/realm'
-import { mToKM, TimeNiceFormatter } from '../lib/lib'
+import { mToKM, TimeNiceFormatter, DateNiceFormatter } from '../lib/lib'
 var uuid = require('react-native-uuid');
 
 
@@ -56,6 +56,7 @@ export function getRunDetails(){
         let runDetail = realm.objectForPrimaryKey('Run', runID)
         let distance = mToKM(runDetail.distance)
         let time = TimeNiceFormatter(runDetail.time)
+        let date = DateNiceFormatter(runDetail.date)
         let pace = runDetail.distance / runDetail.time
         pace = pace * 60000
         pace = pace.toFixed(0)
@@ -64,6 +65,7 @@ export function getRunDetails(){
                 distance: distance,
                 time: time,
                 pace: pace,
+                date: date,
         }
         return dispatch(getDetail(
             {

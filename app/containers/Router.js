@@ -81,7 +81,6 @@ export const EventStack = StackNavigator({
     EventDetailStack:{
         screen: EventDetailStack,
         navigationOptions:{
-            title: 'Event',
             headerStyle: {
                 backgroundColor: primary,
             },
