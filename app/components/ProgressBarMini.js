@@ -53,7 +53,7 @@ export default class ProgressBarMini extends React.Component {
             _self.reachedWidth,
             {
                 toValue: _reachedWidth,
-                duration: 300,
+                duration: 1000,
             }).start();
     }
 
@@ -103,7 +103,6 @@ export default class ProgressBarMini extends React.Component {
                     borderTopRightRadius: this.props.borderRadius,
                     borderBottomRightRadius: this.props.borderRadius
                 }]}>
-
                 </View>
             </View>
         );

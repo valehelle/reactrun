@@ -17,6 +17,7 @@ const {
     StyleSheet,
     TouchableWithoutFeedback,
     Keyboard,
+    ScrollView,
 } = ReactNative
 
 class CreateEvent extends Component{
@@ -86,7 +87,9 @@ class CreateEvent extends Component{
 
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <ScrollView>
             <View style = {styles.container} >
+                
                 <TextField
                     onChangeText={(text) => this.onTextNameChanged(text)}
                     value={this.state.name}
@@ -132,6 +135,7 @@ class CreateEvent extends Component{
                     <PrimaryButton states={{title: 'Create'  ,onPress: this.createPressed.bind(this)}} />
                 </View>
             </View>
+            </ScrollView>
             </TouchableWithoutFeedback>
         )
     }

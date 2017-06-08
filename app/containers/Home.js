@@ -20,7 +20,6 @@ class Home extends Component{
 
     componentDidMount() {
         this.props.screenProps.getLatestEvent()
-
     }
     componentDidUpdate() {
         this.props.screenProps.getLatestEvent()
@@ -55,11 +54,11 @@ class Home extends Component{
                     />
                     <View style = { styles.titleContainer }>
                         <Text style = { styles.title }>{this.props.name}</Text>
-                        <ProgressBarMini reachedBarColor={ secondary } value={15} total={30}/>
+                        <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
                     </View>
                     <View style = { styles.eventDetailContainer }>
                         <View style = { styles.totalDistanceContainer } >
-                            <Text style = { styles.totalDistance }>{this.props.totalDistance}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                            <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
                         </View>
                         <View style = { styles.distanceContainer }>
                             <View style = { styles.daysLeftContainer }>
@@ -77,7 +76,7 @@ class Home extends Component{
                             <Text style = { styles.distanceWeekSmallText }>This Week</Text>
                             <View style = {styles.distanceWeekRowContainer}>
                                 <View style = { styles.distanceWeekLeftContainer }>
-                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeekly}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeekly.toString()}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
                                     <Text style = { styles.distanceWeekSmallText }>Needed</Text>
                                 </View>
                                 <View style = { styles.distanceWeekLeftContainer }>
@@ -85,7 +84,7 @@ class Home extends Component{
                                     <Text style = { styles.distanceWeekSmallText }>Ran</Text>
                                 </View>
                                 <View style = { styles.distanceWeekLeftContainer }>
-                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
                                     <Text style = { styles.distanceWeekSmallText }>Left</Text>
                                 </View>
                             </View>
