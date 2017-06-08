@@ -88,54 +88,55 @@ class CreateEvent extends Component{
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <ScrollView>
-            <View style = {styles.container} >
-                
-                <TextField
-                    onChangeText={(text) => this.onTextNameChanged(text)}
-                    value={this.state.name}
-                    label= 'Name'
-                />
-                <TextField
-                    onChangeText={(text) => this.onTextBibNumberChanged(text)}
-                    value={this.state.bibNumber}
-                    label= 'Bib Number'
-                />
-                <TextField 
-                    keyboardType = 'numeric'
-                    onChangeText = {(text)=> this.onTextDistanceChanged(text)}
-                    value = {this.state.distance}
-                    label= 'Distance'
-                    onSubmitEditing={ ()=> this.dismissKeyboardAction()}
-                /> 
-                <Text style = {styles.sDateText}>Start Date</Text>
-                <DatePicker
-                    date={this.state.sdate}
-                    mode='date'
-                    placeholder='Select start date'
-                    format='DD-MM-YYYY'
-                    minDate={new Date(2017,0,0,0,0,0)}
-                    confirmBtnText='Confirm'
-                    cancelBtnText='Cancel'
-                    showIcon= {false}
-                    onDateChange={(date) => {this.setState({sdate: toDate(date), edate: addMonths(toDate(date),1)})}}
-                />
-                <Text style = {styles.eDateText}>End Date</Text>
-                <DatePicker
-                    date={this.state.edate}
-                    mode='date'
-                    placeholder='Select end date'
-                    format='DD-MM-YYYY'
-                    minDate={this.state.sdate}
-                    confirmBtnText='Confirm'
-                    cancelBtnText='Cancel'
-                    showIcon= {false}
-                    onDateChange={(date) => {this.setState({edate: toDate(date)})}}
-                />
-                <View style = { styles.startContainer }>
-                    <PrimaryButton states={{title: 'Create'  ,onPress: this.createPressed.bind(this)}} />
-                </View>
-            </View>
-            </ScrollView>
+                    <View style = {styles.container} >
+                        <View style = {styles.formContainer}>
+                            <TextField
+                                onChangeText={(text) => this.onTextNameChanged(text)}
+                                value={this.state.name}
+                                label= 'Name'
+                            />
+                            <TextField
+                                onChangeText={(text) => this.onTextBibNumberChanged(text)}
+                                value={this.state.bibNumber}
+                                label= 'Bib Number'
+                            />
+                            <TextField 
+                                keyboardType = 'numeric'
+                                onChangeText = {(text)=> this.onTextDistanceChanged(text)}
+                                value = {this.state.distance}
+                                label= 'Distance'
+                                onSubmitEditing={ ()=> this.dismissKeyboardAction()}
+                            /> 
+                            <Text style = {styles.sDateText}>Start Date</Text>
+                            <DatePicker
+                                date={this.state.sdate}
+                                mode='date'
+                                placeholder='Select start date'
+                                format='DD-MM-YYYY'
+                                minDate={new Date(2017,0,0,0,0,0)}
+                                confirmBtnText='Confirm'
+                                cancelBtnText='Cancel'
+                                showIcon= {false}
+                                onDateChange={(date) => {this.setState({sdate: toDate(date), edate: addMonths(toDate(date),1)})}}
+                            />
+                            <Text style = {styles.eDateText}>End Date</Text>
+                            <DatePicker
+                                date={this.state.edate}
+                                mode='date'
+                                placeholder='Select end date'
+                                format='DD-MM-YYYY'
+                                minDate={this.state.sdate}
+                                confirmBtnText='Confirm'
+                                cancelBtnText='Cancel'
+                                showIcon= {false}
+                                onDateChange={(date) => {this.setState({edate: toDate(date)})}}
+                            />
+                        </View>
+                        <View style = { styles.createContainer }>
+                            <PrimaryButton states={{title: 'Create'  ,onPress: this.createPressed.bind(this)}} />
+                        </View>
+                    </View>
+                </ScrollView>
             </TouchableWithoutFeedback>
         )
     }
@@ -144,28 +145,31 @@ class CreateEvent extends Component{
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingLeft: 20,
-        paddingRight: 20,
     },
     eventList: {
         backgroundColor: 'white',
         flex: 1,
-    }, 
-    bNewEvent: {
-        backgroundColor: 'green',
-        height:40,
-    }, 
+    },
     sDateText: {
         marginTop: 15,
     },
     eDateText: {
         marginTop: 15,
     },
-    startContainer: {
+    createContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 50,
+        marginTop: 20,
+        marginBottom:20,
+    },
+    formContainer: {
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingBottom: 10,
+        marginTop: 10,
     },
 })
 

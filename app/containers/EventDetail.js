@@ -45,22 +45,22 @@ class EventDetail extends Component{
                 <View style = { styles.eventDetailContainer }>
                     <Text style = { styles.nameText }>{ this.props.name }</Text>
                     <View style = { styles.nameContainer }>
-                        <Text style = { styles.sub } >{ DateNiceFormatter(this.props.dateStart) } until { DateNiceFormatter(this.props.dateEnd) }</Text>
-                        <Text>{ this.props.daysLeft } days left </Text>
-                        <Text>{ this.props.bibNumber } Bib Number</Text>
+                        <Text>Start Date: <Text style = { styles.sub }>{ DateNiceFormatter(this.props.dateStart) } </Text></Text>
+                        <Text>End Date: <Text style = { styles.sub }>{ DateNiceFormatter(this.props.dateEnd) } </Text></Text>
+                        <Text>Days Left: <Text style = { styles.sub }>{ this.props.daysLeft }</Text></Text>
+                        <Text>Bib Number: <Text style = { styles.sub }>{ this.props.bibNumber }</Text></Text>
                     </View>
-                    <Text style = { styles.totalTitle } >Overall</Text>
+                    <Text style = { styles.totalTitle } >Overall (KM)</Text>
                     <View style = { styles.totalContainer }>
-                        <Text style = { styles.sub } >{this.props.totalDistance} KM total distance</Text>
-                        <Text style = { styles.sub } >{this.props.overallDistanceTravelled} KM distance ran</Text>
-                        <Text>{this.props.overallDistanceLeft} KM distance left</Text>
-                        
+                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.totalDistance }</Text></Text>
+                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.overallDistanceTravelled }</Text></Text>
+                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.overallDistanceLeft }</Text></Text>
                     </View>
-                    <Text style = { styles.totalTitle } >Weekly</Text>
+                    <Text style = { styles.totalTitle } >Weekly (KM)</Text>
                     <View style = { styles.totalContainer }>
-                        <Text style = { styles.sub }>{this.props.distanceWeekly} KM weekly run needed</Text>
-                        <Text style = { styles.sub }>{this.props.distanceWeeklyRun} KM ran this week</Text>
-                        <Text>{this.props.distanceWeeklyLeft} KM run left for this week</Text>
+                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.distanceWeekly }</Text></Text>
+                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.distanceWeeklyRun }</Text></Text>
+                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.distanceWeeklyLeft }</Text></Text>
                     </View>
                 </View>
                 <View style = { styles.startContainer }>
@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     sub: {
-        marginBottom: 5,
+        marginTop: 5,
+        fontWeight: 'bold',
     }
 })
 

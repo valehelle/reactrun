@@ -53,12 +53,13 @@ class Home extends Component{
                         barStyle="light-content"
                     />
                     <View style = { styles.titleContainer }>
-                        <Text style = { styles.title }>{this.props.name}</Text>
-                        <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
+                        <Text style = { styles.title }>{this.props.name}</Text>                       
                     </View>
                     <View style = { styles.eventDetailContainer }>
                         <View style = { styles.totalDistanceContainer } >
-                            <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                            
+                            <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
+                            <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
                         </View>
                         <View style = { styles.distanceContainer }>
                             <View style = { styles.daysLeftContainer }>
@@ -67,27 +68,13 @@ class Home extends Component{
                             </View>
                             <View style = { styles.totalDistanceCurrentContainer }>
                                 <View style = { styles.totalDistanceRunContainer }>
-                                    <Text style = { styles.totalDistanceRunText }>{this.props.overallDistanceTravelled}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
-                                    <Text style = { styles.distanceWeekSmallText }>Ran</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style = { styles.distanceWeekContainer }>
-                            <Text style = { styles.distanceWeekSmallText }>This Week</Text>
-                            <View style = {styles.distanceWeekRowContainer}>
-                                <View style = { styles.distanceWeekLeftContainer }>
-                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeekly.toString()}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
-                                    <Text style = { styles.distanceWeekSmallText }>Needed</Text>
-                                </View>
-                                <View style = { styles.distanceWeekLeftContainer }>
-                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyRun}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
-                                    <Text style = { styles.distanceWeekSmallText }>Ran</Text>
-                                </View>
-                                <View style = { styles.distanceWeekLeftContainer }>
-                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()}<Text style = { styles.distanceWeekSmallText }>KM </Text></Text>
+                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
                                     <Text style = { styles.distanceWeekSmallText }>Left</Text>
                                 </View>
                             </View>
+                        </View>
+                        <View style = { styles.bibContainer }>
+                            <Text style = { styles.distanceWeekSmallText }>{ this.props.bibNumber }</Text>
                         </View>
                     </View>
                     <View style = { styles.startContainer }>
@@ -113,19 +100,22 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
+
     },
     titleContainer: {
         flex: 2,
         justifyContent: 'center',
     },
     totalDistanceContainer: {
-        flex: 1,
+        flex: 2,
     },
     distanceContainer: {
         flex: 1,
         flexDirection: 'row',
+    },
+    bibContainer: {
+        flex: 1,
+        justifyContent: 'center',
     },
     distanceWeekContainer: {
         flex: 1,
@@ -138,12 +128,14 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 25,
+        paddingLeft: 10,
     },
     eventDetailContainer:{
         flex: 8,
         backgroundColor: 'white',
         justifyContent: 'center',
-        paddingTop: 30,
+        padding: 10,
+
     },
     totalDistance: {
         textAlign: 'center',

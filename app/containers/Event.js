@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux' 
 import { NavigationActions } from 'react-navigation'
-import { DateFormatter } from '../lib/lib'
+import { DateNiceFormatter } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
 const {
     FlatList,
@@ -54,10 +54,9 @@ class Event extends Component{
                     renderItem={
                         ({item}) => (
                             <View>
-                                <TouchableOpacity  activeOpacity={ 0.8 } onPress={() => this.eventDetails(item.id)}>
+                                <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.eventDetails(item.id)}>
                                     <View style = { styles.eventList }>
-                                        <Text style = { styles.nameText } >{ item.name }</Text> 
-                                        <Text style = { styles.distanceText }>{ item.distance } KM</Text> 
+                                        <Text style = { styles.nameText } >{ item.name }</Text>
                                      </View>
                                  </TouchableOpacity>
                             </View>
@@ -77,6 +76,10 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
     },
+    infoWrapper: {
+        flex: 1,
+        flexDirection: 'row'
+    },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -84,11 +87,11 @@ const styles = StyleSheet.create({
     },
     eventList:{
         backgroundColor: 'white',
-        marginBottom: 3,
+        marginBottom: 2,
         padding: 10,
     },
     nameText: {
-        fontSize: 20,
+        fontSize: 14,
     },
     distanceText: {
         fontSize: 14,
