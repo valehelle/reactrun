@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 
-const VALUE_SIZE = 25;
+const VALUE_SIZE = 30;
 
 export default class ProgressBarMini extends React.Component {
     static propTypes = {
@@ -47,22 +47,22 @@ export default class ProgressBarMini extends React.Component {
         });
 
         const _reachedWidth = ((this.width - VALUE_SIZE) * _value) / _total;
-
+        this.refReachedBarView.setNativeProps({ style: { width: _reachedWidth } })
         const _self = this;
-        Animated.timing(
-            _self.reachedWidth,
-            {
-                toValue: _reachedWidth,
-                duration: 1000,
-            }).start();
+        // Animated.timing(
+        //     _self.reachedWidth,
+        //     {
+        //         toValue: _reachedWidth,
+        //         duration: 1000,
+        //     }).start();
     }
 
-    componentDidMount() {
-        this.reachedWidth.addListener(({ value }) => {
-            const w = this.reachedWidth.__getValue();
-            this.refReachedBarView.setNativeProps({ style: { width: w } });
-        });
-    }
+    // componentDidMount() {
+    //     this.reachedWidth.addListener(({ value }) => {
+    //         const w = this.reachedWidth.__getValue();
+    //         this.refReachedBarView.setNativeProps({ style: { width: w } });
+    //     });
+    // }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.value != prevProps.value) {
