@@ -3,6 +3,7 @@ import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import { secondary, primaryTextButton, primaryDark } from '../lib/colors'
 import PrimaryButton from  '../components/PrimaryButton'
+import ProgressBarMini from '../components/ProgressBarMini'
 
 const {
     View,
@@ -54,6 +55,7 @@ class Home extends Component{
                     />
                     <View style = { styles.titleContainer }>
                         <Text style = { styles.title }>{this.props.name}</Text>
+                        <ProgressBarMini reachedBarColor={ secondary } value={15} total={30}/>
                     </View>
                     <View style = { styles.eventDetailContainer }>
                         <View style = { styles.totalDistanceContainer } >
