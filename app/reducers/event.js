@@ -95,6 +95,7 @@ export const latestEvent = createReducer({
     'distanceWeeklyRun': 0,
     'eventID': '',
     'bibNumber': '',
+    'bannerSource': '',
     }, {
     [types.GET_LATEST_EVENT](state, action) {
         return Object.assign({}, state, {
@@ -108,6 +109,7 @@ export const latestEvent = createReducer({
             distanceWeeklyRun: action.distanceWeeklyRun,
             distanceWeeklyLeft: action.distanceWeeklyLeft,
             bibNumber: action.bibNumber,
+            bannerSource: action.bannerSource,
         })
     },
     

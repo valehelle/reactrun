@@ -14,6 +14,7 @@ const {
     Alert,
     ScrollView,
     StatusBar,
+    Image,
 } = ReactNative
 
 class Home extends Component{
@@ -53,11 +54,11 @@ class Home extends Component{
                         barStyle="light-content"
                     />
                     <View style = { styles.titleContainer }>
-                        <Text style = { styles.title }>{this.props.name}</Text>                       
+                        <Text style = { styles.title }>{this.props.name}</Text>                  
                     </View>
                     <View style = { styles.eventDetailContainer }>
                         <View style = { styles.totalDistanceContainer } >
-                            
+                            <Image source={ { uri: this.props.bannerSource } }  style={styles.uploadBanner} />  
                             <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
                             <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
                         </View>
@@ -195,6 +196,10 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 20,
     },
+    uploadBanner:{
+        flex:1,
+        height: 200,
+    }
 })
 
 
@@ -214,6 +219,7 @@ function mapStateToProps(state){
         isEventIDUpdated: state.event.isEventIDUpdated,
         isEventNew: state.event.isEventNew,
         bibNumber: state.latestEvent.bibNumber,
+        bannerSource: state.latestEvent.bannerSource,
     }
 }
 

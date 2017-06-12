@@ -7,18 +7,21 @@ import { toDate, addMonths } from '../lib/lib'
 import { TextField } from 'react-native-material-textfield'
 import PrimaryButton from  '../components/PrimaryButton'
 var dismissKeyboard = require('dismissKeyboard')
-
+var ImagePicker = require('react-native-image-picker')
 
 const {
     TextInput,
     View,
-    TouchableHighlight,
     Text,
     StyleSheet,
     TouchableWithoutFeedback,
     Keyboard,
     ScrollView,
+    Image,
 } = ReactNative
+
+
+
 
 class CreateEvent extends Component{
 
@@ -31,6 +34,8 @@ class CreateEvent extends Component{
             weeklyrun: '3', 
             sdate: new Date(), 
             edate: new Date(),
+            bannerSource: '',
+
         }
     }
 
@@ -83,6 +88,59 @@ class CreateEvent extends Component{
         dismissKeyboard();
     }
 
+    photoPressed(){
+        let options = {
+            title: 'Select Photo',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images'
+            }
+        }
+        // Open Image Library:
+        ImagePicker.launchImageLibrary(options, (response)  => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else {
+                let source = { uri: response.uri };
+                this.setState({
+                    bannerSource: source,
+                });
+            }
+
+        });
+    }
+
+     _renderCameraIcon(){
+        return(
+            <View style = {styles.cameraWrapper} >
+                <Image
+                    source={require('../icons/ic_photo_camera_black_24dp_2x.png')}
+                    style={styles.bannerIcon}
+                />
+            </View>
+        )
+    }
+
+     _renderBannerImage(){
+        return(
+            <Image source={ this.state.bannerSource } style={styles.uploadBanner} />
+        )
+    }
+
+    _renderBanner() {
+        return(
+            <TouchableWithoutFeedback onPress={ () => this.photoPressed() }>
+
+                {this.state.bannerSource == '' ? this._renderCameraIcon() : this._renderBannerImage() }
+            </TouchableWithoutFeedback>
+        )
+    }
+
+
     render(){
 
         return (
@@ -131,6 +189,9 @@ class CreateEvent extends Component{
                                 showIcon= {false}
                                 onDateChange={(date) => {this.setState({edate: toDate(date)})}}
                             />
+                            <View style = { styles.photoContainer }>
+                                { this._renderBanner() }
+                            </View>
                         </View>
                         <View style = { styles.createContainer }>
                             <PrimaryButton states={{title: 'Create'  ,onPress: this.createPressed.bind(this)}} />
@@ -163,6 +224,14 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom:20,
     },
+    photoContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        marginTop: 20,
+        marginBottom:20,
+        height: 200,
+        backgroundColor: 'lightgrey',
+    },
     formContainer: {
         backgroundColor: 'white',
         justifyContent: 'center',
@@ -171,6 +240,18 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         marginTop: 10,
     },
+    uploadBanner: {
+        flex: 1,
+        height: 200,
+    },
+    bannerIcon: {
+        tintColor: 'white',
+    },
+    cameraWrapper:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 })
 
 function mapStateToProps(state){

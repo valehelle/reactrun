@@ -18,6 +18,7 @@ export function createEvent(state){
                     datecreated: new Date(),
                     distanceTravelled: 0,
                     bibNumber: state.bibNumber,
+                    bannerSrc: state.bannerSource.uri,
                     runs: [],
                 });
             })
@@ -114,6 +115,7 @@ export function getLatestEvent(){
             distanceWeekly: distanceWeekly,
             distanceWeeklyRun: distanceWeeklyRun,
             bibNumber: bibNumber,
+            bannerSource: latestEvent.bannerSrc,
         }
     }catch(e){
         return {

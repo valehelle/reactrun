@@ -16,6 +16,7 @@ Event.schema = {
     datecreated: 'date',
     distanceTravelled: 'int',
     bibNumber: 'string',
+    bannerSrc: 'string',
     runs: {type: 'list', objectType: 'Run'},
   }
 }
