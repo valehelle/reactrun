@@ -48,7 +48,7 @@ class Home extends Component{
         }
     _renderEvent(){
         return(
-                <View style={ styles.container }>
+                <ScrollView style={ styles.container }>
                     <StatusBar
                         backgroundColor = {primaryDark}
                         barStyle="light-content"
@@ -57,8 +57,10 @@ class Home extends Component{
                         <Text style = { styles.title }>{this.props.name}</Text>                  
                     </View>
                     <View style = { styles.eventDetailContainer }>
+                        <View style = { styles.bannerContainer } >
+                            <Image source={ { uri: this.props.bannerSource } }  style={ styles.bannerImage } />  
+                        </View>
                         <View style = { styles.totalDistanceContainer } >
-                            <Image source={ { uri: this.props.bannerSource } }  style={styles.uploadBanner} />  
                             <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
                             <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
                         </View>
@@ -81,7 +83,7 @@ class Home extends Component{
                     <View style = { styles.startContainer }>
                         <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
                     </View>
-                </View>
+                </ScrollView>
         )
     }
 
@@ -110,6 +112,9 @@ const styles = StyleSheet.create({
     totalDistanceContainer: {
         flex: 2,
     },
+    bannerContainer:{
+        flex: 3
+    },
     distanceContainer: {
         flex: 1,
         flexDirection: 'row',
@@ -126,13 +131,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
+        marginBottom: 10,
     },
     title: {
         fontSize: 25,
         paddingLeft: 10,
     },
     eventDetailContainer:{
-        flex: 8,
+        flex: 20,
         backgroundColor: 'white',
         justifyContent: 'center',
         padding: 10,
@@ -196,9 +202,9 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 20,
     },
-    uploadBanner:{
-        flex:1,
-        height: 200,
+    bannerImage:{
+        flex: 1,
+        height: 150,
     }
 })
 
