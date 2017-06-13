@@ -4,7 +4,8 @@ import * as types from '../actions/types'
 export const location = createReducer({
     'prevLatLng': 0,
     'totalDistanceTravelled': 0 ,
-    'previousDistanceTravelled': 0, 
+    'previousDistanceTravelled': 0,
+    'allLatLng': [],
     }, {
     [types.SET_LOCATION](state, action) {
         return Object.assign({}, state, {
@@ -14,12 +15,14 @@ export const location = createReducer({
         return Object.assign({}, state, {
             prevLatLng: action.location.latlng,
             totalDistanceTravelled: action.location.totalDistanceTravelled,
+            allLatLng:  [...state.allLatLng, action.location.latlng],
         })
     },[types.UPDATE_LOCATION_LAPSE](state, action) {
         return Object.assign({}, state, {
             prevLatLng: action.locationLapse.latlng,
             totalDistanceTravelled: action.locationLapse.totalDistanceTravelled,
             previousDistanceTravelled: action.locationLapse.previousDistanceTravelled,
+            allLatLng:  [...state.allLatLng, action.locationLapse.latlng],
         })
     },
     [types.STOP_TRACKING](state, action) {

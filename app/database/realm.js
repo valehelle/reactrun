@@ -31,7 +31,17 @@ Run.schema = {
     time: 'int',
     type: 'string',
     distance: 'int',
+    gps: {type: 'list', objectType: 'Gps'},
     laps:  {type: 'list', objectType: 'Lapse'},
+  }
+}
+
+class Gps{}
+Gps.schema = {
+  name: 'Gps',
+  properties: {
+    latitude: 'float',
+    longitude: 'float',
   }
 }
 
@@ -46,4 +56,4 @@ Lapse.schema = {
   }
 }
 
-export default new Realm({schema: [Lapse, Run, Event]})
+export default new Realm({schema: [Gps,Lapse, Run, Event]})

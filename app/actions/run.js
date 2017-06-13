@@ -22,11 +22,17 @@ export function saveRun(){
         try{
             realm.write(() => {
                 let run = realm.create('Run', runDetail);
+                for(let i = 0; i < getState().location.allLatLng.length; i++){
+                    let latlng = getState().location.allLatLng[i]
+                    let gps = realm.create('Gps', latlng)
+                    run.gps.push(latlng)
+                }
                 event.push(run);
             })
             return dispatch(saveRunComplete({ runDetail: runDetail }))
         }catch(e){
-            return dispatch(saveRunComplete())
+            console.log(e)
+            return dispatch(saveRunFailed())
         }
     }
 }

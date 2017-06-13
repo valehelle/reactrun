@@ -30,6 +30,7 @@ export function startTracking(){
                     return dispatch(updateLocation({ 
                         latlng: newLatLng,
                         totalDistanceTravelled: totalDistance,
+                        
                     }))
                 }
             }else{
