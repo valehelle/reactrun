@@ -22,11 +22,16 @@ class FinishActivity extends Component{
                     <MapView
                         style = {styles.mapView}
                         initialRegion={{
-                        latitude: 4.90847826004028,
-                        longitude: 100.664001464844,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
+                            latitude: 4.90847826004028,
+                            longitude: 100.664001464844,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
                         }}
+                        
+                        scrollEnabled={false}
+                        zoomEnabled={false}
+                        pitchEnabled={false}
+                        rotateEnabled={false}
                     >
                         <MapView.Polyline
                             coordinates={ this.props.gps }
