@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     map:{
         flex: 6,
     },
-    mapView:{
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,        
+    mapView: { 
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,        
     },
 })
 

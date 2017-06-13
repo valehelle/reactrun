@@ -30,8 +30,8 @@ export const runDetail = createReducer({
     'time': Date.now(),
     'date': Date.now(),
     'gps': [],
-    'startLat': 0,
-    'startLng': 0,
+    'startLat': 37.78825,
+    'startLng': -122.4324,
     }, {
     [types.SET_RUN_DETAIL_ID](state, action) {
         return Object.assign({}, state, {

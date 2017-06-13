@@ -5,6 +5,7 @@ import { TimeFormatter, mToKM } from '../lib/lib.js'
 import { NavigationActions } from 'react-navigation'
 import { secondary, primaryTextButton, primary } from '../lib/colors'
 import PrimaryButton from '../components/PrimaryButton'
+import MapView from 'react-native-maps' 
 
 const {
     View,
@@ -207,21 +208,55 @@ class Home extends Component{
         )
     }
 
+  componentWillReceiveProps(){
+      this.fitToAll()
+  }
+    fitToAll(){
+        const DEFAULT_PADDING = { top: 30, right: 30, bottom: 30, left: 30 };
+        this.map.animateToCoordinate(this.props.prevLatLng,1);
+    }
+
     render(){
         return (
-           
+                <ScrollView >
                 <View style={ styles.container }>
                     <View style = {styles.content}>
-                            <View style = { styles.middle } >
-                                { this._renderTimers() }
-                                { this._renderButtons() }
-                            </View>
-                            <View style = { styles.bottom }>
-                                { this._renderGoal() }
-                            </View>
+                        <View style = {styles.map}>
+                            <MapView
+                                ref={ref => { this.map = ref }}
+                                style = {styles.mapView}
+                                initialRegion={{
+                                    latitude: this.props.startLat,
+                                    longitude: this.props.startLng,
+                                    latitudeDelta: 0.0922,
+                                    longitudeDelta: 0.0421,
+                                }}
+                                scrollEnabled={false}
+                                zoomEnabled={false}
+                                pitchEnabled={false}
+                                rotateEnabled={false}
+                                onLayout={()=> this.fitToAll()}
+                                >
+                                <MapView.Marker coordinate={this.props.prevLatLng}/>
+
+                                <MapView.Polyline
+                                    coordinates={ this.props.gps }
+                                    strokeColor= { secondary }
+                                    strokeWidth={5}
+                                    lineCap={'round'}
+                                />
+                            </MapView>
+                        </View>
+                        <View style = { styles.middle } >
+                            { this._renderTimers() }
+                            { this._renderButtons() }
+                        </View>
+                        <View style = { styles.bottom }>
+                            { this._renderGoal() }
+                        </View>
                     </View>
                 </View>
-            
+            </ScrollView>
         )
     }
 }
@@ -260,6 +295,9 @@ const styles = StyleSheet.create({
     },
     bottom: {
         flex: 1,
+    },
+    map:{
+      flex: 6,  
     },
     mainTimer: {
         fontSize: 18,
@@ -355,6 +393,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'red',
     },
+    mapView: {
+        flex:1,
+        height: 300,
+    },
 })
 
 function mapStateToProps(state){
@@ -370,6 +412,10 @@ function mapStateToProps(state){
         distanceWeekly: state.currentEvent.distanceWeekly,
         distanceWeeklyLeft: state.currentEvent.distanceWeeklyLeft,
         distanceGoal: state.currentEvent.distanceGoal,
+        startLat: state.location.startLat,
+        startLng: state.location.startLng,
+        prevLatLng: state.location.prevLatLng,
+        gps: state.location.allLatLng,
     }
 }
 
