@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
+import MapView from 'react-native-maps' 
 const {
     ScrollView,
     View,
@@ -17,6 +18,17 @@ class FinishActivity extends Component{
     render(){
         return (
             <View style = { styles.container } >
+                <View style = {styles.map}>
+                <MapView
+                    style = {styles.mapView}
+                    initialRegion={{
+                    latitude: 37.78825,
+                    longitude: -122.4324,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                    }}
+                />
+                </View>
                 <View style = { styles.detailWrapper } >
                     <Text>Distance: { this.props.distance }</Text>
                     <Text>Time: { this.props.time }</Text>
@@ -35,11 +47,22 @@ const styles = StyleSheet.create({
     detailWrapper: {
         backgroundColor: 'white',
         padding: 10,
-        marginBottom: 15,    
+        marginBottom: 15,
+        flex: 4,
     },
     totalDistanceText: {
         fontSize: 25,
-    }
+    },
+    map:{
+        flex: 6,
+    },
+    mapView:{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,        
+    },
 })
 
 

@@ -131,6 +131,19 @@ dependencies {
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-image-picker')
+    compile(project(':react-native-maps')){
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+
+   // Now force load *YOUR* desired versions:
+   //THIS IS ONLY FOR EMULATOR THE PRODUCTION SHOULD USE THE LATEST
+   compile ("com.google.android.gms:play-services-base:8.4.+") {
+        force = true;
+    }
+    compile ("com.google.android.gms:play-services-maps:8.4.+") {
+        force = true;
+   }
 }
 
 // Run this once to be able to run the application with BUCK
