@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
+import { secondary } from '../lib/colors'
 import MapView from 'react-native-maps' 
 const {
     ScrollView,
@@ -12,31 +13,36 @@ const {
 } = ReactNative
 
 class FinishActivity extends Component{
+
     componentDidMount() {
         this.props.screenProps.getRunDetails()
+    }
+    fitToAll(){
+        const DEFAULT_PADDING = { top: 30, right: 30, bottom: 30, left: 30 };
+        this.map.fitToCoordinates(this.props.gps, {
+            edgePadding: DEFAULT_PADDING ,
+            animated: false,
+        });
     }
     render(){
         return (
             <View style = { styles.container } >
                 <View style = {styles.map}>
                     <MapView
+                        ref={ref => { this.map = ref }}
                         style = {styles.mapView}
                         initialRegion={{
-                            latitude: 4.90847826004028,
-                            longitude: 100.664001464844,
+                            latitude: this.props.startLat,
+                            longitude: this.props.startLng,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
                         }}
-                        
-                        scrollEnabled={false}
-                        zoomEnabled={false}
-                        pitchEnabled={false}
-                        rotateEnabled={false}
+                        onLayout={()=> this.fitToAll()}
                     >
                         <MapView.Polyline
                             coordinates={ this.props.gps }
-                            strokeColor="rgba(255,0,0,0.8)"
-                            strokeWidth={3}
+                            strokeColor= { secondary }
+                            strokeWidth={5}
                             lineCap="round"
                         />
                     
@@ -86,7 +92,9 @@ function mapStateToProps(state){
         time: state.runDetail.time,
         pace: state.runDetail.pace,
         date: state.runDetail.date,
-        gps: state.runDetail.gps
+        gps: state.runDetail.gps,
+        startLat: state.runDetail.startLat,
+        startLng: state.runDetail.startLng,
     }
 }
 

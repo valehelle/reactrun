@@ -29,6 +29,9 @@ export const runDetail = createReducer({
     'pace': 0,
     'time': Date.now(),
     'date': Date.now(),
+    'gps': [],
+    'startLat': 0,
+    'startLng': 0,
     }, {
     [types.SET_RUN_DETAIL_ID](state, action) {
         return Object.assign({}, state, {
@@ -48,6 +51,8 @@ export const runDetail = createReducer({
             pace: action.runDetails.pace,
             date: action.runDetails.date,
             gps: action.runDetails.gps,
+            startLat: action.runDetails.startLat,
+            startLng: action.runDetails.startLng,
         })
     },
 

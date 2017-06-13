@@ -74,6 +74,8 @@ export function getRunDetails(){
             let location = {latitude: latitude,longitude: longitude}
             gps.push(location)
         }
+        let startLat = runDetail.gps[0].latitude
+        let startLng = runDetail.gps[0].longitude
         let runDetails = {
                 id: runID,
                 distance: distance,
@@ -81,6 +83,8 @@ export function getRunDetails(){
                 pace: pace,
                 date: date,
                 gps: gps,
+                startLat: startLat,
+                startLng: startLng,
         }
         return dispatch(getDetail(
             {
