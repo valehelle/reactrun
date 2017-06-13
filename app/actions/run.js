@@ -66,12 +66,21 @@ export function getRunDetails(){
         let pace = runDetail.distance / runDetail.time
         pace = pace * 60000
         pace = pace.toFixed(0)
+        
+        let gps = []
+        for(let i = 0; i < runDetail.gps.length; i++){
+            let latitude = runDetail.gps[i].latitude
+            let longitude = runDetail.gps[i].longitude
+            let location = {latitude: latitude,longitude: longitude}
+            gps.push(location)
+        }
         let runDetails = {
                 id: runID,
                 distance: distance,
                 time: time,
                 pace: pace,
                 date: date,
+                gps: gps,
         }
         return dispatch(getDetail(
             {

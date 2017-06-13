@@ -19,15 +19,23 @@ class FinishActivity extends Component{
         return (
             <View style = { styles.container } >
                 <View style = {styles.map}>
-                <MapView
-                    style = {styles.mapView}
-                    initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                    }}
-                />
+                    <MapView
+                        style = {styles.mapView}
+                        initialRegion={{
+                        latitude: 4.90847826004028,
+                        longitude: 100.664001464844,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                        }}
+                    >
+                        <MapView.Polyline
+                            coordinates={ this.props.gps }
+                            strokeColor="rgba(255,0,0,0.8)"
+                            strokeWidth={3}
+                            lineCap="round"
+                        />
+                    
+                    </MapView>
                 </View>
                 <View style = { styles.detailWrapper } >
                     <Text>Distance: { this.props.distance }</Text>
@@ -73,6 +81,7 @@ function mapStateToProps(state){
         time: state.runDetail.time,
         pace: state.runDetail.pace,
         date: state.runDetail.date,
+        gps: state.runDetail.gps
     }
 }
 

@@ -47,6 +47,7 @@ export const runDetail = createReducer({
             time: action.runDetails.time,
             pace: action.runDetails.pace,
             date: action.runDetails.date,
+            gps: action.runDetails.gps,
         })
     },
 
