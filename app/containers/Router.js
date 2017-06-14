@@ -113,7 +113,7 @@ export const TabNavigations = TabNavigator({
             tabBarLabel: 'Event',
             tabBarIcon: ({ tintColor }) => (
                     <Image
-                        source={require('../icons/ic_directions_run_black_24dp_2x.png')}
+                        source={require('../icons/ic_event_black_24dp_2x.png')}
                         style={[styles.icon, {tintColor: tintColor}]}
                     />
             ),

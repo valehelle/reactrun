@@ -3,6 +3,7 @@ import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
+import { secondary } from '../lib/colors'
 
 const {
     View,
@@ -77,17 +78,26 @@ class EventDetail extends Component{
                 <View style = { styles.startContainer }>
                     <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
                 </View>
-                <Text style = { styles.totalTitle } >Runs (KM)</Text>
+                <Text style = { styles.totalTitle } >Runs </Text>
                 <View style = { styles.runList }>
                 {
                     this.runs().map(( runs ) => {
                             return (
-                                <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id )} key= { runs.id }>
-                                    <Text>Distance: { mToKM(runs.distance) }</Text>
-                                    <Text>Time: { TimeNiceFormatter(runs.time) }</Text>
-                                    <Text>Pace: {runs.pace}</Text>
-                                    <Text>Date: { DateNiceFormatter(runs.date) }</Text> 
-                                </TouchableOpacity>
+                                <View style = { styles.runContainer } key= { runs.id }>
+                                    <Text style = { styles.runDate }> { DateNiceFormatter(runs.date) }</Text> 
+                                    <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id )} >
+                                        <View style = {styles.runImageWrapper}>
+                                            <Image
+                                                source={require('../icons/ic_directions_run_black_24dp_2x.png')}
+                                                style={[styles.icon, {tintColor: secondary}]}
+                                            />
+                                        </View>
+                                        <View style = {styles.runDetailWrapper}>
+                                            <Text>{ mToKM(runs.distance) } KM</Text>
+                                            <Text style = { styles.runTime }>{ TimeNiceFormatter(runs.time) }</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
                             )
                         }) 
                 }
@@ -139,6 +149,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: 'white',
         marginBottom: 5,
+        flexDirection: 'row'
     },
     startContainer: {
         flexDirection: 'row',
@@ -155,6 +166,27 @@ const styles = StyleSheet.create({
     bannerImage:{
         flex: 1,
         height: 150,
+    },
+    runContainer: {
+        marginTop: 10,
+    },
+    runDate: {
+        marginBottom: 5,
+    },
+    icon: {
+        width: 26,
+        height: 26,
+    },
+    runDetailWrapper:{
+        flex: 8,
+    },
+    runImageWrapper:{
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    runTime:{
+        fontSize: 12,
     },
 })
 
