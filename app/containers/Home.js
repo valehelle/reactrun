@@ -46,6 +46,13 @@ class Home extends Component{
                 </View>
             )  
         }
+    _renderBanner(){
+        return(
+            <View style = { styles.bannerContainer } >
+                <Image source={ { uri: this.props.bannerSource } }  style={ styles.bannerImage } />  
+            </View>
+        )
+    }
     _renderEvent(){
         return(
                 <ScrollView style={ styles.container }>
@@ -57,27 +64,27 @@ class Home extends Component{
                         <Text style = { styles.title }>{this.props.name}</Text>                  
                     </View>
                     <View style = { styles.eventDetailContainer }>
-                        <View style = { styles.bannerContainer } >
-                            <Image source={ { uri: this.props.bannerSource } }  style={ styles.bannerImage } />  
-                        </View>
-                        <View style = { styles.totalDistanceContainer } >
-                            <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
-                            <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
-                        </View>
-                        <View style = { styles.distanceContainer }>
-                            <View style = { styles.daysLeftContainer }>
-                                <Text style = { styles.daysLeftText }>{this.props.daysLeft}</Text>
-                                <Text style = { styles.distanceWeekSmallText }>Days Left</Text>
+                        {this.props.bannerSource != '' ? this._renderBanner() : null }
+                        <View style = { styles.contentContainer } >
+                            <View style = { styles.totalDistanceContainer } >
+                                <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
+                                <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
                             </View>
-                            <View style = { styles.totalDistanceCurrentContainer }>
-                                <View style = { styles.totalDistanceRunContainer }>
-                                    <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
-                                    <Text style = { styles.distanceWeekSmallText }>Left</Text>
+                            <View style = { styles.distanceContainer }>
+                                <View style = { styles.daysLeftContainer }>
+                                    <Text style = { styles.daysLeftText }>{this.props.daysLeft}</Text>
+                                    <Text style = { styles.distanceWeekSmallText }>Days Left</Text>
+                                </View>
+                                <View style = { styles.totalDistanceCurrentContainer }>
+                                    <View style = { styles.totalDistanceRunContainer }>
+                                        <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
+                                        <Text style = { styles.distanceWeekSmallText }>Left</Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                        <View style = { styles.bibContainer }>
-                            <Text style = { styles.distanceWeekSmallText }>{ this.props.bibNumber }</Text>
+                            <View style = { styles.bibContainer }>
+                                <Text style = { styles.distanceWeekSmallText }>{ this.props.bibNumber }</Text>
+                            </View>
                         </View>
                     </View>
                     <View style = { styles.startContainer }>
@@ -108,12 +115,13 @@ const styles = StyleSheet.create({
     titleContainer: {
         flex: 2,
         justifyContent: 'center',
+        padding: 10,
     },
     totalDistanceContainer: {
         flex: 2,
     },
     bannerContainer:{
-        flex: 3
+        flex: 1,
     },
     distanceContainer: {
         flex: 1,
@@ -135,13 +143,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 25,
-        paddingLeft: 10,
     },
     eventDetailContainer:{
         flex: 20,
         backgroundColor: 'white',
         justifyContent: 'center',
-        padding: 10,
+        
 
     },
     totalDistance: {
@@ -205,6 +212,9 @@ const styles = StyleSheet.create({
     bannerImage:{
         flex: 1,
         height: 150,
+    },
+    contentContainer: {
+        padding: 10,
     }
 })
 

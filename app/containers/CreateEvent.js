@@ -34,7 +34,7 @@ class CreateEvent extends Component{
             weeklyrun: '3', 
             sdate: new Date(), 
             edate: new Date(),
-            bannerSource: '',
+            bannerSource: { uri: '' },
 
         }
     }
@@ -105,7 +105,7 @@ class CreateEvent extends Component{
                 console.log('ImagePicker Error: ', response.error);
             }
             else {
-                let source = { uri: response.uri };
+                let source = { uri: response.uri }
                 this.setState({
                     bannerSource: source,
                 });
@@ -135,7 +135,7 @@ class CreateEvent extends Component{
         return(
             <TouchableWithoutFeedback onPress={ () => this.photoPressed() }>
 
-                {this.state.bannerSource == '' ? this._renderCameraIcon() : this._renderBannerImage() }
+                {this.state.bannerSource.uri == '' ? this._renderCameraIcon() : this._renderBannerImage() }
             </TouchableWithoutFeedback>
         )
     }

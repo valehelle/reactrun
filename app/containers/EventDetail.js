@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
 
-
 const {
     View,
     TouchableHighlight,
@@ -13,6 +12,7 @@ const {
     StyleSheet,
     FlatList,
     ScrollView,
+    Image,
 } = ReactNative
 
 class EventDetail extends Component{
@@ -38,10 +38,21 @@ class EventDetail extends Component{
         return Object.keys(this.props.runs).map( key => this.props.runs[key])
     }
 
+    _renderBanner(){
+        return(
+            <View style = { styles.bannerContainer } >
+                <Image source={ { uri: this.props.bannerSource } }  style={ styles.bannerImage } />  
+            </View>
+        )
+    }
+
     render(){
         return (
             <ScrollView>
             <View style = {styles.container} >
+                <View style = { styles.bannerContainer } >
+                    {this.props.bannerSource != '' ? this._renderBanner() : null }
+                </View>
                 <View style = { styles.eventDetailContainer }>
                     <Text style = { styles.nameText }>{ this.props.name }</Text>
                     <View style = { styles.nameContainer }>
@@ -137,7 +148,14 @@ const styles = StyleSheet.create({
     sub: {
         marginTop: 5,
         fontWeight: 'bold',
-    }
+    },
+    bannerContainer:{
+        flex: 1,
+    },
+    bannerImage:{
+        flex: 1,
+        height: 150,
+    },
 })
 
 function mapStateToProps(state){
@@ -156,6 +174,7 @@ function mapStateToProps(state){
         distanceWeekly: state.currentEvent.distanceWeekly,
         pace: state.currentEvent.pace,
         bibNumber: state.currentEvent.bibNumber,
+        bannerSource: state.currentEvent.bannerSource,
     }
 }
 

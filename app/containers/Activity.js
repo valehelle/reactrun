@@ -9,13 +9,13 @@ import MapView from 'react-native-maps'
 
 const {
     View,
-    TouchableHighlight,
     StyleSheet,
     Text,
     Modal,
     Alert,
     ScrollView,
     BackAndroid,
+    TouchableOpacity,
 } = ReactNative
 
 
@@ -178,13 +178,13 @@ class Home extends Component{
     _renderButtons(){
         return (
             <View style = { styles.buttonWrapper }>
-                <TouchableHighlight underlayColor='#777' disabled= { !this.props.isActive } onPress={() => this.finishPressed()} style={ [styles.buttonFinishUnactive, this.props.isActive && styles.buttonFinishActive] }>
+                <TouchableOpacity activeOpacity={ 0.8 } disabled= { !this.props.isActive } onPress={() => this.finishPressed()} style={ [styles.buttonFinishUnactive, this.props.isActive && styles.buttonFinishActive] }>
                     <Text style = { [styles.finishBtnUnactive, this.props.isActive && styles.finishBtnActive] }>Finish</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <Text style={ styles.countTimerText }>{ this.state.countTimer }</Text>
-                <TouchableHighlight underlayColor='#777' onPress={() => this.startStopPressed()}  style={ [styles.buttonStart, this.props.isJogging && styles.buttonStop] }>
+                <TouchableOpacity activeOpacity={ 0.8 }  onPress={() => this.startStopPressed()}  style={ [styles.buttonStart, this.props.isJogging && styles.buttonStop] }>
                     <Text style={ [styles.startBtn, this.props.isJogging && styles.stopBtn] } >{ this.props.isJogging? 'Pause' : 'Start' }</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -200,10 +200,9 @@ class Home extends Component{
     _renderGoal(){
         return (
             <View style = { styles.goalWrapper }>
-                <Text style={ styles.meter } >Goal</Text>
-                <Text style={ styles.distance } >{ this.props.distanceGoal }</Text>
-                <Text style={ styles.meter } >KM </Text>
-                { this._renderExitButton() }
+                <Text style={ styles.meter } ></Text>
+                <Text style={ styles.meter } >Goal { this.props.distanceGoal } KM</Text>
+                <Text style={ styles.meter } > </Text>
             </View>
         )
     }
@@ -249,10 +248,11 @@ class Home extends Component{
                         </View>
                         <View style = { styles.middle } >
                             { this._renderTimers() }
-                            { this._renderButtons() }
+                             { this._renderGoal() }
                         </View>
+                        { this._renderButtons() }
                         <View style = { styles.bottom }>
-                            { this._renderGoal() }
+                             { this._renderExitButton() }
                         </View>
                     </View>
                 </View>
@@ -268,8 +268,6 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        backgroundColor: 'black',
-        paddingTop: 10,
     },
     header: {
         paddingBottom: 10,
@@ -278,7 +276,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: '600',
         fontSize: 17,
-        color: '#FFFFFF'
     },
     timerWrapper: {
         justifyContent: 'center',
@@ -292,9 +289,11 @@ const styles = StyleSheet.create({
     },
     middle: {
         flex: 1,
+        backgroundColor: 'white',
     },
     bottom: {
         flex: 1,
+        paddingBottom: 10,
     },
     map:{
       flex: 6,  
@@ -303,13 +302,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         fontFamily: 'HelveticaNeue-Light',
-        color: '#FFFFFF'
+
     },
     distance: {
         fontSize: 80,
         textAlign: 'center',
         fontFamily: 'HelveticaNeue-Light',
-        color: '#FFFFFF',
+
     },
     buttonWrapper: {
         flexDirection: 'row',
@@ -322,7 +321,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 204, 0, 0.2)',
+        backgroundColor: secondary,
     },
     buttonStop: {
         height: 80,
@@ -330,7 +329,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 0, 0.2)',
+        backgroundColor: secondary,
     },
     buttonFinishActive: {
         height: 80,
@@ -346,7 +345,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
     },
     buttonExit: {        
         height: 80,
@@ -360,20 +359,19 @@ const styles = StyleSheet.create({
         color: primaryTextButton,
     },
     startBtn: {
-        color: '#00cc00',
+        color: 'white',
     },
     finishBtnActive: {
         color: '#FF0000',
     },
     finishBtnUnactive: {
-        color: 'rgba(255, 255, 255, 0.4)',
+        color: 'white',
     },
     stopBtn: {
-        color: 'yellow'
+        color: 'white',
     },
     meter: {
         textAlign: 'center',
-        color: '#FFFFFF',
     },
     lapsWrapper: {
         flex: 4,
@@ -395,7 +393,7 @@ const styles = StyleSheet.create({
     },
     mapView: {
         flex:1,
-        height: 300,
+        height: 200,
     },
 })
 

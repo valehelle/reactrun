@@ -7,6 +7,7 @@ export function createEvent(state){
     if(state.name != '' && state.distance != '' && state.distance > 0){
         try{
             let eventID = uuid.v4()
+
             realm.write(() => {
                 let myEvent = realm.create('Event', {
                     id: eventID,
@@ -30,6 +31,7 @@ export function createEvent(state){
             }
 
         }catch(e){
+            console.log(e)
             return {
                 type: types.CREATE_EVENT_FAIL,
                 eventCreated: false,
@@ -102,6 +104,8 @@ export function getLatestEvent(){
         if(distanceWeeklyLeft < 0){
             distanceWeeklyLeft = 0
         }
+        let bannerSource = latestEvent.bannerSrc
+
         return {
             type: types.GET_LATEST_EVENT,
             event: latestEvent,
@@ -115,7 +119,7 @@ export function getLatestEvent(){
             distanceWeekly: distanceWeekly,
             distanceWeeklyRun: distanceWeeklyRun,
             bibNumber: bibNumber,
-            bannerSource: latestEvent.bannerSrc,
+            bannerSource:  bannerSource,
         }
     }catch(e){
         return {
@@ -176,7 +180,7 @@ export function getEventDetails(){
                 distanceWeeklyLeft = 0
             }
             let distanceGoal = (distanceWeekly / 3).toFixed(2)
-
+            let bannerSource = currentEvent.bannerSrc
             return dispatch({
                 type: types.GET_CURRENT_EVENT,
                 event: currentEvent,
@@ -194,6 +198,7 @@ export function getEventDetails(){
                 distanceWeeklyRun: distanceWeeklyRun,
                 distanceGoal: distanceGoal,
                 bibNumber: bibNumber,
+                bannerSource: bannerSource,
             })
 
         }catch(e){

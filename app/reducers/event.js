@@ -54,7 +54,8 @@ export const currentEvent = createReducer({
     'dateEnd': new Date(),
     'distanceGoal': 0,
     'isEventNew': false,
-    'bibNumber': ''
+    'bibNumber': '',
+    'bannerSource': '' ,
     }, {
     [types.GET_CURRENT_EVENT](state, action) {
         return Object.assign({}, state, {
@@ -73,6 +74,7 @@ export const currentEvent = createReducer({
             distanceGoal: action.distanceGoal,
             isEventNew: false,
             bibNumber: action.bibNumber,
+            bannerSource: action.bannerSource,
         })
     },
     [types.CREATE_EVENT](state, action) {
@@ -95,7 +97,7 @@ export const latestEvent = createReducer({
     'distanceWeeklyRun': 0,
     'eventID': '',
     'bibNumber': '',
-    'bannerSource': '',
+    'bannerSource': '' ,
     }, {
     [types.GET_LATEST_EVENT](state, action) {
         return Object.assign({}, state, {
