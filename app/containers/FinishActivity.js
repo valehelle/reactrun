@@ -49,10 +49,12 @@ class FinishActivity extends Component{
                     </MapView>
                 </View>
                 <View style = { styles.detailWrapper } >
-                    <Text>Distance: { this.props.distance }</Text>
-                    <Text>Time: { this.props.time }</Text>
-                    <Text>Pace: { this.props.pace }</Text>
-                    <Text>Date: { this.props.date }</Text>
+                    <View style = { styles.detailContainer } >
+                        <Text>Distance: { this.props.distance } KM</Text>
+                        <Text>Time: { this.props.time }</Text>
+                        <Text>Pace: { this.props.pace }</Text>
+                        <Text>Date: { this.props.date }</Text>
+                    </View>
                 </View>
             </View>
         )
@@ -64,16 +66,13 @@ const styles = StyleSheet.create({
         flex:1,
     },
     detailWrapper: {
-        backgroundColor: 'white',
-        padding: 10,
-        marginBottom: 15,
         flex: 4,
     },
     totalDistanceText: {
         fontSize: 25,
     },
     map:{
-        flex: 6,
+        flex: 4,
     },
     mapView: { 
         position: 'absolute',
@@ -81,6 +80,11 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,        
+    },
+    detailContainer: {
+        backgroundColor: 'white',
+        padding: 10,
+        marginBottom: 15,
     },
 })
 
