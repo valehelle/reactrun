@@ -93,7 +93,6 @@ class CreateEvent extends Component{
             title: 'Select Photo',
             storageOptions: {
                 skipBackup: true,
-                path: 'images'
             }
         }
         // Open Image Library:
@@ -105,7 +104,7 @@ class CreateEvent extends Component{
                 console.log('ImagePicker Error: ', response.error);
             }
             else {
-                let source = { uri: response.uri }
+                let source = { uri: 'file://' + response.path }
                 this.setState({
                     bannerSource: source,
                 });
