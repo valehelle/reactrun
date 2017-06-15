@@ -7,13 +7,13 @@ import { secondary } from '../lib/colors'
 
 const {
     View,
-    TouchableOpacity,
+    WebView,
     Text,
     StyleSheet,
     ScrollView,
 } = ReactNative
 
-class WebView extends Component{
+class Web extends Component{
 
     componentDidMount() {
       
@@ -25,19 +25,18 @@ class WebView extends Component{
 
     render(){
         return (
-            <ScrollView>
                 <View style = {styles.container} >
-                    <Text>About</Text>
-                </View>
-            </ScrollView>
-        )
+                    <WebView
+                        source={{uri: 'https://sites.google.com/view/reactrun/home'}}
+                    />
+                </View>        
+                )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop: 10,
     },
     about:{
         backgroundColor: 'white',
@@ -52,4 +51,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps)(WebView)
+export default connect(mapStateToProps)(Web)

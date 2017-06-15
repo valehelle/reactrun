@@ -6,7 +6,7 @@ import CreateEvent from './CreateEvent'
 import EventDetail from './EventDetail'
 import FinishActivity from './FinishActivity'
 import Setting from './Setting'
-import WebView from './WebView'
+import Web from './Web'
 import { primary, headerTint } from '../lib/colors'
 import React from 'react'
 import ReactNative from 'react-native'
@@ -104,8 +104,8 @@ export const SettingStack = StackNavigator({
             headerTintColor: headerTint,
         }
     },
-    WebView:{
-        screen: WebView,
+    Web:{
+        screen: Web,
         navigationOptions: ({navigation}) => ({
             title: `${navigation.state.params.name}`,
             headerStyle: {

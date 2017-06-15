@@ -20,15 +20,15 @@ class Setting extends Component{
     }
 
     aboutPressed(){
-        this.props.navigation.navigate('WebView',{ name: 'About'})
+        this.props.navigation.navigate('Web',{ name: 'About'})
     }
 
     termsPressed(){
-        this.props.navigation.navigate('WebView',{ name: 'Terms & Condition'})
+        this.props.navigation.navigate('Web',{ name: 'Terms & Condition'})
     }
 
     privacyPressed(){
-        this.props.navigation.navigate('WebView',{ name: 'Privacy'})
+        this.props.navigation.navigate('Web',{ name: 'Privacy'})
     }
 
     render(){
