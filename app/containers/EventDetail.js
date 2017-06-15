@@ -46,6 +46,11 @@ class EventDetail extends Component{
             </View>
         )
     }
+    _renderStart(){
+        return(
+            <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+        )
+    }
 
     render(){
         return (
@@ -68,15 +73,10 @@ class EventDetail extends Component{
                         <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.overallDistanceTravelled.toString() }</Text></Text>
                         <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.overallDistanceLeft.toString() }</Text></Text>
                     </View>
-                    <Text style = { styles.totalTitle } >Weekly (KM)</Text>
-                    <View style = { styles.totalContainer }>
-                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.distanceWeekly.toString() }</Text></Text>
-                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.distanceWeeklyRun.toString() }</Text></Text>
-                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.distanceWeeklyLeft.toString() }</Text></Text>
-                    </View>
                 </View>
                 <View style = { styles.startContainer }>
-                    <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+                     {this.props.daysLeft != '0' ? this._renderStart() : null }
+                    
                 </View>
                 <Text style = { styles.totalTitle } >Runs </Text>
                 <View style = { styles.runList }>

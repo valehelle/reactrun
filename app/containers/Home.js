@@ -53,6 +53,11 @@ class Home extends Component{
             </View>
         )
     }
+    _renderStart(){
+        return(
+            <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+        )
+    }
     _renderEvent(){
         return(
                 <ScrollView style={ styles.container }>
@@ -88,7 +93,7 @@ class Home extends Component{
                         </View>
                     </View>
                     <View style = { styles.startContainer }>
-                        <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+                        {this.props.daysLeft != '0' ? this._renderStart() : null }
                     </View>
                 </ScrollView>
         )

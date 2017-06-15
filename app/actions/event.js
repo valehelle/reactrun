@@ -154,6 +154,9 @@ export function getEventDetails(){
             overallDistanceTravelled = mToKM(overallDistanceTravelled)
             let overallDistanceLeft = currentEvent.distance - overallDistanceTravelled
             overallDistanceLeft = overallDistanceLeft.toFixed(2)
+            if(overallDistanceLeft < 0){
+                overallDistanceLeft = 0
+            }
             let totalDistance = currentEvent.distance
 
             let name = currentEvent.name
