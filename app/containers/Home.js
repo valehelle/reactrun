@@ -58,6 +58,15 @@ class Home extends Component{
             <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
         )
     }
+
+    _renderRunComplete(){
+        return(
+            <View style = { styles.iconCompleteContainer } >
+                <Image source={require('../icons/ic_run_done_black_24dp_2x.png')} style={ styles.iconCompleteImage } />
+                <Text style={ styles.textCompleteImage }  >Run Completed</Text>  
+            </View>
+        ) 
+    }
     _renderEvent(){
         return(
                 <ScrollView style={ styles.container }>
@@ -90,6 +99,7 @@ class Home extends Component{
                             <View style = { styles.bibContainer }>
                                 <Text style = { styles.distanceWeekSmallText }>{ this.props.bibNumber }</Text>
                             </View>
+                             {this.props.isRunComplete === true ? this._renderRunComplete() : null }
                         </View>
                     </View>
                     <View style = { styles.startContainer }>
@@ -220,7 +230,21 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         padding: 10,
-    }
+    },
+    iconCompleteContainer:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 10,
+    },
+    iconCompleteImage: {
+        width: 50,
+        height: 50,
+        tintColor: secondary,
+    },
+    textCompleteImage: {
+        color: secondary,
+    },
 })
 
 
@@ -241,6 +265,7 @@ function mapStateToProps(state){
         isEventNew: state.event.isEventNew,
         bibNumber: state.latestEvent.bibNumber,
         bannerSource: state.latestEvent.bannerSource,
+        isRunComplete: state.latestEvent.isRunComplete,
     }
 }
 

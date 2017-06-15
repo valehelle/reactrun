@@ -79,6 +79,12 @@ export function getLatestEvent(){
         }
         overallDistanceTravelled = mToKM(overallDistanceTravelled)
         let overallDistanceLeft = latestEvent.distance - overallDistanceTravelled
+        let isRunComplete = false
+        overallDistanceLeft = overallDistanceLeft.toFixed(2)
+        if(overallDistanceLeft < 0){
+            overallDistanceLeft = 0
+            isRunComplete = true
+        }
         let totalDistance = latestEvent.distance
 
         let name = latestEvent.name
@@ -120,6 +126,7 @@ export function getLatestEvent(){
             distanceWeeklyRun: distanceWeeklyRun,
             bibNumber: bibNumber,
             bannerSource:  bannerSource,
+            isRunComplete: isRunComplete,
         }
     }catch(e){
         return {
@@ -153,10 +160,13 @@ export function getEventDetails(){
             }
             overallDistanceTravelled = mToKM(overallDistanceTravelled)
             let overallDistanceLeft = currentEvent.distance - overallDistanceTravelled
+            let isRunComplete = false
             overallDistanceLeft = overallDistanceLeft.toFixed(2)
             if(overallDistanceLeft < 0){
                 overallDistanceLeft = 0
+                isRunComplete = true
             }
+            
             let totalDistance = currentEvent.distance
 
             let name = currentEvent.name
@@ -202,6 +212,7 @@ export function getEventDetails(){
                 distanceGoal: distanceGoal,
                 bibNumber: bibNumber,
                 bannerSource: bannerSource,
+                isRunComplete: isRunComplete,
             })
 
         }catch(e){

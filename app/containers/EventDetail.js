@@ -52,6 +52,15 @@ class EventDetail extends Component{
         )
     }
 
+    _renderRunComplete(){
+        return(
+            <View style = { styles.iconCompleteContainer } >
+                <Image source={require('../icons/ic_run_done_black_24dp_2x.png')} style={ styles.iconCompleteImage } />
+                <Text style={ styles.textCompleteImage }  >Run Completed</Text>  
+            </View>
+        ) 
+    }
+
     render(){
         return (
             <ScrollView>
@@ -60,6 +69,7 @@ class EventDetail extends Component{
                     {this.props.bannerSource != '' ? this._renderBanner() : null }
                 </View>
                 <View style = { styles.eventDetailContainer }>
+                    {this.props.isRunComplete === true ? this._renderRunComplete() : null }
                     <Text style = { styles.nameText }>{ this.props.name }</Text>
                     <View style = { styles.nameContainer }>
                         <Text>Start Date: <Text style = { styles.sub }>{ DateNiceFormatter(this.props.dateStart) } </Text></Text>
@@ -188,6 +198,20 @@ const styles = StyleSheet.create({
     runTime:{
         fontSize: 12,
     },
+    iconCompleteContainer:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 10,
+    },
+    iconCompleteImage: {
+        width: 50,
+        height: 50,
+        tintColor: secondary,
+    },
+    textCompleteImage: {
+        color: secondary,
+    },
 })
 
 function mapStateToProps(state){
@@ -207,6 +231,7 @@ function mapStateToProps(state){
         pace: state.currentEvent.pace,
         bibNumber: state.currentEvent.bibNumber,
         bannerSource: state.currentEvent.bannerSource,
+        isRunComplete: state.currentEvent.isRunComplete,
     }
 }
 
