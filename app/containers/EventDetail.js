@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
-import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter } from '../lib/lib'
+import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter, getToday } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
 import { secondary } from '../lib/colors'
 
@@ -47,9 +47,19 @@ class EventDetail extends Component{
         )
     }
     _renderStart(){
-        return(
-            <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
-        )
+        if(new Date() < this.props.dateStart){
+            return(
+                <Text>This event have not started.</Text>
+            )
+        }else if(this.props.daysLeft == '0'){
+            return(
+                <Text>This event has ended.</Text>
+            )
+        }else{
+            return(
+                <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+            )
+        }
     }
 
     _renderRunComplete(){
@@ -77,16 +87,15 @@ class EventDetail extends Component{
                         <Text>Days Left: <Text style = { styles.sub }>{ this.props.daysLeft.toString() }</Text></Text>
                         <Text>Bib Number: <Text style = { styles.sub }>{ this.props.bibNumber }</Text></Text>
                     </View>
-                    <Text style = { styles.totalTitle } >Overall (KM)</Text>
+                    <Text style = { styles.totalTitle } >Overall</Text>
                     <View style = { styles.totalContainer }>
-                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.totalDistance.toString() }</Text></Text>
-                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.overallDistanceTravelled.toString() }</Text></Text>
-                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.overallDistanceLeft.toString() }</Text></Text>
+                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.totalDistance.toString() } KM</Text></Text>
+                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.overallDistanceTravelled.toString() } KM</Text></Text>
+                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.overallDistanceLeft.toString() } KM</Text></Text>
                     </View>
                 </View>
                 <View style = { styles.startContainer }>
-                     {this.props.daysLeft != '0' ? this._renderStart() : null }
-                    
+                     { this._renderStart() }
                 </View>
                 <Text style = { styles.totalTitle } >Runs </Text>
                 <View style = { styles.runList }>

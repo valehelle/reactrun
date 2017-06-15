@@ -5,6 +5,8 @@ import Activity from './Activity'
 import CreateEvent from './CreateEvent'
 import EventDetail from './EventDetail'
 import FinishActivity from './FinishActivity'
+import Setting from './Setting'
+import WebView from './WebView'
 import { primary, headerTint } from '../lib/colors'
 import React from 'react'
 import ReactNative from 'react-native'
@@ -91,7 +93,28 @@ export const EventStack = StackNavigator({
     initialRouteName: 'Event',
 }
 )
-
+export const SettingStack = StackNavigator({
+    Setting:{
+        screen: Setting,
+        navigationOptions:{
+            title: 'Settings',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },
+    WebView:{
+        screen: WebView,
+        navigationOptions: ({navigation}) => ({
+            title: `${navigation.state.params.name}`,
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }),
+    }
+})
 
 
 export const TabNavigations = TabNavigator({
@@ -114,6 +137,18 @@ export const TabNavigations = TabNavigator({
             tabBarIcon: ({ tintColor }) => (
                     <Image
                         source={require('../icons/ic_event_black_24dp_2x.png')}
+                        style={[styles.icon, {tintColor: tintColor}]}
+                    />
+            ),
+        }
+    },
+    Setting: {
+        screen: SettingStack,
+        navigationOptions: {
+            tabBarLabel: 'Settings',
+            tabBarIcon: ({ tintColor }) => (
+                    <Image
+                        source={require('../icons/ic_settings_black_24dp_2x.png')}
                         style={[styles.icon, {tintColor: tintColor}]}
                     />
             ),

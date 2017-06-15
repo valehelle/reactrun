@@ -52,7 +52,7 @@ class FinishActivity extends Component{
                     <View style = { styles.detailContainer } >
                         <Text>Distance: { this.props.distance } KM</Text>
                         <Text>Time: { this.props.time }</Text>
-                        <Text>Pace: { this.props.pace }</Text>
+                        <Text>Pace: { this.props.pace } KM/Minute</Text>
                         <Text>Date: { this.props.date }</Text>
                     </View>
                 </View>

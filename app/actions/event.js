@@ -192,7 +192,7 @@ export function getEventDetails(){
             if(distanceWeeklyLeft < 0){
                 distanceWeeklyLeft = 0
             }
-            let distanceGoal = (distanceWeekly / 3).toFixed(2)
+            let distanceGoal = (distanceWeekly / 2).toFixed(2)
             let bannerSource = currentEvent.bannerSrc
             return dispatch({
                 type: types.GET_CURRENT_EVENT,

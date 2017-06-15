@@ -54,9 +54,19 @@ class Home extends Component{
         )
     }
     _renderStart(){
-        return(
-            <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
-        )
+        if(new Date() < this.props.dateStart){
+            return(
+                <Text>This event have not started.</Text>
+            )
+        }else if(this.props.daysLeft == '0'){
+            return(
+                <Text>This event has ended.</Text>
+            )
+        }else{
+            return(
+                <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+            )
+        }
     }
 
     _renderRunComplete(){
@@ -103,7 +113,7 @@ class Home extends Component{
                         </View>
                     </View>
                     <View style = { styles.startContainer }>
-                        {this.props.daysLeft != '0' ? this._renderStart() : null }
+                        { this._renderStart() }
                     </View>
                 </ScrollView>
         )

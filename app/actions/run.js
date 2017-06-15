@@ -63,9 +63,9 @@ export function getRunDetails(){
         let distance = mToKM(runDetail.distance)
         let time = TimeNiceFormatter(runDetail.time)
         let date = DateNiceFormatter(runDetail.date)
-        let pace = runDetail.distance / runDetail.time
+        let pace = distance / runDetail.time
         pace = pace * 60000
-        pace = pace.toFixed(0)
+        pace = pace.toFixed(2)
         
         let gps = []
         for(let i = 0; i < runDetail.gps.length; i++){
