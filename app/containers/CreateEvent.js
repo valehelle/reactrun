@@ -104,7 +104,7 @@ class CreateEvent extends Component{
                 console.log('ImagePicker Error: ', response.error);
             }
             else {
-                let source = { uri: 'file://' + response.path }
+                let source = { uri: response.uri }
                 this.setState({
                     bannerSource: source,
                 });
