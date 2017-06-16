@@ -92,7 +92,7 @@ class Home extends Component{
     }
 
     runFinish(){
-        if(this.props.isActive){
+        if(this.props.isActive && this.props.totalDistance > 0){
             this.props.screenProps.saveRun()
             this.props.navigation.navigate('FinishActivity',{})
         }else{
