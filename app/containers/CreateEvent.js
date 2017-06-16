@@ -6,8 +6,9 @@ import { NavigationActions } from 'react-navigation'
 import { toDate, addMonths } from '../lib/lib'
 import { TextField } from 'react-native-material-textfield'
 import PrimaryButton from  '../components/PrimaryButton'
-var dismissKeyboard = require('dismissKeyboard')
-var ImagePicker = require('react-native-image-picker')
+
+const dismissKeyboard = require('dismissKeyboard')
+const ImagePicker = require('react-native-image-picker')
 
 const {
     TextInput,
@@ -107,6 +108,8 @@ class CreateEvent extends Component{
                 let source = { uri: response.uri }
                 this.setState({
                     bannerSource: source,
+                    bannerName: response.fileName,
+                    bannerData: response.data,
                 });
             }
 

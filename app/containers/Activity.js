@@ -209,10 +209,9 @@ class Home extends Component{
     }
 
   componentWillReceiveProps(){
-      this.fitToAll()
+      this.moveUserCenter()
   }
-    fitToAll(){
-        const DEFAULT_PADDING = { top: 30, right: 30, bottom: 30, left: 30 };
+    moveUserCenter(){
         this.map.animateToCoordinate(this.props.prevLatLng,100);
     }
 
@@ -237,7 +236,7 @@ class Home extends Component{
                                 zoomEnabled={false}
                                 pitchEnabled={false}
                                 rotateEnabled={false}
-                                onLayout={()=> this.fitToAll()}
+                                onLayout={()=> this.moveUserCenter()}
                                 >
 
                                 <MapView.Polyline

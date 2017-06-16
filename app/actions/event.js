@@ -1,51 +1,68 @@
 import * as types from './types'
 import realm from '../database/realm'
 import { getToday, daysLeft, mToKM, getWeekLeft, getDayWeekFirst, getDayWeekLast, daysBetween } from '../lib/lib'
-var uuid = require('react-native-uuid');
+const uuid = require('react-native-uuid');
+const RNFS = require('react-native-fs')
 
 export function createEvent(state){
-    if(state.name != '' && state.distance != '' && state.distance > 0){
-        try{
-            let eventID = uuid.v4()
+    return(dispatch, getState) => {
+        if(state.name != '' && state.distance != '' && state.distance > 0){
+            try{
+                let eventID = uuid.v4()
+                // create a path you want to write to
+                let path = RNFS.DocumentDirectoryPath + '/' + state.bannerName
+                // write the file
+                RNFS.writeFile(path, state.bannerData, 'base64')
+                .then((success) => {
+                    realm.write(() => {
+                        let myEvent = realm.create('Event', {
+                            id: eventID,
+                            name: state.name,
+                            datestart: state.sdate,
+                            dateend: state.edate,
+                            distance: parseInt(state.distance),
+                            weeklyrun: parseInt(state.weeklyrun),
+                            datecreated: new Date(),
+                            distanceTravelled: 0,
+                            bibNumber: state.bibNumber,
+                            bannerSrc: path,
+                            runs: [],
+                        });
+                    })
 
-            realm.write(() => {
-                let myEvent = realm.create('Event', {
-                    id: eventID,
-                    name: state.name,
-                    datestart: state.sdate,
-                    dateend: state.edate,
-                    distance: parseInt(state.distance),
-                    weeklyrun: parseInt(state.weeklyrun),
-                    datecreated: new Date(),
-                    distanceTravelled: 0,
-                    bibNumber: state.bibNumber,
-                    bannerSrc: state.bannerSource.uri,
-                    runs: [],
+                    return dispatch(createEventSuccess({
+                        eventID:eventID, 
+                    }))
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                    return dispatch(createEventFail())
                 });
-            })
 
-            return {
-                type: types.CREATE_EVENT,
-                eventCreated: true,
-                eventID:eventID, 
+            }catch(e){
+                console.log(e)
+                return dispatch(createEventFail())
             }
-
-        }catch(e){
-            console.log(e)
-            return {
-                type: types.CREATE_EVENT_FAIL,
-                eventCreated: false,
-            }
+        }else{
+            return dispatch(createEventFail())
         }
-    }else{
-        return {
-            type: types.CREATE_EVENT_FAIL,
-            eventCreated: false,
-        }   
     }
 
 }
+export function createEventSuccess({ eventID }){
+    return {
+        type: types.CREATE_EVENT,
+        eventCreated: true,
+        eventID: eventID, 
+    }   
+}
 
+export function createEventFail(){
+    return {
+        type: types.CREATE_EVENT_FAIL,
+        eventCreated: false,
+    }   
+}
 
 export function redirectEventDetailsDone(){
     return {
