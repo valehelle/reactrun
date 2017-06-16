@@ -227,8 +227,8 @@ class Home extends Component{
                                 initialRegion={{
                                     latitude: this.props.startLat,
                                     longitude: this.props.startLng,
-                                    latitudeDelta: 0.0922,
-                                    longitudeDelta: 0.0421,
+                                    latitudeDelta: 0.0052,
+                                    longitudeDelta: 0.0001,
                                 }}
                                 scrollEnabled={false}
                                 zoomEnabled={false}

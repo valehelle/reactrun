@@ -3,39 +3,44 @@ import haversine from 'haversine'
 
 export function startTracking(){
     return(dispatch, getState) => {
+        let minimumAccuracy = 20 // metres
         this.watchID = navigator.geolocation.watchPosition((position) => {
-            const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
-            const prevLatLng = getState().location.prevLatLng
-            const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
-            const prevDistance = getState().location.previousDistanceTravelled
-            if(getState().activity.isJogging){
-                if (totalDistance - prevDistance >= 1000){
-                    //Update the location,distance and also lapse.
-                    const lastLapse = getState().activity.laps.length - 1
-                    const prevLapseTime = getState().activity.prevLapseTime
-                    const time = getState().timer.mainTimer - prevLapseTime
-                    const id = getState().activity.laps.length
-                    const lapse = {'time': time, 'id': id}
-                    const newPrevLapseTime = prevLapseTime + time
+            if(position.coords.accuracy < minimumAccuracy){
+                const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
+                const prevLatLng = getState().location.prevLatLng
+                const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
+                const prevDistance = getState().location.previousDistanceTravelled
+                if(getState().activity.isJogging){
+                    if (totalDistance - prevDistance >= 1000){
+                        //Update the location,distance and also lapse.
+                        const lastLapse = getState().activity.laps.length - 1
+                        const prevLapseTime = getState().activity.prevLapseTime
+                        const time = getState().timer.mainTimer - prevLapseTime
+                        const id = getState().activity.laps.length
+                        const lapse = {'time': time, 'id': id}
+                        const newPrevLapseTime = prevLapseTime + time
 
-                    return dispatch(updateLocationLapse({ 
-                        latlng: newLatLng,
-                        previousDistanceTravelled: totalDistance,
-                        totalDistanceTravelled: totalDistance,
-                        laps: lapse,
-                        prevLapseTime: newPrevLapseTime,
-                    }))                  
+                        return dispatch(updateLocationLapse({ 
+                            latlng: newLatLng,
+                            previousDistanceTravelled: totalDistance,
+                            totalDistanceTravelled: totalDistance,
+                            laps: lapse,
+                            prevLapseTime: newPrevLapseTime,
+                        }))                  
+                    }else{
+                        //Update the location and distance.
+                        return dispatch(updateLocation({ 
+                            latlng: newLatLng,
+                            totalDistanceTravelled: totalDistance,
+                            
+                        }))
+                    }
                 }else{
-                    //Update the location and distance.
-                    return dispatch(updateLocation({ 
-                        latlng: newLatLng,
-                        totalDistanceTravelled: totalDistance,
-                        
-                    }))
+                    //Update only the location.
+                    return dispatch(setLocation({ latlng: newLatLng }))
                 }
             }else{
-                //Update only the location.
-                return dispatch(setLocation({ latlng: newLatLng }))
+                console.warn('Position rejected')
             }
         },
         (error) => alert(JSON.stringify(error)),    
