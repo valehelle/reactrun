@@ -25,7 +25,7 @@ export function createEvent(state){
                             datecreated: new Date(),
                             distanceTravelled: 0,
                             bibNumber: state.bibNumber,
-                            bannerSrc: path,
+                            bannerSrc: state.bannerName,
                             runs: [],
                         });
                     })
@@ -127,7 +127,7 @@ export function getLatestEvent(){
         if(distanceWeeklyLeft < 0){
             distanceWeeklyLeft = 0
         }
-        let bannerSource = latestEvent.bannerSrc
+        let bannerSource = RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc
 
         return {
             type: types.GET_LATEST_EVENT,

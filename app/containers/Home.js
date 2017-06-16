@@ -4,32 +4,7 @@ import { connect } from 'react-redux'
 import { secondary, primaryTextButton, primaryDark } from '../lib/colors'
 import PrimaryButton from  '../components/PrimaryButton'
 import ProgressBarMini from '../components/ProgressBarMini'
-// require the module
-var RNFS = require('react-native-fs');
 
-// get a list of files and directories in the main bundle
-RNFS.readDir(RNFS.MainBundlePath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
-  .then((result) => {
-    console.log('GOT RESULT', RNFS.MainBundlePath);
-
-    // stat the first file
-    return Promise.all([RNFS.stat(result[0].path), result[0].path]);
-  })
-  .then((statResult) => {
-    if (statResult[0].isFile()) {
-      // if we have a file, read it
-      return RNFS.readFile(statResult[1], 'utf8');
-    }
-
-    return 'no file';
-  })
-  .then((contents) => {
-    // log the file contents
-    console.log(contents);
-  })
-  .catch((err) => {
-    console.log(err.message, err.code);
-  });
 const {
     View,
     TouchableHighlight,
