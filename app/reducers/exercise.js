@@ -9,7 +9,7 @@ export const location = createReducer({
     'startLat': 37.78825,
     'startLng': -122.4324,
 }, {
-    [types.SET_INITIAL_LOCATION](state, action) {
+  [types.SET_INITIAL_LOCATION](state, action) {
         return Object.assign({}, state, {
             startLat: action.latitude,
             startLng: action.longitude,

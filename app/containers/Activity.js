@@ -37,6 +37,7 @@ class Home extends Component{
 
 
     componentDidMount() {
+        this.props.screenProps.getInitialPosition()
         this.props.screenProps.startTracking()
         this.props.screenProps.getEventDetails()
         BackAndroid.addEventListener('hardwareBackPress',this.handleBack)
@@ -227,11 +228,12 @@ class Home extends Component{
                                 initialRegion={{
                                     latitude: this.props.startLat,
                                     longitude: this.props.startLng,
-                                    latitudeDelta: 0.0010,
-                                    longitudeDelta: 0.0010,
+                                    latitudeDelta: 0.0015,
+                                    longitudeDelta: 0.0015,
                                 }}
                                 showsUserLocation= {true}
-                                scrollEnabled={false}
+                                showsMyLocationButton={false}
+                                scrollEnabled = {false}
                                 zoomEnabled={false}
                                 pitchEnabled={false}
                                 rotateEnabled={false}

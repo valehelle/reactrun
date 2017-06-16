@@ -3,21 +3,26 @@ import haversine from 'haversine'
 
 
 export function getInitialPosition(){
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            var initialPosition = JSON.stringify(position);
-            this.setState({initialPosition})
-        },
-        (error) => alert(error.message),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    )
+    return(dispatch, getState) => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                let initialPosition = position.coords
+                return dispatch(setInitialLocation({initialPosition})) 
+            },
+            (error) => alert(error.message),
+            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        )
+    }
+}
 
+export function setInitialLocation({ initialPosition }){
     return {
         type: types.SET_INITIAL_LOCATION,
-        latlng,
+        latitude: initialPosition.latitude,
+        longitude: initialPosition.longitude,
     }
-    
 }
+
 export function startTracking(){
     return(dispatch, getState) => {
         //Get current location
@@ -66,7 +71,7 @@ export function startTracking(){
             }
         },
         (error) => alert(JSON.stringify(error)),    
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10,}
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 20,}
         )
     }
 }
