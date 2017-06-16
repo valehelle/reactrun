@@ -1,9 +1,31 @@
 import * as types from './types'
 import haversine from 'haversine'
 
+
+export function getInitialPosition(){
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            var initialPosition = JSON.stringify(position);
+            this.setState({initialPosition})
+        },
+        (error) => alert(error.message),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    )
+
+    return {
+        type: types.SET_INITIAL_LOCATION,
+        latlng,
+    }
+    
+}
 export function startTracking(){
     return(dispatch, getState) => {
-        let minimumAccuracy = 20 // metres
+        //Get current location
+
+
+
+        //Watch the user location
+        let minimumAccuracy = 500 // metres
         this.watchID = navigator.geolocation.watchPosition((position) => {
             if(position.coords.accuracy < minimumAccuracy){
                 const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
@@ -44,7 +66,7 @@ export function startTracking(){
             }
         },
         (error) => alert(JSON.stringify(error)),    
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10,}
         )
     }
 }

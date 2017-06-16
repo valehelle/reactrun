@@ -25,7 +25,7 @@ class Home extends Component{
     constructor(props) {
         super(props)
 
-        this.state = {isCountDown: false, countTimer: 5};
+        this.state = {isCountDown: false, countTimer: 3};
 
         this.navigator = null;
 
@@ -66,7 +66,7 @@ class Home extends Component{
 
 
     startCountDown(){
-            if(this.state.countTimer === 5){
+            if(this.state.countTimer === 3){
                 this.countInterval = setInterval(() => {
                     countTimer = this.state.countTimer
                     countTimer = countTimer - 1
@@ -212,7 +212,7 @@ class Home extends Component{
   }
     fitToAll(){
         const DEFAULT_PADDING = { top: 30, right: 30, bottom: 30, left: 30 };
-        this.map.animateToCoordinate(this.props.prevLatLng,1);
+        this.map.animateToCoordinate(this.props.prevLatLng,100);
     }
 
     render(){
@@ -227,16 +227,16 @@ class Home extends Component{
                                 initialRegion={{
                                     latitude: this.props.startLat,
                                     longitude: this.props.startLng,
-                                    latitudeDelta: 0.0052,
-                                    longitudeDelta: 0.0001,
+                                    latitudeDelta: 0.0010,
+                                    longitudeDelta: 0.0010,
                                 }}
+                                showsUserLocation= {true}
                                 scrollEnabled={false}
                                 zoomEnabled={false}
                                 pitchEnabled={false}
                                 rotateEnabled={false}
                                 onLayout={()=> this.fitToAll()}
                                 >
-                                <MapView.Marker coordinate={this.props.prevLatLng}/>
 
                                 <MapView.Polyline
                                     coordinates={ this.props.gps }
