@@ -207,6 +207,15 @@ class Home extends Component{
             </View>
         )
     }
+    getGps(){
+        if(this.props.isJogging){
+            return this.props.gps
+        }
+        else{
+           return [] 
+        }
+    }
+
 
   componentWillReceiveProps(){
       this.moveUserCenter()
@@ -238,9 +247,9 @@ class Home extends Component{
                                 rotateEnabled={false}
                                 onLayout={()=> this.moveUserCenter()}
                                 >
-
+                                { this._renderPath}
                                 <MapView.Polyline
-                                    coordinates={ this.props.gps }
+                                    coordinates={ this.getGps() }
                                     strokeColor= { secondary }
                                     strokeWidth={5}
                                     lineCap={'round'}
