@@ -210,7 +210,7 @@ export function getEventDetails(){
                 distanceWeeklyLeft = 0
             }
             let distanceGoal = (distanceWeekly / 2).toFixed(2)
-            let bannerSource = currentEvent.bannerSrc
+            let bannerSource = RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc
             return dispatch({
                 type: types.GET_CURRENT_EVENT,
                 event: currentEvent,

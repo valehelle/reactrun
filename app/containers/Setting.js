@@ -20,15 +20,15 @@ class Setting extends Component{
     }
 
     aboutPressed(){
-        this.props.navigation.navigate('Web',{ name: 'About'})
+        this.props.navigation.navigate('Web',{ name: 'About', url: 'https://valehelle.github.io/venv/about.html'})
     }
 
     termsPressed(){
-        this.props.navigation.navigate('Web',{ name: 'Terms & Condition'})
+        this.props.navigation.navigate('Web',{ name: 'Terms & Condition', url: 'https://valehelle.github.io/venv/terms.html'})
     }
 
     privacyPressed(){
-        this.props.navigation.navigate('Web',{ name: 'Privacy'})
+        this.props.navigation.navigate('Web',{ name: 'Privacy', url: 'https://valehelle.github.io/venv/privacy.html'})
     }
 
     render(){

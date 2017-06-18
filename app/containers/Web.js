@@ -24,12 +24,12 @@ class Web extends Component{
     }
 
     render(){
-        return (
-                <View style = {styles.container} >
+        const {state} = this.props.navigation
+
+        return ( 
                     <WebView
-                        source={{uri: 'https://sites.google.com/view/reactrun/home'}}
-                    />
-                </View>        
+                        source={{uri: state.params.url}}
+                    />     
                 )
     }
 }
@@ -46,9 +46,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state){
-    return{
-        name: state.latestEvent.name,
-    }
+    return{}
 }
 
 export default connect(mapStateToProps)(Web)
