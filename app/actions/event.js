@@ -8,48 +8,61 @@ import { Platform } from 'react-native';
 export function createEvent(state){
     return(dispatch, getState) => {
         if(state.name != '' && state.distance != '' && state.distance > 0){
-            try{
-                let eventID = uuid.v4()
-                // create a path you want to write to
-                let path = RNFS.DocumentDirectoryPath + '/' + state.bannerName
-                // write the file
-                RNFS.writeFile(path, state.bannerData, 'base64')
-                .then((success) => {
-                    realm.write(() => {
-                        let myEvent = realm.create('Event', {
-                            id: eventID,
-                            name: state.name,
-                            datestart: state.sdate,
-                            dateend: state.edate,
-                            distance: parseInt(state.distance),
-                            weeklyrun: parseInt(state.weeklyrun),
-                            datecreated: new Date(),
-                            distanceTravelled: 0,
-                            bibNumber: state.bibNumber,
-                            bannerSrc: state.bannerName,
-                            runs: [],
-                        });
+            
+                if(state.bannerName != 'null'){
+                    // create a path you want to write to
+                    let path = RNFS.DocumentDirectoryPath + '/' + state.bannerName
+                    // write the file
+                    RNFS.writeFile(path, state.bannerData, 'base64')
+                    .then((success) => {
+                        const eventID = createEventRealm(state);
+                        return dispatch(createEventSuccess({
+                            eventID: eventID, 
+                        }))
                     })
-
+                    .catch((err) => {
+                        console.log(err.message);
+                        return dispatch(createEventFail())
+                    });                    
+                }else{
+                    const eventID = createEventRealm(state);
                     return dispatch(createEventSuccess({
-                        eventID:eventID, 
+                        eventID: eventID, 
                     }))
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                    return dispatch(createEventFail())
-                });
+                }
 
-            }catch(e){
-                console.log(e)
-                return dispatch(createEventFail())
-            }
         }else{
             return dispatch(createEventFail())
         }
     }
 
 }
+
+export function createEventRealm(state){
+    let eventID = uuid.v4()
+    try{
+        realm.write(() => {
+                let myEvent = realm.create('Event', {
+                id: eventID,
+                name: state.name,
+                datestart: state.sdate,
+                dateend: state.edate,
+                distance: parseInt(state.distance),
+                weeklyrun: parseInt(state.weeklyrun),
+                datecreated: new Date(),
+                distanceTravelled: 0,
+                bibNumber: state.bibNumber,
+                bannerSrc: state.bannerName,
+                runs: [],
+            });
+        })
+    }catch(e){
+        console.log(e)
+        return dispatch(createEventFail())
+    }
+    return eventID
+}
+
 export function createEventSuccess({ eventID }){
     return {
         type: types.CREATE_EVENT,
@@ -129,10 +142,13 @@ export function getLatestEvent(){
             distanceWeeklyLeft = 0
         }
         //If android, append file:// at the front of the file path
-        let bannerSource = Platform.select({
-            ios: () => RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
-            android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
-        })();
+        let bannerSource = 'null'
+        if(latestEvent.bannerSrc != 'null'){
+            bannerSource = Platform.select({
+                ios: () => RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
+                android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
+            })();
+        }
     
         return {
             type: types.GET_LATEST_EVENT,
@@ -149,6 +165,8 @@ export function getLatestEvent(){
             bibNumber: bibNumber,
             bannerSource:  bannerSource,
             isRunComplete: isRunComplete,
+            dateStart: latestEvent.datestart,
+            dateEnd: latestEvent.dateend,
         }
     }catch(e){
         return {
@@ -215,10 +233,13 @@ export function getEventDetails(){
                 distanceWeeklyLeft = 0
             }
             let distanceGoal = (distanceWeekly / 2).toFixed(2)
-            let bannerSource = Platform.select({
-                ios: () => RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc,
-                android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc,
-            })();
+            let bannerSource = 'null'
+            if(currentEvent.bannerSrc != 'null'){
+                bannerSource = Platform.select({
+                    ios: () => RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc,
+                    android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc,
+                })();
+            }
             return dispatch({
                 type: types.GET_CURRENT_EVENT,
                 event: currentEvent,

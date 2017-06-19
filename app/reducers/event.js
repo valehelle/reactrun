@@ -101,6 +101,7 @@ export const latestEvent = createReducer({
     'bibNumber': '',
     'bannerSource': '' ,
     'isRunComplete': false,
+    'dateStart': new Date(),
     }, {
     [types.GET_LATEST_EVENT](state, action) {
         return Object.assign({}, state, {
@@ -116,6 +117,8 @@ export const latestEvent = createReducer({
             bibNumber: action.bibNumber,
             bannerSource: action.bannerSource,
             isRunComplete: action.isRunComplete,
+            dateStart: action.dateStart,
+            dateEnd: action.dateEnd,
         })
     },
     

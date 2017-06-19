@@ -76,7 +76,7 @@ class EventDetail extends Component{
             <ScrollView>
             <View style = {styles.container} >
                 <View style = { styles.bannerContainer } >
-                    {this.props.bannerSource != '' ? this._renderBanner() : null }
+                    {this.props.bannerSource != 'null' && this.props.bannerSource != '' ? this._renderBanner() : null }
                 </View>
                 <View style = { styles.eventDetailContainer }>
                     {this.props.isRunComplete === true ? this._renderRunComplete() : null }

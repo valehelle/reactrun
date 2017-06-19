@@ -20,9 +20,7 @@ class Home extends Component{
     componentDidMount() {
         this.props.screenProps.getLatestEvent()
     }
-    componentDidUpdate() {
-        this.props.screenProps.getLatestEvent()
-    }
+
 
     startButtonPress(){
         if(this.props.eventID != ''){
@@ -93,7 +91,7 @@ class Home extends Component{
                     </View>
                     <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.eventDetailsPressed(this.props.eventID)} >
                         <View style = { styles.eventDetailContainer }>
-                            {this.props.bannerSource != '' ? this._renderBanner() : null }
+                            {this.props.bannerSource != 'null' && this.props.bannerSource != ''  ? this._renderBanner() : null }
                             <View style = { styles.contentContainer } >
                                 <View style = { styles.totalDistanceContainer } >
                                     <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
@@ -273,19 +271,16 @@ function mapStateToProps(state){
         name: state.latestEvent.name,
         eventID: state.latestEvent.eventID,
         totalDistance: state.latestEvent.totalDistance,
-        distanceWeeklyLeft: state.latestEvent.distanceWeeklyLeft,
-        distanceWeekly: state.latestEvent.distanceWeekly,
         daysLeft: state.latestEvent.daysLeft,
         overallDistanceTravelled: state.latestEvent.overallDistanceTravelled,
         overallDistanceLeft: state.latestEvent.overallDistanceLeft,
-        distanceWeeklyRun: state.latestEvent.distanceWeeklyRun,
-        distanceWeeklyRunLeft: state.latestEvent.distanceWeeklyRunLeft,
         eventCreated: state.event.eventCreated,
         isEventIDUpdated: state.event.isEventIDUpdated,
         isEventNew: state.event.isEventNew,
         bibNumber: state.latestEvent.bibNumber,
         bannerSource: state.latestEvent.bannerSource,
         isRunComplete: state.latestEvent.isRunComplete,
+        dateStart: state.latestEvent.dateStart,
     }
 }
 

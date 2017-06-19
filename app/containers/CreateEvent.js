@@ -36,7 +36,7 @@ class CreateEvent extends Component{
             sdate: new Date(), 
             edate: new Date(),
             bannerSource: { uri: '' },
-
+            bannerName: 'null',
         }
     }
 
@@ -74,6 +74,7 @@ class CreateEvent extends Component{
     }
     componentDidUpdate() {
         if(this.props.eventCreated){
+            this.props.screenProps.getLatestEvent()
             //Redirect to another screen
             const resetAction = NavigationActions.reset({
             index: 1,
