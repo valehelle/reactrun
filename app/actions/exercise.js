@@ -105,11 +105,15 @@ function calcDistance(prevLatLng,newLatLng) {
 }
 
 
-export function startJogging(){ 
-    return {
-        type: types.START_JOGGING,
-        mainTimerStart: new Date,
-        countTimer: ''
+export function startJogging(){
+    return(dispatch, getState) => {
+        let prevLatLng = getState().location.prevLatLng
+        return dispatch({
+            type: types.START_JOGGING,
+            mainTimerStart: new Date,
+            countTimer: '',
+            prevLatLng: prevLatLng,
+        })
     }
 }
 export function startTimer(){

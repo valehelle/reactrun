@@ -42,10 +42,12 @@ export const location = createReducer({
             startLat: 37.78825,
             startLng: -122.4324,
         })
+    },    
+    [types.START_JOGGING](state, action) {
+        return Object.assign({}, state, {
+            allLatLng: [action.prevLatLng],
+        })
     },
-    
-
-
 })
 
 export const activity = createReducer({

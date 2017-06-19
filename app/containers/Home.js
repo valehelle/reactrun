@@ -106,7 +106,7 @@ class Home extends Component{
                                     </View>
                                     <View style = { styles.totalDistanceCurrentContainer }>
                                         <View style = { styles.totalDistanceRunContainer }>
-                                            <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
+                                            <Text style = { styles.distanceWeekText }>{this.props.overallDistanceLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
                                             <Text style = { styles.distanceWeekSmallText }>Left</Text>
                                         </View>
                                     </View>
