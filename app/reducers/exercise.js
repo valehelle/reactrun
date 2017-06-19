@@ -18,7 +18,6 @@ export const location = createReducer({
     [types.SET_LOCATION](state, action) {
         return Object.assign({}, state, {
             prevLatLng: action.latlng,
-            allLatLng:  [action.latlng],
         })
     },[types.UPDATE_LOCATION](state, action) {
         return Object.assign({}, state, {
