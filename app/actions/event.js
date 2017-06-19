@@ -3,6 +3,7 @@ import realm from '../database/realm'
 import { getToday, daysLeft, mToKM, getWeekLeft, getDayWeekFirst, getDayWeekLast, daysBetween } from '../lib/lib'
 const uuid = require('react-native-uuid');
 const RNFS = require('react-native-fs')
+import { Platform } from 'react-native';
 
 export function createEvent(state){
     return(dispatch, getState) => {
@@ -127,8 +128,12 @@ export function getLatestEvent(){
         if(distanceWeeklyLeft < 0){
             distanceWeeklyLeft = 0
         }
-        let bannerSource = RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc
-
+        //If android, append file:// at the front of the file path
+        let bannerSource = Platform.select({
+            ios: () => RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
+            android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
+        })();
+    
         return {
             type: types.GET_LATEST_EVENT,
             event: latestEvent,
@@ -210,7 +215,10 @@ export function getEventDetails(){
                 distanceWeeklyLeft = 0
             }
             let distanceGoal = (distanceWeekly / 2).toFixed(2)
-            let bannerSource = RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc
+            let bannerSource = Platform.select({
+                ios: () => RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
+                android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
+            })();
             return dispatch({
                 type: types.GET_CURRENT_EVENT,
                 event: currentEvent,
