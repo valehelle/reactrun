@@ -216,8 +216,8 @@ export function getEventDetails(){
             }
             let distanceGoal = (distanceWeekly / 2).toFixed(2)
             let bannerSource = Platform.select({
-                ios: () => RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
-                android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + latestEvent.bannerSrc,
+                ios: () => RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc,
+                android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc,
             })();
             return dispatch({
                 type: types.GET_CURRENT_EVENT,
