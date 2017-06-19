@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     bannerImage:{
         flex: 1,
-        height: 150,
+        height: 200,
     },
     runContainer: {
         marginTop: 10,

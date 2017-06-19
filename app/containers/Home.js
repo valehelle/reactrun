@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     },
     totalDistanceContainer: {
         flex: 2,
+        marginBottom: 30,
     },
     bannerContainer:{
         flex: 1,
@@ -161,6 +162,8 @@ const styles = StyleSheet.create({
     bibContainer: {
         flex: 1,
         justifyContent: 'center',
+        marginTop: 10,
+        marginBottom: 10,
     },
     distanceWeekContainer: {
         flex: 1,
@@ -186,6 +189,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 50,
         fontWeight: 'bold',
+        marginBottom: 20,
     },
     daysLeftContainer: {
         flex: 1,
