@@ -7,14 +7,12 @@ import ProgressBarMini from '../components/ProgressBarMini'
 
 const {
     View,
-    TouchableHighlight,
     StyleSheet,
     Text,
-    Modal,
-    Alert,
     ScrollView,
     StatusBar,
     Image,
+    TouchableOpacity,
 } = ReactNative
 
 class Home extends Component{
@@ -77,6 +75,12 @@ class Home extends Component{
             </View>
         ) 
     }
+
+
+    eventDetailsPressed(ID){
+        this.props.screenProps.setCurEventID(ID)
+        this.props.navigation.navigate('EventDetailStack',{})
+    }
     _renderEvent(){
         return(
                 <ScrollView style={ styles.container }>
@@ -87,31 +91,33 @@ class Home extends Component{
                     <View style = { styles.titleContainer }>
                         <Text style = { styles.title }>{this.props.name}</Text>                  
                     </View>
-                    <View style = { styles.eventDetailContainer }>
-                        {this.props.bannerSource != '' ? this._renderBanner() : null }
-                        <View style = { styles.contentContainer } >
-                            <View style = { styles.totalDistanceContainer } >
-                                <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
-                                <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
-                            </View>
-                            <View style = { styles.distanceContainer }>
-                                <View style = { styles.daysLeftContainer }>
-                                    <Text style = { styles.daysLeftText }>{this.props.daysLeft}</Text>
-                                    <Text style = { styles.distanceWeekSmallText }>Days Left</Text>
+                    <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.eventDetailsPressed(this.props.eventID)} >
+                        <View style = { styles.eventDetailContainer }>
+                            {this.props.bannerSource != '' ? this._renderBanner() : null }
+                            <View style = { styles.contentContainer } >
+                                <View style = { styles.totalDistanceContainer } >
+                                    <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
+                                    <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
                                 </View>
-                                <View style = { styles.totalDistanceCurrentContainer }>
-                                    <View style = { styles.totalDistanceRunContainer }>
-                                        <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
-                                        <Text style = { styles.distanceWeekSmallText }>Left</Text>
+                                <View style = { styles.distanceContainer }>
+                                    <View style = { styles.daysLeftContainer }>
+                                        <Text style = { styles.daysLeftText }>{this.props.daysLeft}</Text>
+                                        <Text style = { styles.distanceWeekSmallText }>Days Left</Text>
+                                    </View>
+                                    <View style = { styles.totalDistanceCurrentContainer }>
+                                        <View style = { styles.totalDistanceRunContainer }>
+                                            <Text style = { styles.distanceWeekText }>{this.props.distanceWeeklyLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
+                                            <Text style = { styles.distanceWeekSmallText }>Left</Text>
+                                        </View>
                                     </View>
                                 </View>
+                                <View style = { styles.bibContainer }>
+                                    <Text style = { styles.distanceWeekSmallText }>{ this.props.bibNumber }</Text>
+                                </View>
+                                {this.props.isRunComplete === true ? this._renderRunComplete() : null }
                             </View>
-                            <View style = { styles.bibContainer }>
-                                <Text style = { styles.distanceWeekSmallText }>{ this.props.bibNumber }</Text>
-                            </View>
-                             {this.props.isRunComplete === true ? this._renderRunComplete() : null }
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <View style = { styles.startContainer }>
                         { this._renderStart() }
                     </View>
