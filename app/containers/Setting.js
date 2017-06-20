@@ -11,12 +11,13 @@ const {
     Text,
     StyleSheet,
     ScrollView,
+    Alert,
 } = ReactNative
 
 class Setting extends Component{
 
     componentDidMount() {
-      
+      this.props.screenProps.getUserDetails()
     }
 
     aboutPressed(){
@@ -29,6 +30,17 @@ class Setting extends Component{
 
     privacyPressed(){
         this.props.navigation.navigate('Web',{ name: 'Privacy', url: 'https://valehelle.github.io/venv/privacy.html'})
+    }
+    measurementUnitPressed(){
+        Alert.alert(
+            'Select your unit',
+            'Current unit is Kilometer',
+            [
+                {text: 'Mile', onPress: () => console.log('Cancel Pressed')},
+                {text: 'Kilometer', onPress: () => console.log('Weeee')},
+            ],
+            { cancelable: false }
+        )
     }
 
     render(){
@@ -48,6 +60,11 @@ class Setting extends Component{
                     <View style = {styles.about}>
                         <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.privacyPressed()}>
                             <Text>Privacy</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style = {styles.about}>
+                        <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.measurementUnitPressed()}>
+                            <Text>Unit of measurement</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

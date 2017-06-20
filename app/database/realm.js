@@ -20,6 +20,17 @@ Event.schema = {
     runs: {type: 'list', objectType: 'Run'},
   }
 }
+class User {}
+User.schema = {
+  name: 'User',
+  primaryKey: 'id',
+  properties: {
+    id: 'string',
+    unit: {type: 'string', default: 'KILOMETER'},
+    birthdate: 'string',
+    location: 'string',
+  }
+}
 
 class Run {}
 Run.schema = {
@@ -56,4 +67,4 @@ Lapse.schema = {
   }
 }
 
-export default new Realm({schema: [Gps,Lapse, Run, Event]})
+export default new Realm({schema: [Gps, Lapse, Run, Event, User]})
