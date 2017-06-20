@@ -4,6 +4,33 @@ import { mToKM, TimeNiceFormatter, DateNiceFormatter } from '../lib/lib'
 var uuid = require('react-native-uuid');
 
 
+
+export function changeUnit(unit){
+    try{
+        let users = realm.objects('User')
+        let user = users[0]
+        realm.write(() => {
+            user.unit = unit
+        });
+        let userDetail = {
+                id: user.id,
+                unit: user.unit,
+                birthdate: user.birthdate,
+                location: user.location,       
+        }
+        return {
+            type: types.SET_USET_DETAILS_UNIT,
+            userDetail
+        }
+    }catch(e){
+        console.log(e)
+        return {
+            type: types.SET_USET_DETAILS_UNIT_FAIL,
+        }
+    }
+    
+
+}
 export function getUserDetails(){
 
     return(dispatch, getState) => {

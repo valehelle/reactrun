@@ -31,13 +31,18 @@ class Setting extends Component{
     privacyPressed(){
         this.props.navigation.navigate('Web',{ name: 'Privacy', url: 'https://valehelle.github.io/venv/privacy.html'})
     }
+
+    changeUnit(unit){
+        this.props.screenProps.changeUnit(unit)
+    }
+
     measurementUnitPressed(){
         Alert.alert(
             'Select your unit',
-            'Current unit is Kilometer',
+            'Current unit is ' + this.props.unit,
             [
-                {text: 'Mile', onPress: () => console.log('Cancel Pressed')},
-                {text: 'Kilometer', onPress: () => console.log('Weeee')},
+                {text: 'MILE', onPress: () => this.changeUnit("MILE")},
+                {text: 'KILOMETER', onPress: () => this.changeUnit("KILOMETER")},
             ],
             { cancelable: false }
         )
@@ -88,6 +93,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return{
         name: state.latestEvent.name,
+        unit: state.user.unit
     }
 }
 
