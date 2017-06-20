@@ -52,6 +52,11 @@ class Setting extends Component{
         return (
             <ScrollView>
                 <View style = {styles.container} >
+                  <View style = {styles.about}>
+                        <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.measurementUnitPressed()}>
+                            <Text>Unit of measurement</Text>
+                        </TouchableOpacity>
+                    </View>
                     <View style = {styles.about}>
                         <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.aboutPressed()}>
                             <Text>About</Text>
@@ -65,11 +70,6 @@ class Setting extends Component{
                     <View style = {styles.about}>
                         <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.privacyPressed()}>
                             <Text>Privacy</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style = {styles.about}>
-                        <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.measurementUnitPressed()}>
-                            <Text>Unit of measurement</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
