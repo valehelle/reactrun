@@ -108,14 +108,27 @@ function calcDistance(prevLatLng,newLatLng) {
 export function startJogging(){
     return(dispatch, getState) => {
         let prevLatLng = getState().location.prevLatLng
-        return dispatch({
-            type: types.START_JOGGING,
-            mainTimerStart: new Date,
-            countTimer: '',
-            prevLatLng: prevLatLng,
-        })
+        if(getState().location.allLatLng.length > 0){
+            return dispatch({
+                type: types.RESUME_JOGGING,
+                mainTimerStart: new Date,
+                countTimer: '',
+                prevLatLng: prevLatLng,
+            })
+        }else{
+            return dispatch({
+                type: types.START_JOGGING,
+                mainTimerStart: new Date,
+                countTimer: '',
+                prevLatLng: prevLatLng,
+            })
+        }
+        
+
     }
 }
+
+
 export function startTimer(){
     return(dispatch, getState) => {
         this.interval = setInterval(() => {
