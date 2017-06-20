@@ -74,6 +74,10 @@ export function mToKM(m){
     let km = m / 1000;
     return km.toFixed(2)
 }
+export function mToMile(m){
+    let mile = m * 0.000621371;
+    return mile.toFixed(2)
+}
 
 export function getDayWeekFirst(){
     let curr = new Date; // get current date

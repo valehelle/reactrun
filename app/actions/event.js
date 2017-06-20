@@ -1,6 +1,6 @@
 import * as types from './types'
 import realm from '../database/realm'
-import { getToday, daysLeft, mToKM, getWeekLeft, getDayWeekFirst, getDayWeekLast, daysBetween } from '../lib/lib'
+import { getToday, daysLeft, mToKM, mToMile, getWeekLeft, getDayWeekFirst, getDayWeekLast, daysBetween } from '../lib/lib'
 const uuid = require('react-native-uuid');
 const RNFS = require('react-native-fs')
 import { Platform } from 'react-native';
