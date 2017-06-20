@@ -70,6 +70,39 @@ export function daysBetween(sDate, eDate){
     return  Math.ceil(days)
 }
 
+export function mToCurrentUnit(unit,m){
+    let distance = 0
+    if(unit === 'KILOMETER'){
+        distance = mToKM(m)
+    }else{
+        distance = mToMile(m)
+    }
+    return distance
+}
+
+export function unitText(unit){
+    let text = ''
+    if(unit === 'KILOMETER'){
+        text = 'KM'
+    }else{
+        text = 'Mile'
+    }
+    return text
+}
+
+export function NiceDistance(distance){
+    return (distance / 1).toFixed(0)
+}
+
+export function kmToM(km){
+    let m = km * 1000;
+    return m.toFixed(2)
+}
+export function mileToM(mile){
+    let m = mile / 0.000621371;
+    return m.toFixed(2)
+}
+
 export function mToKM(m){
     let km = m / 1000;
     return km.toFixed(2)

@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import { secondary } from '../lib/colors'
-import MapView from 'react-native-maps' 
+import MapView from 'react-native-maps'
+import { mToCurrentUnit, unitText } from '../lib/lib'
 const {
     ScrollView,
     View,
@@ -50,9 +51,9 @@ class FinishActivity extends Component{
                 </View>
                 <View style = { styles.detailWrapper } >
                     <View style = { styles.detailContainer } >
-                        <Text>Distance: { this.props.distance } KM</Text>
+                        <Text>Distance: { mToCurrentUnit(this.props.unit, this.props.distance) } { unitText(this.props.unit) }</Text>
                         <Text>Time: { this.props.time }</Text>
-                        <Text>Pace: { this.props.pace } KM/Minute</Text>
+                        <Text>Pace: {  mToCurrentUnit(this.props.unit, this.props.pace)} { unitText(this.props.unit) }/Minute</Text>
                         <Text>Date: { this.props.date }</Text>
                     </View>
                 </View>
@@ -99,6 +100,7 @@ function mapStateToProps(state){
         gps: state.runDetail.gps,
         startLat: state.runDetail.startLat,
         startLng: state.runDetail.startLng,
+        unit: state.user.unit,
     }
 }
 

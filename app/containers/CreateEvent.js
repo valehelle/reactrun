@@ -6,6 +6,7 @@ import { NavigationActions } from 'react-navigation'
 import { toDate, addMonths } from '../lib/lib'
 import { TextField } from 'react-native-material-textfield'
 import PrimaryButton from  '../components/PrimaryButton'
+import { unitText } from '../lib/lib'
 
 const dismissKeyboard = require('dismissKeyboard')
 const ImagePicker = require('react-native-image-picker')
@@ -165,7 +166,7 @@ class CreateEvent extends Component{
                                 keyboardType = 'numeric'
                                 onChangeText = {(text)=> this.onTextDistanceChanged(text)}
                                 value = {this.state.distance}
-                                label= 'Distance'
+                                label= { 'Distance ('  + unitText(this.props.unit) + ')' }
                                 onSubmitEditing={ ()=> this.dismissKeyboardAction()}
                             /> 
                             <Text style = {styles.sDateText}>Start Date</Text>
@@ -259,6 +260,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return{
         eventCreated: state.event.eventCreated,
+        unit: state.user.unit
     }
 }
 

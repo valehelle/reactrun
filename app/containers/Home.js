@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
+import { mToCurrentUnit, NiceDistance, unitText } from '../lib/lib'
 import { secondary, primaryTextButton, primaryDark } from '../lib/colors'
 import PrimaryButton from  '../components/PrimaryButton'
 import ProgressBarMini from '../components/ProgressBarMini'
@@ -94,8 +95,8 @@ class Home extends Component{
                             {this.props.bannerSource != 'null' && this.props.bannerSource != ''  ? this._renderBanner() : null }
                             <View style = { styles.contentContainer } >
                                 <View style = { styles.totalDistanceContainer } >
-                                    <Text style = { styles.totalDistance }>{this.props.totalDistance.toString()}<Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
-                                    <ProgressBarMini reachedBarColor={ secondary } value={Number(this.props.overallDistanceTravelled)} total={Number(this.props.totalDistance)}/>
+                                    <Text style = { styles.totalDistance }>{ NiceDistance(mToCurrentUnit(this.props.unit,this.props.totalDistance)).toString() }<Text style = { styles.distanceWeekSmallText }>{ unitText(this.props.unit) }</Text></Text>
+                                    <ProgressBarMini reachedBarColor={ secondary } value={Number(mToCurrentUnit(this.props.unit,this.props.overallDistanceTravelled))} total={Number(mToCurrentUnit(this.props.unit,this.props.totalDistance))}/>
                                 </View>
                                 <View style = { styles.distanceContainer }>
                                     <View style = { styles.daysLeftContainer }>
@@ -104,7 +105,7 @@ class Home extends Component{
                                     </View>
                                     <View style = { styles.totalDistanceCurrentContainer }>
                                         <View style = { styles.totalDistanceRunContainer }>
-                                            <Text style = { styles.distanceWeekText }>{this.props.overallDistanceLeft.toString()} <Text style = { styles.distanceWeekSmallText }>KM</Text></Text>
+                                            <Text style = { styles.distanceWeekText }>{ mToCurrentUnit(this.props.unit,this.props.overallDistanceLeft)} <Text style = { styles.distanceWeekSmallText }>{ unitText(this.props.unit) }</Text></Text>
                                             <Text style = { styles.distanceWeekSmallText }>Left</Text>
                                         </View>
                                     </View>
@@ -281,6 +282,7 @@ function mapStateToProps(state){
         bannerSource: state.latestEvent.bannerSource,
         isRunComplete: state.latestEvent.isRunComplete,
         dateStart: state.latestEvent.dateStart,
+        unit: state.user.unit
     }
 }
 

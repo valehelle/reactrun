@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
-import { TimeFormatter, mToKM } from '../lib/lib.js'
+import { TimeFormatter, mToCurrentUnit, unitText } from '../lib/lib.js'
 import { NavigationActions } from 'react-navigation'
 import { secondary, primaryTextButton, primary } from '../lib/colors'
 import PrimaryButton from '../components/PrimaryButton'
@@ -107,7 +107,7 @@ class Home extends Component{
         if(this.props.isActive){
             let title = 'Congrats!'
             let sub = 'Finish with your running?'
-            if(this.props.distanceWeekly > mToKM(this.props.totalDistance)){
+            if(this.props.distanceWeekly > this.props.totalDistance){
                 title = 'Dont give up yet!'
                 sub = 'Are you sure you want to stop?'
             }
@@ -143,8 +143,8 @@ class Home extends Component{
                 <View style = { styles.timerWrapperInner }>
 
                     <Text style = { styles.mainTimer }>{ TimeFormatter(this.props.mainTimer) }</Text>
-                    <Text style = { styles.distance }>{mToKM(this.props.totalDistance)}</Text>
-                    <Text style = { styles.meter }>KM</Text>
+                    <Text style = { styles.distance }>{ mToCurrentUnit(this.props.unit,this.props.totalDistance) }</Text>
+                    <Text style = { styles.meter }>{ unitText(this.props.unit) }</Text>
                 </View>
             </View>
         )
@@ -153,7 +153,7 @@ class Home extends Component{
         return (
             <View style = { styles.distanceWrapper }>
                 <View style = { styles.distanceWrapperInner }>
-                    <Text style = { styles.meter }>KM</Text>
+                    <Text style = { styles.meter }>{ unitText(this.props.unit) }</Text>
                 </View>
             </View>
         )
@@ -202,7 +202,7 @@ class Home extends Component{
         return (
             <View style = { styles.goalWrapper }>
                 <Text style={ styles.meter } ></Text>
-                <Text style={ styles.meter } >Goal { this.props.distanceGoal } KM</Text>
+                <Text style={ styles.meter } >Goal { mToCurrentUnit(this.props.unit,this.props.distanceGoal) } { unitText(this.props.unit) }</Text>
                 <Text style={ styles.meter } > </Text>
             </View>
         )
@@ -424,6 +424,7 @@ function mapStateToProps(state){
         startLng: state.location.startLng,
         prevLatLng: state.location.prevLatLng,
         gps: state.location.allLatLng,
+        unit: state.user.unit
     }
 }
 

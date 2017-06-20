@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
-import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter, getToday } from '../lib/lib'
+import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter, getToday, unitText, mToCurrentUnit, } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
 import { secondary } from '../lib/colors'
 
@@ -89,9 +89,9 @@ class EventDetail extends Component{
                     </View>
                     <Text style = { styles.totalTitle } >Overall</Text>
                     <View style = { styles.totalContainer }>
-                        <Text>Total Distance: <Text style = { styles.sub }>{ this.props.totalDistance.toString() } KM</Text></Text>
-                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ this.props.overallDistanceTravelled.toString() } KM</Text></Text>
-                        <Text>Total Distance Left: <Text style = { styles.sub }>{ this.props.overallDistanceLeft.toString() } KM</Text></Text>
+                        <Text>Total Distance: <Text style = { styles.sub }>{ mToCurrentUnit(this.props.unit,this.props.totalDistance) } {unitText(this.props.unit)}</Text></Text>
+                        <Text>Total Distance Ran: <Text style = { styles.sub }>{ mToCurrentUnit(this.props.unit,this.props.overallDistanceTravelled) } {unitText(this.props.unit)}</Text></Text>
+                        <Text>Total Distance Left: <Text style = { styles.sub }>{ mToCurrentUnit(this.props.unit,this.props.overallDistanceLeft) } {unitText(this.props.unit)}</Text></Text>
                     </View>
                 </View>
                 <View style = { styles.startContainer }>
@@ -112,7 +112,7 @@ class EventDetail extends Component{
                                             />
                                         </View>
                                         <View style = {styles.runDetailWrapper}>
-                                            <Text>{ mToKM(runs.distance) } KM</Text>
+                                            <Text>{ mToCurrentUnit(this.props.unit,runs.distance) } {unitText(this.props.unit)}</Text>
                                             <Text style = { styles.runTime }>{ TimeNiceFormatter(runs.time) }</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -241,6 +241,7 @@ function mapStateToProps(state){
         bibNumber: state.currentEvent.bibNumber,
         bannerSource: state.currentEvent.bannerSource,
         isRunComplete: state.currentEvent.isRunComplete,
+        unit: state.user.unit
     }
 }
 
