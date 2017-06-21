@@ -30,7 +30,7 @@ export function startTracking(){
         let minimumAccuracy = 100 // metres
         let maximumSpeed = 13
         this.watchID = navigator.geolocation.watchPosition((position) => {
-            if(position.coords.accuracy < minimumAccuracy && position.coords.speed < maximumSpeed){
+            if(position.coords.accuracy < minimumAccuracy && position.coords.speed != null && position.coords.speed < maximumSpeed){
                 const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
                 const prevLatLng = getState().location.prevLatLng
                 const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
