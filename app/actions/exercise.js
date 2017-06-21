@@ -27,7 +27,7 @@ export function startTracking(){
     return(dispatch, getState) => {
         //Get current location
         //Watch the user location
-        let minimumAccuracy = 300 // metres
+        let minimumAccuracy = 50 // metres
         this.watchID = navigator.geolocation.watchPosition((position) => {
             if(position.coords.accuracy < minimumAccuracy){
                 const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
@@ -68,7 +68,7 @@ export function startTracking(){
             }
         },
         (error) => alert(JSON.stringify(error)),    
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 20,}
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10,}
         )
     }
 }
