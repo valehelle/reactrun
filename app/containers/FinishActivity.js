@@ -38,6 +38,10 @@ class FinishActivity extends Component{
                             longitudeDelta: 0.0421,
                         }}
                         onLayout={()=> this.fitToAll()}
+                        scrollEnabled = {false}
+                        zoomEnabled={false}
+                        pitchEnabled={false}
+                        rotateEnabled={false}
                     >
                         <MapView.Polyline
                             coordinates={ this.props.gps }
