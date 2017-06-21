@@ -10,7 +10,7 @@ export function getInitialPosition(){
                 return dispatch(setInitialLocation({initialPosition})) 
             },
             (error) => alert(error.message),
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+            {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
         )
     }
 }
@@ -27,9 +27,10 @@ export function startTracking(){
     return(dispatch, getState) => {
         //Get current location
         //Watch the user location
-        let minimumAccuracy = 50 // metres
+        let minimumAccuracy = 100 // metres
+        let maximumSpeed = 13
         this.watchID = navigator.geolocation.watchPosition((position) => {
-            if(position.coords.accuracy < minimumAccuracy){
+            if(position.coords.accuracy < minimumAccuracy && position.coords.speed < maximumSpeed){
                 const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
                 const prevLatLng = getState().location.prevLatLng
                 const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
