@@ -60,7 +60,7 @@ export function getRunDetails(){
     return(dispatch, getState) => {
         let runID = getState().runDetail.id
         let runDetail = realm.objectForPrimaryKey('Run', runID)
-        let distance = mToKM(runDetail.distance)
+        let distance = runDetail.distance
         let time = TimeNiceFormatter(runDetail.time)
         let date = DateNiceFormatter(runDetail.date)
         let pace = distance / runDetail.time

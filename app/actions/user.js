@@ -47,7 +47,6 @@ export function getUserDetails(){
         }else{
             //User profile does not exist.Create a new one
             try{
-                alert('Create new')
                 let userID = uuid.v4()
                 let userDetail = {
                     id: userID,

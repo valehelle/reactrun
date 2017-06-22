@@ -11,7 +11,7 @@ export function getInitialPosition(){
                 return dispatch(setInitialLocation({initialPosition})) 
             },
             (error) => alert(error.message),
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+            {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
         )
     }
 }
@@ -26,6 +26,7 @@ export function setInitialLocation({ initialPosition }){
 
 export function startTracking(){
     return(dispatch, getState) => {
+<<<<<<< HEAD
         BackgroundGeolocation.configure({
             desiredAccuracy: 10,
             stationaryRadius: 20,
@@ -43,6 +44,15 @@ export function startTracking(){
     BackgroundGeolocation.on('location', (position) => {
       //handle your locations here
                 const newLatLng = {latitude: position.latitude, longitude: position.longitude }
+=======
+        //Get current location
+        //Watch the user location
+        let minimumAccuracy = 100 // metres
+        let maximumSpeed = 13
+        this.watchID = navigator.geolocation.watchPosition((position) => {
+            if(position.coords.accuracy < minimumAccuracy && position.coords.speed != null && position.coords.speed < maximumSpeed){
+                const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
+>>>>>>> eb6ce6e64c86b7bd274d1a6db98ce06d5006bfdd
                 const prevLatLng = getState().location.prevLatLng
                 const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
                 const prevDistance = getState().location.previousDistanceTravelled
@@ -174,14 +184,27 @@ function calcDistance(prevLatLng,newLatLng) {
 export function startJogging(){
     return(dispatch, getState) => {
         let prevLatLng = getState().location.prevLatLng
-        return dispatch({
-            type: types.START_JOGGING,
-            mainTimerStart: new Date,
-            countTimer: '',
-            prevLatLng: prevLatLng,
-        })
+        if(getState().location.allLatLng.length > 0){
+            return dispatch({
+                type: types.RESUME_JOGGING,
+                mainTimerStart: new Date,
+                countTimer: '',
+                prevLatLng: prevLatLng,
+            })
+        }else{
+            return dispatch({
+                type: types.START_JOGGING,
+                mainTimerStart: new Date,
+                countTimer: '',
+                prevLatLng: prevLatLng,
+            })
+        }
+        
+
     }
 }
+
+
 export function startTimer(){
     return(dispatch, getState) => {
         this.interval = setInterval(() => {

@@ -1,6 +1,6 @@
 import * as types from './types'
 import realm from '../database/realm'
-import { getToday, daysLeft, mToKM, mToMile, getWeekLeft, getDayWeekFirst, getDayWeekLast, daysBetween } from '../lib/lib'
+import { getToday, daysLeft, mToKM, mToMile, kmToM, mileToM, getWeekLeft, getDayWeekFirst, getDayWeekLast, daysBetween } from '../lib/lib'
 const uuid = require('react-native-uuid');
 const RNFS = require('react-native-fs')
 import { Platform } from 'react-native';
@@ -15,7 +15,7 @@ export function createEvent(state){
                     // write the file
                     RNFS.writeFile(path, state.bannerData, 'base64')
                     .then((success) => {
-                        const eventID = createEventRealm(state);
+                        const eventID = createEventRealm(state,getState,dispatch);
                         return dispatch(createEventSuccess({
                             eventID: eventID, 
                         }))
@@ -25,7 +25,7 @@ export function createEvent(state){
                         return dispatch(createEventFail())
                     });                    
                 }else{
-                    const eventID = createEventRealm(state);
+                    const eventID = createEventRealm(state,getState,dispatch);
                     return dispatch(createEventSuccess({
                         eventID: eventID, 
                     }))
@@ -38,16 +38,23 @@ export function createEvent(state){
 
 }
 
-export function createEventRealm(state){
+export function createEventRealm(state,getState,dispatch){
     let eventID = uuid.v4()
     try{
+        let unit = getState().user.unit
+        let distance = state.distance
+        if(unit === 'KILOMETER'){
+            distance = kmToM(parseInt(state.distance))
+        }else{
+            distance = mileToM(parseInt(state.distance))
+        }
         realm.write(() => {
                 let myEvent = realm.create('Event', {
                 id: eventID,
                 name: state.name,
                 datestart: state.sdate,
                 dateend: state.edate,
-                distance: parseInt(state.distance),
+                distance: parseInt(distance),
                 weeklyrun: parseInt(state.weeklyrun),
                 datecreated: new Date(),
                 distanceTravelled: 0,
@@ -108,7 +115,6 @@ export function getLatestEvent(){
                 overallDistanceTravelled = overallDistanceTravelled + run.distance
             }
         }
-        overallDistanceTravelled = mToKM(overallDistanceTravelled)
         let overallDistanceLeft = latestEvent.distance - overallDistanceTravelled
         let isRunComplete = false
         overallDistanceLeft = overallDistanceLeft.toFixed(2)
@@ -198,7 +204,6 @@ export function getEventDetails(){
                     overallDistanceTravelled = overallDistanceTravelled + run.distance
                 }
             }
-            overallDistanceTravelled = mToKM(overallDistanceTravelled)
             let overallDistanceLeft = currentEvent.distance - overallDistanceTravelled
             let isRunComplete = false
             overallDistanceLeft = overallDistanceLeft.toFixed(2)
@@ -227,7 +232,6 @@ export function getEventDetails(){
                 }
             }
 
-            distanceWeeklyRun = mToKM(distanceWeeklyRun)
             let distanceWeeklyLeft = distanceWeeklyLeft =  distanceWeekly - distanceWeeklyRun
             if(distanceWeeklyLeft < 0){
                 distanceWeeklyLeft = 0

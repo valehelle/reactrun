@@ -62,6 +62,12 @@ export const activity = createReducer({
             isActive: true,
         })
     },
+    [types.RESUME_JOGGING](state, action) {
+        return Object.assign({}, state, {
+            isJogging: true,
+            isActive: true,
+        })
+    },
     [types.STOP_JOGGING](state, action) {
         return Object.assign({}, state, {
             isJogging: false,
