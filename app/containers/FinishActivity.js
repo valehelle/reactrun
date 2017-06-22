@@ -43,6 +43,7 @@ class FinishActivity extends Component{
                         zoomEnabled={false}
                         pitchEnabled={false}
                         rotateEnabled={false}
+                        lineJoin= {'miter'}
                     >
                         <MapView.Polyline
                             coordinates={ this.props.gps }
