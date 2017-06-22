@@ -17,6 +17,7 @@
     "react-native-image-picker": "^0.26.3",
     "react-native-maps": "^0.15.2",
     "react-native-material-textfield": "^0.5.4",
+    "react-native-mauron85-background-geolocation": "^0.2.0-alpha.7",
     "react-native-uuid": "^1.4.9",
     "react-navigation": "git+https://github.com/react-community/react-navigation.git",
     "react-redux": "^5.0.4",
