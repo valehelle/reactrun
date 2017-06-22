@@ -26,7 +26,6 @@ export function setInitialLocation({ initialPosition }){
 
 export function startTracking(){
     return(dispatch, getState) => {
-<<<<<<< HEAD
         BackgroundGeolocation.configure({
             desiredAccuracy: 10,
             stationaryRadius: 20,
@@ -44,15 +43,7 @@ export function startTracking(){
     BackgroundGeolocation.on('location', (position) => {
       //handle your locations here
                 const newLatLng = {latitude: position.latitude, longitude: position.longitude }
-=======
-        //Get current location
-        //Watch the user location
-        let minimumAccuracy = 100 // metres
-        let maximumSpeed = 13
-        this.watchID = navigator.geolocation.watchPosition((position) => {
-            if(position.coords.accuracy < minimumAccuracy && position.coords.speed != null && position.coords.speed < maximumSpeed){
                 const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
->>>>>>> eb6ce6e64c86b7bd274d1a6db98ce06d5006bfdd
                 const prevLatLng = getState().location.prevLatLng
                 const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
                 const prevDistance = getState().location.previousDistanceTravelled
