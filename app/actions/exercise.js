@@ -43,7 +43,6 @@ export function startTracking(){
     BackgroundGeolocation.on('location', (position) => {
       //handle your locations here
                 const newLatLng = {latitude: position.latitude, longitude: position.longitude }
-                const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
                 const prevLatLng = getState().location.prevLatLng
                 const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
                 const prevDistance = getState().location.previousDistanceTravelled
