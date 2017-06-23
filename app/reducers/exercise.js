@@ -108,6 +108,12 @@ export const timer = createReducer({
            countTimer: action.countTimer,
            isCountDown: false,
         })
+    },[types.RESUME_JOGGING](state, action) {
+        return Object.assign({}, state, {
+           mainTimerStart: action.mainTimerStart,
+           countTimer: action.countTimer,
+           isCountDown: false,
+        })
     },[types.PAUSE_TIMER](state, action) {
         return Object.assign({}, state, {
            isPause: true,
