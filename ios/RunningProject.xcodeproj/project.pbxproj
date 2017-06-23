@@ -39,6 +39,8 @@
 		646BFA7A761343B28D44805A /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED414C91D5B049959EAC68D3 /* libRNFS.a */; };
 		6F327AD6C2E545018C3E3247 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B56A8CE0B0F24E76B3C8A9F2 /* libRealmReact.a */; };
 		809CC9F21EF9508B00830A61 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809CC9F11EF9508B00830A61 /* Launch Screen.storyboard */; };
+		80EEAD0A1EFBF36E00B5EDFE /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EEACEF1EFBF31900B5EDFE /* libRCTBackgroundGeolocation.a */; };
+		80EEAD0E1EFBF8AB00B5EDFE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EEAD0D1EFBF8AB00B5EDFE /* libsqlite3.dylib */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		B656E7D368A14AD793760DF7 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48646354EDB7464AB3F32F3E /* libRNImagePicker.a */; };
 		B7440A0E10844F6598E19975 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C39DA9D7C792465BB0BBEBCC /* libz.tbd */; };
@@ -262,6 +264,13 @@
 			remoteGlobalIDString = 6456441F1EB8DA9100672408;
 			remoteInfo = "RNFS-tvOS";
 		};
+		80EEACEE1EFBF31900B5EDFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 80EEACE61EFBF31800B5EDFE /* RCTBackgroundGeolocation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 418F75461D02DC3D0045FEA0;
+			remoteInfo = RCTBackgroundGeolocation;
+		};
 		832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */;
@@ -299,6 +308,10 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7F21EE6F9103494DBDE6079F /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		809CC9F11EF9508B00830A61 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		80EEACE61EFBF31800B5EDFE /* RCTBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
+		80EEAD0B1EFBF85000B5EDFE /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
+		80EEAD0D1EFBF8AB00B5EDFE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
+		80EEAD0F1EFBF8BE00B5EDFE /* libapr-1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libapr-1.0.dylib"; path = "../../../../../../usr/lib/libapr-1.0.dylib"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ABF84CDA1BB24E42888B3831 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		B56A8CE0B0F24E76B3C8A9F2 /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
@@ -321,6 +334,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80EEAD0E1EFBF8AB00B5EDFE /* libsqlite3.dylib in Frameworks */,
+				80EEAD0A1EFBF36E00B5EDFE /* libRCTBackgroundGeolocation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -484,6 +499,9 @@
 		70551F0BE07F4353959BC8FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80EEAD0F1EFBF8BE00B5EDFE /* libapr-1.0.dylib */,
+				80EEAD0D1EFBF8AB00B5EDFE /* libsqlite3.dylib */,
+				80EEAD0B1EFBF85000B5EDFE /* libz.1.dylib */,
 				BA10413393AB4434AAB76C5E /* libc++.tbd */,
 				C39DA9D7C792465BB0BBEBCC /* libz.tbd */,
 			);
@@ -532,9 +550,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		80EEACE71EFBF31800B5EDFE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80EEACEF1EFBF31900B5EDFE /* libRCTBackgroundGeolocation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				80EEACE61EFBF31800B5EDFE /* RCTBackgroundGeolocation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -717,6 +744,10 @@
 				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
+				},
+				{
+					ProductGroup = 80EEACE71EFBF31800B5EDFE /* Products */;
+					ProjectRef = 80EEACE61EFBF31800B5EDFE /* RCTBackgroundGeolocation.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -981,6 +1012,13 @@
 			remoteRef = 80D381131EF423D000AAAB12 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		80EEACEF1EFBF31900B5EDFE /* libRCTBackgroundGeolocation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTBackgroundGeolocation.a;
+			remoteRef = 80EEACEE1EFBF31900B5EDFE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		832341B51AAA6A8300B99B32 /* libRCTText.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1188,7 +1226,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				INFOPLIST_FILE = RunningProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1215,7 +1253,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				INFOPLIST_FILE = RunningProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

@@ -5,16 +5,23 @@ import BackgroundGeolocation from 'react-native-mauron85-background-geolocation'
 
 export function getInitialPosition(){
     return(dispatch, getState) => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                let initialPosition = position.coords
-                return dispatch(setInitialLocation({initialPosition})) 
-            },
-            (error) => alert(error.message),
-            {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
-        )
+        BackgroundGeolocation.configure({
+            desiredAccuracy: BackgroundGeolocation.accuracy.HIGH,
+            stationaryRadius: 10,
+            distanceFilter: 10,
+            locationTimeout: 30,
+            debug: true,
+            startOnBoot: false,
+            stopOnTerminate: false,
+            interval: 1000,
+            fastestInterval: 5000,
+            activitiesInterval: 10000,
+            stopOnStillActivity: false,
+            saveBatteryOnBackground	: false,
+        });
     }
 }
+
 
 export function setInitialLocation({ initialPosition }){
     return {
@@ -26,20 +33,6 @@ export function setInitialLocation({ initialPosition }){
 
 export function startTracking(){
     return(dispatch, getState) => {
-        BackgroundGeolocation.configure({
-            desiredAccuracy: 10,
-            stationaryRadius: 20,
-            distanceFilter: 10,
-            locationTimeout: 30,
-            debug: true,
-            startOnBoot: false,
-            stopOnTerminate: false,
-            locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
-            interval: 10000,
-            fastestInterval: 5000,
-            activitiesInterval: 10000,
-            stopOnStillActivity: false,
-        });
     BackgroundGeolocation.on('location', (position) => {
       //handle your locations here
                 const newLatLng = {latitude: position.latitude, longitude: position.longitude }
@@ -76,12 +69,22 @@ export function startTracking(){
                     return dispatch(setLocation({ latlng: newLatLng }))
                 }
     });
-
-    
-    BackgroundGeolocation.start(() => {
-      console.log('[DEBUG] BackgroundGeolocation started successfully');    
+        BackgroundGeolocation.on('stationary', (stationaryLocation) => {
+      //handle stationary locations here
+      console.warn('Stationary')
     });
+
+        BackgroundGeolocation.on('error', (error) => {
+            console.warn('[ERROR] BackgroundGeolocation error:', error);
+        });
+
+        BackgroundGeolocation.start(() => {
+            console.log('[DEBUG] BackgroundGeolocation started successfully');    
+        });
+       
+
     }
+
 }
 
 // export function startTracking(){
@@ -138,7 +141,7 @@ export function startTracking(){
 
 export function stopTracking(){
     BackgroundGeolocation.stop(() => {
-      console.log('[DEBUG] BackgroundGeolocation started successfully');    
+      console.log('[DEBUG] BackgroundGeolocation stop successfully');    
     });
     //navigator.geolocation.clearWatch(this.watchID)
     return {

@@ -233,10 +233,6 @@ class Home extends Component{
                                 }}
                                 showsUserLocation= {true}
                                 showsMyLocationButton={false}
-                                scrollEnabled = {false}
-                                zoomEnabled={false}
-                                pitchEnabled={false}
-                                rotateEnabled={false}
                                 onLayout={()=> this.moveUserCenter()}
                                 >
                                 { this._renderPath}
@@ -244,7 +240,6 @@ class Home extends Component{
                                     coordinates={ this.props.gps }
                                     strokeColor= { secondary }
                                     strokeWidth={5}
-                                    lineCap={'round'}
                                 />
                             </MapView>
                         </View>
