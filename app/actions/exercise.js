@@ -5,7 +5,31 @@ import BackgroundGeolocation from 'react-native-mauron85-background-geolocation'
 
 export function getInitialPosition(){
     return(dispatch, getState) => {
-        BackgroundGeolocation.configure({
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                let initialPosition = position.coords
+                alert(initialPosition.latitude)
+                return dispatch(setInitialLocation({initialPosition})) 
+            },
+            (error) => alert(error.message),
+            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        )
+    }
+    
+}
+
+
+export function setInitialLocation({ initialPosition }){
+    return {
+        type: types.SET_INITIAL_LOCATION,
+        initialPosition,
+    }
+}
+
+export function startTracking(){
+    return(dispatch, getState) => {
+
+    BackgroundGeolocation.configure({
             desiredAccuracy: BackgroundGeolocation.accuracy.HIGH,
             stationaryRadius: 10,
             distanceFilter: 10,
@@ -18,21 +42,8 @@ export function getInitialPosition(){
             activitiesInterval: 10000,
             stopOnStillActivity: false,
             saveBatteryOnBackground	: false,
-        });
-    }
-}
-
-
-export function setInitialLocation({ initialPosition }){
-    return {
-        type: types.SET_INITIAL_LOCATION,
-        latitude: initialPosition.latitude,
-        longitude: initialPosition.longitude,
-    }
-}
-
-export function startTracking(){
-    return(dispatch, getState) => {
+    });
+    
     BackgroundGeolocation.on('location', (position) => {
       //handle your locations here
                 const newLatLng = {latitude: position.latitude, longitude: position.longitude }

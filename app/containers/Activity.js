@@ -29,6 +29,8 @@ class Home extends Component{
 
         this.navigator = null;
 
+        this.props.screenProps.getInitialPosition()
+
         this.handleBack = (() => {
             this.finishPressed()
             return true; //avoid closing the app
@@ -37,7 +39,6 @@ class Home extends Component{
 
 
     componentDidMount() {
-        this.props.screenProps.getInitialPosition()
         this.props.screenProps.startTracking()
         this.props.screenProps.getEventDetails()
         BackAndroid.addEventListener('hardwareBackPress',this.handleBack)
@@ -233,6 +234,10 @@ class Home extends Component{
                                 }}
                                 showsUserLocation= {true}
                                 showsMyLocationButton={false}
+                                scrollEnabled = {false}
+                                zoomEnabled={false}
+                                pitchEnabled={false}
+                                rotateEnabled={false}
                                 onLayout={()=> this.moveUserCenter()}
                                 >
                                 { this._renderPath}
