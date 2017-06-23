@@ -8,11 +8,10 @@ export function getInitialPosition(){
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 let initialPosition = position.coords
-                alert(initialPosition.latitude)
                 return dispatch(setInitialLocation({initialPosition})) 
             },
             (error) => alert(error.message),
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+            {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
         )
     }
     

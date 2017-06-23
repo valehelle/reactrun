@@ -20,6 +20,7 @@ class Home extends Component{
 
     componentDidMount() {
         this.props.screenProps.getLatestEvent()
+        this.props.screenProps.getInitialPosition()
     }
 
 
