@@ -20,7 +20,7 @@ const {
 
 
 
-class Home extends Component{
+class Activity extends Component{
 
     constructor(props) {
         super(props)
@@ -229,15 +229,11 @@ class Home extends Component{
                                 initialRegion={{
                                     latitude: this.props.startLat,
                                     longitude: this.props.startLng,
-                                    latitudeDelta: 0.0015,
-                                    longitudeDelta: 0.0015,
+                                    latitudeDelta: 0.0020,
+                                    longitudeDelta: 0.0020,
                                 }}
                                 showsUserLocation= {true}
                                 showsMyLocationButton={false}
-                                scrollEnabled = {false}
-                                zoomEnabled={false}
-                                pitchEnabled={false}
-                                rotateEnabled={false}
                                 onLayout={()=> this.moveUserCenter()}
                                 >
                                 { this._renderPath}
@@ -420,4 +416,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(Activity)

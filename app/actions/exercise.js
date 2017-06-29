@@ -8,6 +8,7 @@ export function getInitialPosition(){
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 let initialPosition = position.coords
+                alert(initialPosition.accuracy)
                 return dispatch(setInitialLocation({initialPosition})) 
             },
             (error) => alert(error.message),
@@ -41,6 +42,7 @@ export function startTracking(){
             activitiesInterval: 10000,
             stopOnStillActivity: false,
             saveBatteryOnBackground	: false,
+            locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
     });
     
     BackgroundGeolocation.on('location', (position) => {
@@ -79,75 +81,11 @@ export function startTracking(){
                     return dispatch(setLocation({ latlng: newLatLng }))
                 }
     });
-        BackgroundGeolocation.on('stationary', (stationaryLocation) => {
-      //handle stationary locations here
-      console.warn('Stationary')
-    });
-
-        BackgroundGeolocation.on('error', (error) => {
-            console.warn('[ERROR] BackgroundGeolocation error:', error);
-        });
-
-        BackgroundGeolocation.start(() => {
-            console.log('[DEBUG] BackgroundGeolocation started successfully');    
-        });
        
 
     }
 
 }
-
-// export function startTracking(){
-//     return(dispatch, getState) => {
-//         //Get current location
-//         //Watch the user location
-//         let minimumAccuracy = 100 // metres
-//         let maximumSpeed = 13
-//         this.watchID = navigator.geolocation.watchPosition((position) => {
-//             if(position.coords.accuracy < minimumAccuracy && position.coords.speed != null && position.coords.speed < maximumSpeed){
-//                 const newLatLng = {latitude: position.coords.latitude, longitude: position.coords.longitude }
-//                 const prevLatLng = getState().location.prevLatLng
-//                 const totalDistance = getState().location.totalDistanceTravelled + calcDistance(prevLatLng,newLatLng)
-//                 const prevDistance = getState().location.previousDistanceTravelled
-//                 if(getState().activity.isJogging){
-//                     if (totalDistance - prevDistance >= 1000){
-//                         //Update the location,distance and also lapse.
-//                         const lastLapse = getState().activity.laps.length - 1
-//                         const prevLapseTime = getState().activity.prevLapseTime
-//                         const time = getState().timer.mainTimer - prevLapseTime
-//                         const id = getState().activity.laps.length
-//                         const lapse = {'time': time, 'id': id}
-//                         const newPrevLapseTime = prevLapseTime + time
-
-//                         return dispatch(updateLocationLapse({ 
-//                             latlng: newLatLng,
-//                             previousDistanceTravelled: totalDistance,
-//                             totalDistanceTravelled: totalDistance,
-//                             laps: lapse,
-//                             prevLapseTime: newPrevLapseTime,
-//                         }))                  
-//                     }else{
-//                         //Update the location and distance.
-//                         return dispatch(updateLocation({ 
-//                             latlng: newLatLng,
-//                             totalDistanceTravelled: totalDistance,
-                            
-//                         }))
-//                     }
-//                 }else{
-//                     //Update only the location.
-//                     return dispatch(setLocation({ latlng: newLatLng }))
-//                 }
-//             }else{
-//                 console.warn('Position rejected')
-//             }
-//         },
-//         (error) => alert(JSON.stringify(error)),    
-//         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 20,}
-//         )
-//     }
-// }
-
 
 export function stopTracking(){
     BackgroundGeolocation.stop(() => {
