@@ -81,6 +81,10 @@ export function startTracking(){
                     return dispatch(setLocation({ latlng: newLatLng }))
                 }
     });
+
+        BackgroundGeolocation.start(() => {
+            console.log('[DEBUG] BackgroundGeolocation started successfully');    
+        });
        
 
     }
