@@ -8,22 +8,26 @@ export const location = createReducer({
     'allLatLng': [],
     'startLat': 37.78825,
     'startLng': -122.4324,
+    'accuracy': 0,
 }, {
   [types.SET_INITIAL_LOCATION](state, action) {
         return Object.assign({}, state, {
             startLat: action.initialPosition.latitude,
             startLng: action.initialPosition.longitude,
+            accuracy: action.initialPosition.accuracy,
             prevLatLng: action.initialPosition,
         })
     },
     [types.SET_LOCATION](state, action) {
         return Object.assign({}, state, {
             prevLatLng: action.latlng,
+            accuracy: action.latlng.accuracy,
         })
     },[types.UPDATE_LOCATION](state, action) {
         return Object.assign({}, state, {
             prevLatLng: action.location.latlng,
             totalDistanceTravelled: action.location.totalDistanceTravelled,
+            accuracy: action.location.latlng.accuracy,
             allLatLng:  [...state.allLatLng, action.location.latlng],
         })
     },[types.UPDATE_LOCATION_LAPSE](state, action) {
@@ -31,6 +35,7 @@ export const location = createReducer({
             prevLatLng: action.locationLapse.latlng,
             totalDistanceTravelled: action.locationLapse.totalDistanceTravelled,
             previousDistanceTravelled: action.locationLapse.previousDistanceTravelled,
+            accuracy: action.locationLapse.accuracy,
             allLatLng:  [...state.allLatLng, action.locationLapse.latlng],
         })
     },

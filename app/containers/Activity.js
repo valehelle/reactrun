@@ -141,12 +141,9 @@ class Activity extends Component{
     _renderTimers(){
         return (
             <View style = { styles.timerWrapper }>
-                <View style = { styles.timerWrapperInner }>
-
                     <Text style = { styles.mainTimer }>{ TimeFormatter(this.props.mainTimer) }</Text>
                     <Text style = { styles.distance }>{ mToCurrentUnit(this.props.unit,this.props.totalDistance) }</Text>
                     <Text style = { styles.meter }>{ unitText(this.props.unit) }</Text>
-                </View>
             </View>
         )
     }
@@ -199,15 +196,32 @@ class Activity extends Component{
         )
     }
 
+    _renderGPSText(accuracy){
+        GPSText = 'Bad'
+        if(accuracy <= 0){
+            GPSText = 'Finding Location'
+        }else if(accuracy < 50 ){
+            GPSText = 'Excellent'
+        }else if(accuracy < 100){
+            GPSText = 'Good'
+        }else if (accuracy < 200){
+            GPSText = 'Bad'
+        }else{
+            GPSText = 'Terrible'
+        }
+        return GPSText
+    }
+
     _renderGoal(){
         return (
             <View style = { styles.goalWrapper }>
                 <Text style={ styles.meter } ></Text>
                 <Text style={ styles.meter } >Goal { mToCurrentUnit(this.props.unit,this.props.distanceGoal) } { unitText(this.props.unit) }</Text>
-                <Text style={ styles.meter } > </Text>
+                <Text style={ styles.meter } >GPS { this._renderGPSText(this.props.accuracy) }</Text>
             </View>
         )
     }
+
 
 
   componentWillReceiveProps(){
@@ -370,6 +384,7 @@ const styles = StyleSheet.create({
     },
     meter: {
         textAlign: 'center',
+        marginBottom: 10,
     },
     lapsWrapper: {
         flex: 4,
@@ -412,7 +427,8 @@ function mapStateToProps(state){
         startLng: state.location.startLng,
         prevLatLng: state.location.prevLatLng,
         gps: state.location.allLatLng,
-        unit: state.user.unit
+        unit: state.user.unit,
+        accuracy: state.location.accuracy,
     }
 }
 
