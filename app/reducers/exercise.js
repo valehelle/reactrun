@@ -41,7 +41,6 @@ export const location = createReducer({
     },
     [types.STOP_TRACKING](state, action) {
         return Object.assign({}, state, {
-            prevLatLng: {latitude: 37.78825, longitude: -122.4324},
             totalDistanceTravelled: 0,
             previousDistanceTravelled: 0,
             allLatLng: [],
