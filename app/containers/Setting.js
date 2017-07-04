@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
 import { secondary } from '../lib/colors'
+const DeviceInfo = require('react-native-device-info');
 
 const {
     View,
@@ -48,6 +49,17 @@ class Setting extends Component{
         )
     }
 
+    versionPressed(){
+        Alert.alert(
+            'Application Version',
+            'Current version: ' + DeviceInfo.getVersion(),
+            [
+                {text: 'Okay', },
+            ],
+            { cancelable: true }
+        )
+    }
+
     render(){
         return (
             <ScrollView>
@@ -70,6 +82,11 @@ class Setting extends Component{
                     <View style = {styles.about}>
                         <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.privacyPressed()}>
                             <Text>Privacy</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style = {styles.about}>
+                        <TouchableOpacity activeOpacity={ 0.8 } onPress={() => this.versionPressed()}>
+                            <Text>App Version</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
