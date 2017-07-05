@@ -180,13 +180,16 @@ class Activity extends Component{
 
     _renderButtons(){
         return (
-            <View style = { styles.buttonWrapper }>
-                <TouchableOpacity activeOpacity={ 0.8 } disabled= { !this.props.isActive } onPress={() => this.finishPressed()} style={ [styles.buttonFinishUnactive, this.props.isActive && styles.buttonFinishActive] }>
-                    <Text style = { [styles.finishBtnUnactive, this.props.isActive && styles.finishBtnActive] }>Finish</Text>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={ 0.8 }  onPress={() => this.startStopPressed()}  style={ [styles.buttonStart, this.props.isJogging && styles.buttonStop] }>
-                    <Text style={ [styles.startBtn, this.props.isJogging && styles.stopBtn] } >{ this.props.isJogging? 'Pause' : 'Start' }</Text>
-                </TouchableOpacity>
+            <View>
+                <Text style={ [styles.gpsred, this.props.accuracy > 0 && styles.gpsgreen] } >GPS { this._renderGPSText(this.props.accuracy) }</Text>
+                <View style = { styles.buttonWrapper }>
+                    <TouchableOpacity activeOpacity={ 0.8 } disabled= { !this.props.isActive } onPress={() => this.finishPressed()} style={ [styles.buttonFinishUnactive, this.props.isActive && styles.buttonFinishActive] }>
+                        <Text style = { [styles.finishBtnUnactive, this.props.isActive && styles.finishBtnActive] }>Finish</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={ 0.8 }  onPress={() => this.startStopPressed()}  style={ [styles.buttonStart, this.props.isJogging && styles.buttonStop] }>
+                        <Text style={ [styles.startBtn, this.props.isJogging && styles.stopBtn] } >{ this.props.isJogging? 'Pause' : 'Start' }</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -220,7 +223,6 @@ class Activity extends Component{
             <View style = { styles.goalWrapper }>
                 <Text style={ styles.meter } ></Text>
                 <Text style={ styles.meter } >Goal { mToCurrentUnit(this.props.unit,this.props.distanceGoal) } { unitText(this.props.unit) }</Text>
-                <Text style={ [styles.gpsred, this.props.accuracy > 0 && styles.gpsgreen] } >GPS { this._renderGPSText(this.props.accuracy) }</Text>
             </View>
         )
     }
@@ -393,11 +395,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 10,
         color: 'red',
+        marginTop: 15,
     },
     gpsgreen: {
         textAlign: 'center',
         marginBottom: 10,
         color: 'green',
+        marginTop: 15,
     },
     lapsWrapper: {
         flex: 4,
