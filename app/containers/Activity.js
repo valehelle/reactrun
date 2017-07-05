@@ -399,6 +399,7 @@ const styles = StyleSheet.create({
     countTimerText: {
         textAlign: 'center',
         color: 'red',
+        fontSize: 30,
     },
     mapView: {
         flex:1,
