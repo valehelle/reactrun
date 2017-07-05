@@ -57,8 +57,16 @@ class Activity extends Component{
                 this.props.screenProps.startTimer()
             }
         }else if (!this.state.isCountDown){
-            this.setState({isCountDown: true})
-            this.startCountDown()
+            if(this.props.accuracy <= 0){
+                alert('We are still finding your location')
+            }else{
+                this.props.screenProps.startJogging()
+                this.props.screenProps.startTimer()
+                //Remove countdown for now
+                //this.setState({isCountDown: true})
+                //this.startCountDown()
+            }
+            
         }
     }
 
@@ -176,7 +184,6 @@ class Activity extends Component{
                 <TouchableOpacity activeOpacity={ 0.8 } disabled= { !this.props.isActive } onPress={() => this.finishPressed()} style={ [styles.buttonFinishUnactive, this.props.isActive && styles.buttonFinishActive] }>
                     <Text style = { [styles.finishBtnUnactive, this.props.isActive && styles.finishBtnActive] }>Finish</Text>
                 </TouchableOpacity>
-                <Text style={ styles.countTimerText }>{ this.state.countTimer }</Text>
                 <TouchableOpacity activeOpacity={ 0.8 }  onPress={() => this.startStopPressed()}  style={ [styles.buttonStart, this.props.isJogging && styles.buttonStop] }>
                     <Text style={ [styles.startBtn, this.props.isJogging && styles.stopBtn] } >{ this.props.isJogging? 'Pause' : 'Start' }</Text>
                 </TouchableOpacity>
@@ -193,7 +200,7 @@ class Activity extends Component{
     }
 
     _renderGPSText(accuracy){
-        GPSText = 'Bad'
+        GPSText = 'Finding Location'
         if(accuracy <= 0){
             GPSText = 'Finding Location'
         }else if(accuracy < 50 ){
@@ -213,7 +220,7 @@ class Activity extends Component{
             <View style = { styles.goalWrapper }>
                 <Text style={ styles.meter } ></Text>
                 <Text style={ styles.meter } >Goal { mToCurrentUnit(this.props.unit,this.props.distanceGoal) } { unitText(this.props.unit) }</Text>
-                <Text style={ styles.meter } >GPS { this._renderGPSText(this.props.accuracy) }</Text>
+                <Text style={ [styles.gpsred, this.props.accuracy > 0 && styles.gpsgreen] } >GPS { this._renderGPSText(this.props.accuracy) }</Text>
             </View>
         )
     }
@@ -381,6 +388,16 @@ const styles = StyleSheet.create({
     meter: {
         textAlign: 'center',
         marginBottom: 10,
+    },
+    gpsred: {
+        textAlign: 'center',
+        marginBottom: 10,
+        color: 'red',
+    },
+    gpsgreen: {
+        textAlign: 'center',
+        marginBottom: 10,
+        color: 'green',
     },
     lapsWrapper: {
         flex: 4,
