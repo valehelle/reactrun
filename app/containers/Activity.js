@@ -29,8 +29,6 @@ class Activity extends Component{
 
         this.navigator = null;
 
-        this.props.screenProps.getInitialPosition()
-
         this.handleBack = (() => {
             this.finishPressed()
             return true; //avoid closing the app
@@ -39,7 +37,6 @@ class Activity extends Component{
 
 
     componentDidMount() {
-        this.props.screenProps.startTracking()
         this.props.screenProps.getEventDetails()
         BackAndroid.addEventListener('hardwareBackPress',this.handleBack)
     }
@@ -47,7 +44,6 @@ class Activity extends Component{
     componentWillUnmount() {
         BackAndroid.removeEventListener('hardwareBackPress',this.handleBack)
         this.props.screenProps.stopJogging()
-        this.props.screenProps.stopTracking()
         clearInterval(this.countInterval)
     }
 
