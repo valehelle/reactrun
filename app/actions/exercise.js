@@ -37,7 +37,7 @@ export function startTracking(){
             notificationText: 'enabled',
             debug: false,
             startOnBoot: false,
-            stopOnTerminate: false,
+            stopOnTerminate: true,
             interval: 1000,
             fastestInterval: 5000,
             activitiesInterval: 10000,
@@ -76,9 +76,10 @@ export function startTracking(){
 }
 
 export function stopTracking(){
-    BackgroundGeolocation.stop(() => {
-      console.log('[DEBUG] BackgroundGeolocation stop successfully');    
-    });
+    //Only stop background tracking when user close the app
+    // BackgroundGeolocation.stop(() => {
+    //   console.log('[DEBUG] BackgroundGeolocation stop successfully');    
+    // });
     //navigator.geolocation.clearWatch(this.watchID)
     return {
         type: types.STOP_TRACKING,
