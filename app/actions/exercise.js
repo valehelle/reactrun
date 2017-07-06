@@ -33,6 +33,8 @@ export function startTracking(){
             stationaryRadius: 10,
             distanceFilter: 10,
             locationTimeout: 30,
+            notificationTitle: 'VRun tracking',
+            notificationText: 'enabled',
             debug: false,
             startOnBoot: false,
             stopOnTerminate: false,
