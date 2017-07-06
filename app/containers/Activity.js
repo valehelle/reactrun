@@ -38,6 +38,7 @@ class Activity extends Component{
 
     componentDidMount() {
         this.props.screenProps.getEventDetails()
+        this.props.screenProps.startTracking()
         BackAndroid.addEventListener('hardwareBackPress',this.handleBack)
     }
 
@@ -117,6 +118,7 @@ class Activity extends Component{
             })
             this.props.navigation.dispatch(backAction)
         }
+        this.props.screenProps.stopTracking()
     }
 
     finishAlert(){
