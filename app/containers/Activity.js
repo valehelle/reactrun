@@ -48,7 +48,9 @@ class Activity extends Component{
     }
 
     startStopPressed(){
-        if(this.state.countTimer === ''){
+        if(this.props.accuracy <= 0 && !this.props.isActive){
+            alert('We are still finding your location')
+        }else{
             if(this.props.isJogging){
                 this.props.screenProps.stopJogging()
                 this.props.screenProps.pauseTimer()
@@ -56,18 +58,28 @@ class Activity extends Component{
                 this.props.screenProps.startJogging()
                 this.props.screenProps.startTimer()
             }
-        }else if (!this.state.isCountDown){
-            if(this.props.accuracy <= 0){
-                alert('We are still finding your location')
-            }else{
-                this.props.screenProps.startJogging()
-                this.props.screenProps.startTimer()
-                //Remove countdown for now
-                //this.setState({isCountDown: true})
-                //this.startCountDown()
-            }
-            
         }
+
+        // if(this.state.countTimer === ''){
+        //     if(this.props.isJogging){
+        //         this.props.screenProps.stopJogging()
+        //         this.props.screenProps.pauseTimer()
+        //     }else{
+        //         this.props.screenProps.startJogging()
+        //         this.props.screenProps.startTimer()
+        //     }
+        // }else if (!this.state.isCountDown){
+        //     if(this.props.accuracy <= 0){
+        //         alert('We are still finding your location')
+        //     }else{
+        //         this.props.screenProps.startJogging()
+        //         this.props.screenProps.startTimer()
+        //         //Remove countdown for now
+        //         this.setState({isCountDown: true})
+        //         this.startCountDown()
+        //     }
+            
+        // }
     }
 
 
