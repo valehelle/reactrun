@@ -43,8 +43,7 @@ export const location = createReducer({
             totalDistanceTravelled: 0,
             previousDistanceTravelled: 0,
             allLatLng: [],
-            startLat: 37.78825,
-            startLng: -122.4324,
+            accuracy: 0,
         })
     },    
     [types.START_JOGGING](state, action) {
