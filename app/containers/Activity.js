@@ -117,7 +117,6 @@ class Activity extends Component{
             })
             this.props.navigation.dispatch(backAction)
         }
-        this.props.screenProps.stopTracking()
     }
 
     finishAlert(){
