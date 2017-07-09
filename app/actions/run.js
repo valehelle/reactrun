@@ -49,10 +49,11 @@ function saveRunFailed(){
     }
 }
 
-export function setRunDetailID(id){
+export function setRunDetailID(id,title){
     return {
         type: types.SET_RUN_DETAIL_ID,
         id: id,
+        title: title,
     }
 }
 
@@ -66,6 +67,14 @@ export function getRunDetails(){
         let pace = distance / runDetail.time
         pace = pace * 60000
         pace = pace.toFixed(2)
+        let runs =  realm.objects('Run')
+        let day = 0
+        for(let index = 0; index < runs.length; index++){
+            run = runs[index]
+            if(run.id === runID){
+                day = index + 1
+            }
+        }
         
         let gps = []
         for(let i = 0; i < runDetail.gps.length; i++){
@@ -85,6 +94,7 @@ export function getRunDetails(){
                 gps: gps,
                 startLat: startLat,
                 startLng: startLng,
+                day: day,
         }
         return dispatch(getDetail(
             {

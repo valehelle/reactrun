@@ -27,9 +27,9 @@ class EventDetail extends Component{
     startButtonPress(){
         this.props.navigation.navigate('Activity',{ name: this.props.name })
     }
-    runDetailsPressed(id){
-        this.props.screenProps.setRunDetailID(id)
-        this.props.navigation.navigate('FinishActivity',{})
+    runDetailsPressed(id,title){
+        this.props.screenProps.setRunDetailID(id,title)
+        this.props.navigation.navigate('FinishActivity')
     }
 
     _keyExtractor = (item, index) => item.id;
@@ -104,7 +104,7 @@ class EventDetail extends Component{
                             return (
                                 <View style = { styles.runContainer } key= { runs.id }>
                                     <Text style = { styles.runDate }> { DateNiceFormatter(runs.date) }</Text> 
-                                    <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id )} >
+                                    <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id, this.props.name )} >
                                         <View style = {styles.runImageWrapper}>
                                             <Image
                                                 source={require('../icons/ic_directions_run_black_24dp_2x.png')}

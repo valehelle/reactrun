@@ -30,7 +30,7 @@ class FinishActivity extends Component{
             <View style = { styles.container } >
                 <View style = { styles.titleWrapper } >
                     <View style = { styles.titleContainer } >
-                        <Text style = { styles.titleText } >King of the Street</Text>
+                        <Text style = { styles.titleText } >{ this.props.title } - Day { this.props.day }</Text>
                     </View>
                 </View>
                 <View style = {styles.map}>
@@ -150,6 +150,8 @@ function mapStateToProps(state){
         startLat: state.runDetail.startLat,
         startLng: state.runDetail.startLng,
         unit: state.user.unit,
+        title: state.runDetail.title,
+        day: state.runDetail.day
     }
 }
 
