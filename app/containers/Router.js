@@ -7,6 +7,7 @@ import EventDetail from './EventDetail'
 import FinishActivity from './FinishActivity'
 import Setting from './Setting'
 import Web from './Web'
+import Promo from './Promo'
 import { primary, headerTint } from '../lib/colors'
 import React from 'react'
 import ReactNative from 'react-native'
@@ -59,11 +60,25 @@ export const EventDetailStack = StackNavigator({
     headerMode: 'none',
 })
 
+export const PromoStack = StackNavigator({
+   Promo:{
+        screen: Promo,
+        navigationOptions:{
+            title: 'Events Available',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },  
+
+})
+
 export const EventStack = StackNavigator({
     Event:{
         screen: Event,
         navigationOptions:{
-            title: 'Event',
+            title: 'Events',
             headerStyle: {
                 backgroundColor: primary,
             },
@@ -137,6 +152,18 @@ export const TabNavigations = TabNavigator({
             tabBarIcon: ({ tintColor }) => (
                     <Image
                         source={require('../icons/ic_event_black_24dp_2x.png')}
+                        style={[styles.icon, {tintColor: tintColor}]}
+                    />
+            ),
+        }
+    },
+    Promo: {
+        screen: PromoStack,
+        navigationOptions: {
+            tabBarLabel: 'Events Available',
+            tabBarIcon: ({ tintColor }) => (
+                    <Image
+                        source={require('../icons/ic_event_available_black_24dp_2x.png')}
                         style={[styles.icon, {tintColor: tintColor}]}
                     />
             ),
