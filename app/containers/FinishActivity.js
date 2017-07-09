@@ -28,6 +28,11 @@ class FinishActivity extends Component{
     render(){
         return (
             <View style = { styles.container } >
+                <View style = { styles.titleWrapper } >
+                    <View style = { styles.titleContainer } >
+                        <Text style = { styles.titleText } >King of the Street</Text>
+                    </View>
+                </View>
                 <View style = {styles.map}>
                     <MapView
                         ref={ref => { this.map = ref }}
@@ -52,16 +57,29 @@ class FinishActivity extends Component{
                             lineCap="round"
                         />
                     
-                    </MapView>
+                    </MapView>    
+                    
                 </View>
                 <View style = { styles.detailWrapper } >
                     <View style = { styles.detailContainer } >
-                        <Text>Distance: { mToCurrentUnit(this.props.unit, this.props.distance) } { unitText(this.props.unit) }</Text>
-                        <Text>Time: { this.props.time }</Text>
-                        <Text>Pace: {  mToCurrentUnit(this.props.unit, this.props.pace)} { unitText(this.props.unit) }/Minute</Text>
-                        <Text>Date: { this.props.date }</Text>
+                        <View  style = { styles.detailInfoContainer } >
+                            <Text style = { styles.detailText } >{ mToCurrentUnit(this.props.unit, this.props.distance) }</Text>
+                            <Text>Distance</Text>
+                        </View>
+                        <View  style = { styles.detailInfoContainer } >
+                            <Text style = { styles.detailText } >{ this.props.time }</Text>
+                            <Text>Duration</Text>
+                        </View>
+                        <View  style = { styles.detailInfoContainer } >
+                            <Text style = { styles.detailText } >{  mToCurrentUnit(this.props.unit, this.props.pace)}</Text>
+                            <Text>Pace</Text>
+                        </View>
                     </View>
+                    <View style = {styles.detailDateContainer}>
+                        <Text>{ this.props.date }</Text>
+                     </View>
                 </View>
+                              
             </View>
         )
     }
@@ -72,13 +90,19 @@ const styles = StyleSheet.create({
         flex:1,
     },
     detailWrapper: {
-        flex: 4,
+        flex: 2,
+        backgroundColor: 'white',
+        marginBottom: 5,
+    },
+    titleWrapper: {
+        flex: 1,
+        
     },
     totalDistanceText: {
         fontSize: 25,
     },
     map:{
-        flex: 4,
+        flex: 8,
     },
     mapView: { 
         position: 'absolute',
@@ -89,9 +113,29 @@ const styles = StyleSheet.create({
     },
     detailContainer: {
         backgroundColor: 'white',
-        padding: 10,
-        marginBottom: 15,
+        marginTop: 15,
+        margin: 5,
+        flexDirection: 'row',
     },
+    detailDateContainer:{
+        alignItems: 'center',
+    },
+    detailInfoContainer: {
+        backgroundColor: 'white',
+        flex: 1,
+        alignItems: 'center',
+    },
+    titleContainer: {
+        backgroundColor: 'white',
+        padding: 10,
+    },
+    titleText: {
+        fontSize: 20,
+    },
+    detailText:{
+        fontSize: 30,
+        color: 'black',
+    }
 })
 
 
