@@ -43,7 +43,8 @@ export const runDetail = createReducer({
     },
     [types.SAVE_RUN](state, action) {
         return Object.assign({}, state, {
-            id: action.id
+            id: action.id,
+            title: action.title,
         })
     },
     [types.GET_RUN_DETAIL](state, action) {

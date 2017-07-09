@@ -111,6 +111,7 @@ class Activity extends Component{
     runFinish(){
         if(this.props.isActive && this.props.totalDistance > 0){
             this.props.screenProps.saveRun()
+            
             this.props.navigation.navigate('FinishActivity',{})
         }else{
             const backAction = NavigationActions.back({

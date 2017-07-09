@@ -17,7 +17,8 @@ export function saveRun(){
                 date: new Date(),
                 time: getState().timer.mainTimer,
                 type: 'Run',
-                distance: getState().location.totalDistanceTravelled,        
+                distance: getState().location.totalDistanceTravelled,
+                title: eventDetail.name,
         }
         try{
             realm.write(() => {
@@ -40,7 +41,8 @@ export function saveRun(){
 function saveRunComplete( { runDetail } ){
     return {
         type: types.SAVE_RUN,
-        id: runDetail.id
+        id: runDetail.id,
+        title: runDetail.title,
     }
 }
 function saveRunFailed(){
