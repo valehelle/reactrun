@@ -66,7 +66,7 @@ class FinishActivity extends Component{
                             <Text style = { styles.detailText } >{ mToCurrentUnit(this.props.unit, this.props.distance) }</Text>
                             <Text>Distance</Text>
                         </View>
-                        <View  style = { styles.detailInfoContainer } >
+                        <View  style = { styles.detailDurationContainer } >
                             <Text style = { styles.detailText } >{ this.props.time }</Text>
                             <Text>Duration</Text>
                         </View>
@@ -125,6 +125,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
+    detailDurationContainer: {
+        backgroundColor: 'white',
+        flex: 2,
+        alignItems: 'center',
+    },
     titleContainer: {
         backgroundColor: 'white',
         padding: 10,
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     detailText:{
-        fontSize: 30,
+        fontSize: 25,
         color: 'black',
     }
 })
