@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { DateNiceFormatter } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
+import { secondary } from '../lib/colors'
 const {
     FlatList,
     View,
@@ -45,12 +46,15 @@ class Event extends Component{
                                             source={ {'uri': item.image[0]} }
                                             style={ styles.image }
                                         />
-                                        <View style = { styles.eventInfo }>
-                                            <Text style = { styles.nameText } >{ item.name }</Text>
-                                            <Text style = { styles.detailText } >Distance: { item.distance } KM</Text>
-                                            <Text style = { styles.detailText } >Register End: { item.registerEndDate }</Text>
-                                            <Text style = { styles.detailText } >Event Start: { item.eventStartDate }</Text>
-                                            <Text style = { styles.detailText } >Event End: { item.eventEndDate }</Text>
+                                        <View >
+                                            <View style = { styles.eventNameWrapper }>
+                                                <Text style = { styles.nameText } >{ item.name }</Text>
+                                            </View>
+                                            <View style = { styles.eventInfo }>
+                                                <Text style = { styles.distanceText } >{ item.distance } KM</Text>
+                                                <Text style = { styles.detailText } >{ item.eventStartDate } - { item.eventEndDate }</Text>
+                                               
+                                            </View>
                                         </View>
                                      </View>
                                  </TouchableOpacity>
@@ -82,23 +86,30 @@ const styles = StyleSheet.create({
     },
     eventList:{
         backgroundColor: 'white',
-        marginBottom: 10,
+        marginBottom: 20,
     },
     nameText: {
         fontSize: 20,
         marginBottom: 5,
+        color: 'white',
     },
     detailText: {
         fontSize: 15,
     },
     distanceText: {
-        fontSize: 14,
+        fontSize: 20,
     },
     image:{
         height: 200,
     },
     eventInfo: {
         padding: 10,
+    },
+    eventNameWrapper:{
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        paddingLeft: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
     },
 })
 
