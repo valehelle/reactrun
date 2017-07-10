@@ -98,15 +98,18 @@ const styles = StyleSheet.create({
     },
     distanceText: {
         fontSize: 20,
+        marginBottom: 5,
     },
     image:{
         height: 200,
     },
     eventInfo: {
-        padding: 10,
+        paddingTop: 5,
+        paddingLeft: 10,
+        paddingBottom: 10,
     },
     eventNameWrapper:{
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: secondary,
         paddingLeft: 10,
         paddingTop: 5,
         paddingBottom: 5,
