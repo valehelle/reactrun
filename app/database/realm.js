@@ -41,6 +41,7 @@ Run.schema = {
     date:  'date',
     time: 'int',
     type: 'string',
+    photo: 'string',
     distance: 'int',
     gps: {type: 'list', objectType: 'Gps'},
     laps:  {type: 'list', objectType: 'Lapse'},
@@ -67,4 +68,4 @@ Lapse.schema = {
   }
 }
 
-export default new Realm({schema: [Gps, Lapse, Run, Event, User]})
+export default new Realm({schema: [Gps, Lapse, Run, Event, User],schemaVersion: 1})

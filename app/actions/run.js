@@ -1,8 +1,8 @@
 import * as types from './types'
 import realm from '../database/realm'
-import { mToKM, TimeFormatter, DateNiceFormatter } from '../lib/lib'
+import { mToKM, TimeFormatter, DateNiceFormatter, miliseconds, kmToM, mileToM} from '../lib/lib'
 var uuid = require('react-native-uuid');
-
+const RNFS = require('react-native-fs')
 
 export function saveRun(){
 
@@ -35,6 +35,71 @@ export function saveRun(){
             console.log(e)
             return dispatch(saveRunFailed())
         }
+    }
+}
+
+export function saveTreadmill(state){
+ 
+    return(dispatch, getState) => {
+        let runID = uuid.v4()
+        let eventID = getState().currentEvent.eventID
+        let eventDetail = realm.objectForPrimaryKey('Event', eventID)
+        let event = eventDetail.runs
+        let hour = state.hour
+        let minute = state.minute
+        let second = state.second
+        let distance = 0
+
+        if(hour === ''){
+            hour = 0
+        }
+        if(minute === ''){
+            minute = 0
+        }
+        if(second === ''){
+            second = 0
+        }
+        let time = parseInt(miliseconds(hour,minute,second))
+
+        let unit = getState().user.unit
+        if(unit === 'KILOMETER'){
+            distance = kmToM(state.distance)
+        }else{
+            distance = mileToM(state.distance)
+        }
+
+        if(state.bannerName != 'null'){
+            // create a path you want to write to
+            let path = RNFS.DocumentDirectoryPath + '/' + state.bannerName
+            // write the file
+            RNFS.writeFile(path, state.bannerData, 'base64')
+            .then((success) => {
+                let runDetail = {
+                        id: runID,
+                        date: new Date(),
+                        time: time,
+                        type: 'Treadmill',
+                        photo: state.bannerName,
+                        distance: parseInt(distance),
+                        title: eventDetail.name,
+                }
+                try{
+                    realm.write(() => {
+                        let run = realm.create('Run', runDetail);
+                        event.push(run);
+                    })
+                    return dispatch(saveRunComplete({ runDetail: runDetail }))
+                }catch(e){
+                    console.log(e)
+                    return dispatch(saveRunFailed())
+                }
+            })
+            .catch((err) => {
+                        console.log(err.message);
+                        return dispatch(saveRunFailed())
+            });  
+        }
+
     }
 }
 

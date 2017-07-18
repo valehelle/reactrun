@@ -15,7 +15,7 @@ export function TimeNiceFormatter(ms) {
     if(date.getUTCHours() > 0 && date.getUTCMinutes() > 0 && date.getUTCSeconds() > 0){
         time = date.getUTCHours() + ' hours ' + date.getUTCMinutes() + ' minutes and ' + date.getUTCSeconds() + ' seconds'
     }else if(date.getUTCHours() > 0 && date.getUTCMinutes() > 0){
-        time = date.getUTCHours() + ' hours ' + date.getUTCMinutes() + ' minutes and '
+        time = date.getUTCHours() + ' hours ' + date.getUTCMinutes() + ' minutes'
     }else if(date.getUTCHours() > 0 && date.getUTCSeconds() > 0){
         time = date.getUTCHours() + ' hours and ' + date.getUTCSeconds() + ' seconds'
     }else if(date.getUTCHours() > 0){
@@ -89,7 +89,9 @@ export function unitText(unit){
     }
     return text
 }
-
+export function miliseconds(hrs,min,sec){
+    return((hrs*60*60+min*60+sec)*1000);
+}
 export function NiceDistance(distance){
     return (distance / 1).toFixed(0)
 }

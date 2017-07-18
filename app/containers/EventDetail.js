@@ -28,7 +28,7 @@ class EventDetail extends Component{
         this.props.navigation.navigate('Activity',{ name: this.props.name })
     }
     treadmillButtonPress(){
-        this.props.navigation.navigate('TreadmillActivity',{ id: this.props.eventID })
+        this.props.navigation.navigate('TreadmillActivity',{ eventID: this.props.eventID })
     }
     runDetailsPressed(id,title){
         this.props.screenProps.setRunDetailID(id,title)

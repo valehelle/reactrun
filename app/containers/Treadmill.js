@@ -30,19 +30,18 @@ class Treadmill extends Component{
     constructor(props) {
         super(props);
         this.state = { 
-            name: '', 
-            distance: '21',
-            bibNumber: '',
-            weeklyrun: '3', 
-            time: new Date(0,0,0,0,0,0,0),
+            distance: '0',
             bannerSource: { uri: '' },
             bannerName: 'null',
+            hour: '',
+            minute: '',
+            second: '',
         }
     }
 
     onTextDistanceChanged(distance) {
         // code to remove non-numeric characters from text
-        let pattern = /^\d+$/
+        let pattern = /[+-]?([0-9]*[.])?[0-9]+/
         var res = pattern.test(distance);
         if(res){
             this.setState({distance: distance})
@@ -56,21 +55,75 @@ class Treadmill extends Component{
             this.setState({distance: distance})
         }
     }
+    onTextHourChanged(time) {
+        // code to remove non-numeric characters from text
+        let pattern = /^\d+$/
+        var res = pattern.test(time);
+        if(res){
+            this.setState({hour: time})
+        }else if(time === ''){
+            this.setState({hour: time})
+        }
+        else{
+            let time = this.state.hour
+            if(time.length > 1){
+                time.substr(0,(time.length - 1))
+            }else{
+                time = ''
+            }
+            this.setState({hour: time})
+        }
+    }
+    onTextMinuteChanged(time) {
+        // code to remove non-numeric characters from text
+        let pattern = /^\d+$/
+        var res = pattern.test(time);
+        if(res){
+            if(parseInt(time) < 60){
+                this.setState({minute: time})
+            }
+        }else if(time === ''){
+            this.setState({minute: time})
+        }
+        else{
+            let time = this.state.minute
+            if(time.length > 1){
+                time.substr(0,(time.length - 1))
+            }else{
+                time = ''
+            }
+            this.setState({minute: time})
+        }
+    }
+    onTextSecondChanged(time) {
+        // code to remove non-numeric characters from text
+        let pattern = /^\d+$/
+        var res = pattern.test(time);
+        if(res){
+            if(parseInt(time) < 60){
+                this.setState({second: time})
+            }
+        }else if(time === ''){
+            this.setState({second: time})
+        }
+        else{
+            let time = this.state.second
+            if(time.length > 1){
+                time.substr(0,(time.length - 1))
+            }else{
+                time = ''
+            }
+            this.setState({second: time})
+        }
+    }
 
     onTextNameChanged(name) {
         this.setState({name: name})
     }
     
-    onTextBibNumberChanged(bibNumber) {
-        this.setState({bibNumber: bibNumber})
-    }
-    onTextWeeklyChanged(weeklyrun) {
-        // code to remove non-numeric characters from text
-        this.setState({weeklyrun: weeklyrun})
-    }
 
-    createPressed(){
-         this.props.screenProps.createEvent(this.state)
+    savePressed(){
+         this.props.screenProps.saveTreadmill(this.state)
     }
     componentDidUpdate() {
         if(this.props.eventCreated){
@@ -158,21 +211,47 @@ class Treadmill extends Component{
                                 label= { 'Distance ('  + unitText(this.props.unit) + ')' }
                                 onSubmitEditing={ ()=> this.dismissKeyboardAction()}
                             /> 
-                            <DatePicker
-                                date={this.state.time}
-                                mode='time'
-                                placeholder='Duration'
-                                confirmBtnText='Confirm'
-                                cancelBtnText='Cancel'
-                                showIcon= {false}
-                                onDateChange={(time) => this.setState({time:time})}
-                            />
+                            <View style = {styles.timePickerWrapper}>
+                                <View style = {styles.timeWrapper}>
+                                    <TextInput 
+                                        keyboardType = 'numeric'
+                                        onChangeText = {(text)=> this.onTextHourChanged(text)}
+                                        value = {this.state.hour}
+                                        onSubmitEditing={ ()=> this.dismissKeyboardAction()}
+                                        style = {styles.timePicker}
+                                        placeholder= '0'
+                                    />
+                                    <Text style ={styles.timeTitle}>Hour</Text>
+                                </View> 
+                                <View style = {styles.timeWrapper}>
+                                    <TextInput 
+                                        keyboardType = 'numeric'
+                                        onChangeText = {(text)=> this.onTextMinuteChanged(text)}
+                                        value = {this.state.minute}
+                                        onSubmitEditing={ ()=> this.dismissKeyboardAction()}
+                                        style = {styles.timePicker}
+                                        placeholder= '0'
+                                    />
+                                    <Text style ={styles.timeTitle}>Minute</Text>
+                                </View> 
+                                <View style = {styles.timeWrapper}>
+                                    <TextInput 
+                                        keyboardType = 'numeric'
+                                        onChangeText = {(text)=> this.onTextSecondChanged(text)}
+                                        value = {this.state.second}
+                                        onSubmitEditing={ ()=> this.dismissKeyboardAction()}
+                                        style = {styles.timePicker}
+                                        placeholder= '0'
+                                    />
+                                    <Text style ={styles.timeTitle}>Second</Text>
+                                </View>           
+                            </View>
                             <View style = { styles.photoContainer }>
                                 { this._renderPhoto() }
                             </View>
                         </View>
                         <View style = { styles.createContainer }>
-                            <PrimaryButton states={{title: 'Create'  ,onPress: this.createPressed.bind(this)}} />
+                            <PrimaryButton states={{title: 'Save'  ,onPress: this.savePressed.bind(this)}} />
                         </View>
                     </View>
                 </ScrollView>
@@ -228,7 +307,24 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    timePickerWrapper:{
+        flex: 1,
+        flexDirection: 'row',
+
+    },
+    timePicker:{
+        flex: 1,
+    },
+    timeWrapper:{
+        flex: 1,
+                justifyContent: 'center',
+        alignItems: 'center',
+    },
+    timeTitle:{
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
 
 function mapStateToProps(state){
