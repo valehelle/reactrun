@@ -25,6 +25,42 @@ class FinishActivity extends Component{
             animated: false,
         });
     }
+    _renderImage(){
+        if(this.props.type === 'Run'){
+            return(
+                        <MapView
+                            ref={ref => { this.map = ref }}
+                            style = {styles.mapView}
+                            initialRegion={{
+                                latitude: this.props.startLat,
+                                longitude: this.props.startLng,
+                                latitudeDelta: 0.0922,
+                                longitudeDelta: 0.0421,
+                            }}
+                            onLayout={()=> this.fitToAll()}
+                            scrollEnabled = {false}
+                            zoomEnabled={false}
+                            pitchEnabled={false}
+                            rotateEnabled={false}
+                            lineJoin= {'miter'}
+                        >
+                            <MapView.Polyline
+                                coordinates={ this.props.gps }
+                                strokeColor= { secondary }
+                                strokeWidth={5}
+                                lineCap="round"
+                            />
+                        
+                        </MapView>  
+            )
+        }else{
+            return(
+            <View style = { styles.bannerContainer } >
+                <Image source={ { uri: this.props.bannerSource } }  style={ styles.bannerImage } />  
+            </View>
+            )
+        }
+    }
     render(){
         return (
             <View style = { styles.container } >
@@ -34,31 +70,7 @@ class FinishActivity extends Component{
                     </View>
                 </View>
                 <View style = {styles.map}>
-                    <MapView
-                        ref={ref => { this.map = ref }}
-                        style = {styles.mapView}
-                        initialRegion={{
-                            latitude: this.props.startLat,
-                            longitude: this.props.startLng,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        }}
-                        onLayout={()=> this.fitToAll()}
-                        scrollEnabled = {false}
-                        zoomEnabled={false}
-                        pitchEnabled={false}
-                        rotateEnabled={false}
-                        lineJoin= {'miter'}
-                    >
-                        <MapView.Polyline
-                            coordinates={ this.props.gps }
-                            strokeColor= { secondary }
-                            strokeWidth={5}
-                            lineCap="round"
-                        />
-                    
-                    </MapView>    
-                    
+                    {this.props.bannerSource != 'null' && this.props.bannerSource != ''  ? this._renderImage() : null }
                 </View>
                 <View style = { styles.detailWrapper } >
                     <View style = { styles.detailContainer } >
@@ -140,7 +152,14 @@ const styles = StyleSheet.create({
     detailText:{
         fontSize: 25,
         color: 'black',
-    }
+    },
+    bannerContainer:{
+        flex: 1,
+    },
+    bannerImage:{
+        flex: 1,
+        height: 200,
+    },
 })
 
 
@@ -156,7 +175,9 @@ function mapStateToProps(state){
         startLng: state.runDetail.startLng,
         unit: state.user.unit,
         title: state.runDetail.title,
-        day: state.runDetail.day
+        day: state.runDetail.day,
+        type: state.runDetail.type,
+        bannerSource: state.runDetail.bannerSource
     }
 }
 

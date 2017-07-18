@@ -34,6 +34,8 @@ export const runDetail = createReducer({
     'startLat': 37.78825,
     'startLng': -122.4324,
     'day': 0,
+    'type': '',
+    'bannerSource': '',
     }, {
     [types.SET_RUN_DETAIL_ID](state, action) {
         return Object.assign({}, state, {
@@ -57,7 +59,9 @@ export const runDetail = createReducer({
             gps: action.runDetails.gps,
             startLat: action.runDetails.startLat,
             startLng: action.runDetails.startLng,
-            day: action.runDetails.day
+            day: action.runDetails.day,
+            type: action.runDetails.type,
+            bannerSource: action.runDetails.bannerSource,
         })
     },
 

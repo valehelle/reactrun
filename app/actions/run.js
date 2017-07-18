@@ -1,8 +1,9 @@
 import * as types from './types'
 import realm from '../database/realm'
 import { mToKM, TimeFormatter, DateNiceFormatter, miliseconds, kmToM, mileToM} from '../lib/lib'
-var uuid = require('react-native-uuid');
+var uuid = require('react-native-uuid')
 const RNFS = require('react-native-fs')
+import { Platform } from 'react-native'
 
 export function saveRun(){
 
@@ -136,6 +137,7 @@ export function getRunDetails(){
         pace = pace.toFixed(2)
         let runs =  realm.objects('Run')
         let day = 0
+        let type = runDetail.type
         for(let index = 0; index < runs.length; index++){
             run = runs[index]
             if(run.id === runID){
@@ -144,14 +146,26 @@ export function getRunDetails(){
         }
         
         let gps = []
-        for(let i = 0; i < runDetail.gps.length; i++){
-            let latitude = runDetail.gps[i].latitude
-            let longitude = runDetail.gps[i].longitude
-            let location = {latitude: latitude,longitude: longitude}
-            gps.push(location)
+        let startLat = 0
+        let startLng = 0
+        if(type === 'Run'){
+            for(let i = 0; i < runDetail.gps.length; i++){
+                let latitude = runDetail.gps[i].latitude
+                let longitude = runDetail.gps[i].longitude
+                let location = {latitude: latitude,longitude: longitude}
+                gps.push(location)
+            }
+            
+            startLat = runDetail.gps[0].latitude
+            startLng = runDetail.gps[0].longitude
         }
-        let startLat = runDetail.gps[0].latitude
-        let startLng = runDetail.gps[0].longitude
+        let bannerSource = 'null'
+        if(runDetail.photo != 'null'){
+            bannerSource = Platform.select({
+                ios: () => RNFS.DocumentDirectoryPath + '/' + runDetail.photo,
+                android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + runDetail.photo,
+            })();
+        }
         let runDetails = {
                 id: runID,
                 distance: distance,
@@ -162,6 +176,8 @@ export function getRunDetails(){
                 startLat: startLat,
                 startLng: startLng,
                 day: day,
+                type: type,
+                bannerSource: bannerSource,
         }
         return dispatch(getDetail(
             {
