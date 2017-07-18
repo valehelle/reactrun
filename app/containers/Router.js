@@ -7,6 +7,7 @@ import EventDetail from './EventDetail'
 import FinishActivity from './FinishActivity'
 import Setting from './Setting'
 import Web from './Web'
+import TreadmillActivity from './Treadmill'
 import Promo from './Promo'
 import { primary, headerTint } from '../lib/colors'
 import React from 'react'
@@ -49,6 +50,16 @@ export const EventDetailStack = StackNavigator({
         screen: FinishActivity,
         navigationOptions:{
             title: 'Run Detail',
+            headerStyle: {
+                backgroundColor: primary,
+            },
+            headerTintColor: headerTint,
+        }
+    },
+    TreadmillActivity:{
+        screen: TreadmillActivity,
+        navigationOptions:{
+            title: 'Save Treadmill',
             headerStyle: {
                 backgroundColor: primary,
             },

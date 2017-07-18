@@ -27,6 +27,9 @@ class EventDetail extends Component{
     startButtonPress(){
         this.props.navigation.navigate('Activity',{ name: this.props.name })
     }
+    treadmillButtonPress(){
+        this.props.navigation.navigate('TreadmillActivity',{ id: this.props.eventID })
+    }
     runDetailsPressed(id,title){
         this.props.screenProps.setRunDetailID(id,title)
         this.props.navigation.navigate('FinishActivity')
@@ -57,7 +60,14 @@ class EventDetail extends Component{
             )
         }else{
             return(
-                <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+                <View style ={styles.startWrapper}>
+                    <View style ={styles.treadmillWrapper}>
+                        <PrimaryButton states={{title: 'Treadmill'  ,onPress: this.treadmillButtonPress.bind(this)}} />
+                    </View>
+                    <View style ={styles.treadmillWrapper}>
+                        <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
+                    </View>
+                </View>
             )
         }
     }
@@ -221,6 +231,16 @@ const styles = StyleSheet.create({
     textCompleteImage: {
         color: secondary,
     },
+    startWrapper: {
+        flex: 1,
+        flexDirection: "row",
+    },
+    treadmillWrapper:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
 })
 
 function mapStateToProps(state){
