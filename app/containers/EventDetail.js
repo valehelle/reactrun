@@ -62,7 +62,7 @@ class EventDetail extends Component{
             return(
                 <View style ={styles.startWrapper}>
                     <View style ={styles.treadmillWrapper}>
-                        <PrimaryButton states={{title: 'Treadmill'  ,onPress: this.treadmillButtonPress.bind(this)}} />
+                        <PrimaryButton states={{title: 'Save'  ,onPress: this.treadmillButtonPress.bind(this)}} />
                     </View>
                     <View style ={styles.treadmillWrapper}>
                         <PrimaryButton states={{title: 'Start'  ,onPress: this.startButtonPress.bind(this)}} />
@@ -79,6 +79,24 @@ class EventDetail extends Component{
                 <Text style={ styles.textCompleteImage }  >Run Completed</Text>  
             </View>
         ) 
+    }
+    _renderIcon(type){
+        if(type === 'Run'){
+            return(
+                <Image
+                    source={require('../icons/ic_directions_run_black_24dp_2x.png')}
+                    style={[styles.icon, {tintColor: secondary}]}
+                />
+            )
+        }else if(type === 'Treadmill'){
+            return(
+                <Image
+                    source={require('../icons/ic_save_black_24dp_2x.png')}
+                    style={[styles.icon, {tintColor: secondary}]}
+                />
+            )            
+        }
+
     }
 
     render(){
@@ -116,10 +134,7 @@ class EventDetail extends Component{
                                     <Text style = { styles.runDate }> { DateNiceFormatter(runs.date) }</Text> 
                                     <TouchableOpacity style = {styles.runWrapper} activeOpacity={ 0.8 } onPress={() => this.runDetailsPressed( runs.id, this.props.name )} >
                                         <View style = {styles.runImageWrapper}>
-                                            <Image
-                                                source={require('../icons/ic_directions_run_black_24dp_2x.png')}
-                                                style={[styles.icon, {tintColor: secondary}]}
-                                            />
+                                            { this._renderIcon(runs.type)}
                                         </View>
                                         <View style = {styles.runDetailWrapper}>
                                             <Text>{ mToCurrentUnit(this.props.unit,runs.distance) } {unitText(this.props.unit)}</Text>

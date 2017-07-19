@@ -18,6 +18,7 @@ export function saveRun(){
                 date: new Date(),
                 time: getState().timer.mainTimer,
                 type: 'Run',
+                photo: '',
                 distance: getState().location.totalDistanceTravelled,
                 title: eventDetail.name,
         }

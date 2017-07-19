@@ -59,7 +59,7 @@ export const EventDetailStack = StackNavigator({
     TreadmillActivity:{
         screen: TreadmillActivity,
         navigationOptions:{
-            title: 'Save Treadmill',
+            title: 'Save Run',
             headerStyle: {
                 backgroundColor: primary,
             },
