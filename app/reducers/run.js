@@ -36,6 +36,7 @@ export const runDetail = createReducer({
     'day': 0,
     'type': '',
     'bannerSource': '',
+    'goToFinish': false,
     }, {
     [types.SET_RUN_DETAIL_ID](state, action) {
         return Object.assign({}, state, {
@@ -47,6 +48,13 @@ export const runDetail = createReducer({
         return Object.assign({}, state, {
             id: action.id,
             title: action.title,
+        })
+    },
+    [types.SAVE_RUN_TREADMILL](state, action) {
+        return Object.assign({}, state, {
+            id: action.id,
+            title: action.title,
+            goToFinish: true,
         })
     },
     [types.GET_RUN_DETAIL](state, action) {
@@ -62,6 +70,7 @@ export const runDetail = createReducer({
             day: action.runDetails.day,
             type: action.runDetails.type,
             bannerSource: action.runDetails.bannerSource,
+            goToFinish: false,
         })
     },
 

@@ -89,7 +89,7 @@ export function saveTreadmill(state){
                         let run = realm.create('Run', runDetail);
                         event.push(run);
                     })
-                    return dispatch(saveRunComplete({ runDetail: runDetail }))
+                    return dispatch(saveRunCompleteTreadmill({ runDetail: runDetail }))
                 }catch(e){
                     console.log(e)
                     return dispatch(saveRunFailed())
@@ -101,6 +101,13 @@ export function saveTreadmill(state){
             });  
         }
 
+    }
+}
+function saveRunCompleteTreadmill( { runDetail } ){
+    return {
+        type: types.SAVE_RUN_TREADMILL,
+        id: runDetail.id,
+        title: runDetail.title,
     }
 }
 

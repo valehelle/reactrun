@@ -126,19 +126,13 @@ class Treadmill extends Component{
          this.props.screenProps.saveTreadmill(this.state)
     }
     componentDidUpdate() {
-        if(this.props.eventCreated){
-            this.props.screenProps.getLatestEvent()
+        if(this.props.goToFinish){
+            this.props.screenProps.getEventDetails()
             //Redirect to another screen
-            const resetAction = NavigationActions.reset({
-            index: 1,
-            actions: [
-                NavigationActions.navigate({routeName: 'Event'}),
-                NavigationActions.navigate({routeName: 'EventDetailStack'})
-            ]
-            })
-            this.props.navigation.dispatch(resetAction)
+            this.props.navigation.navigate('FinishActivity',{})
         }
     }
+
     dismissKeyboardAction() {
         dismissKeyboard();
     }
@@ -253,6 +247,7 @@ class Treadmill extends Component{
                         <View style = { styles.createContainer }>
                             <PrimaryButton states={{title: 'Save'  ,onPress: this.savePressed.bind(this)}} />
                         </View>
+                        <Text>{this.props.goToFinish}</Text>
                     </View>
                 </ScrollView>
             </TouchableWithoutFeedback>
@@ -329,8 +324,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        eventCreated: state.event.eventCreated,
-        unit: state.user.unit
+        goToFinish: state.runDetail.goToFinish,
     }
 }
 

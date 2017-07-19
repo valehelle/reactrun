@@ -90,7 +90,10 @@ export function unitText(unit){
     return text
 }
 export function miliseconds(hrs,min,sec){
-    return((hrs*60*60+min*60+sec)*1000);
+    let hms = hrs * 3600000
+    let mms = min * 60000
+    let sms = sec * 1000
+    return hms + mms + sms
 }
 export function NiceDistance(distance){
     return (distance / 1).toFixed(0)
