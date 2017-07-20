@@ -96,7 +96,15 @@ export function miliseconds(hrs,min,sec){
     return hms + mms + sms
 }
 export function NiceDistance(distance){
-    return (distance / 1).toFixed(0)
+    let niceDistance = distance
+    if(isInt(niceDistance)){
+        niceDistance =  (distance / 1).toFixed(0)
+    }
+    return niceDistance
+}
+
+function isInt(n) {
+   return n % 1 === 0;
 }
 
 export function kmToM(km){

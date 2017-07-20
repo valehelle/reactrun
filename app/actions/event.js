@@ -44,9 +44,9 @@ export function createEventRealm(state,getState,dispatch){
         let unit = getState().user.unit
         let distance = state.distance
         if(unit === 'KILOMETER'){
-            distance = kmToM(parseInt(state.distance))
+            distance = kmToM(parseFloat(state.distance))
         }else{
-            distance = mileToM(parseInt(state.distance))
+            distance = mileToM(parseFloat(state.distance))
         }
         realm.write(() => {
                 let myEvent = realm.create('Event', {

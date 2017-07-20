@@ -43,7 +43,7 @@ class CreateEvent extends Component{
 
     onTextDistanceChanged(distance) {
         // code to remove non-numeric characters from text
-        let pattern = /^\d+$/
+        let pattern = /^[0-9]*(?:\.[0-9]*)?$/
         var res = pattern.test(distance);
         if(res){
             this.setState({distance: distance})
@@ -56,6 +56,7 @@ class CreateEvent extends Component{
             }
             this.setState({distance: distance})
         }
+        
     }
 
     onTextNameChanged(name) {
@@ -71,7 +72,14 @@ class CreateEvent extends Component{
     }
 
     createPressed(){
-         this.props.screenProps.createEvent(this.state)
+        if(this.state.name === ''){
+             alert('Please input the name.')
+        }
+        if(this.state.distance === '' || parseFloat(this.state.distance) <= 0 ){
+            alert('Please input the correct distance.')
+        }else{
+            this.props.screenProps.createEvent(this.state)
+        }
     }
     componentDidUpdate() {
         if(this.props.eventCreated){
