@@ -149,10 +149,12 @@ export function getRunDetails(){
         let type = runDetail.type
         for(let index = 0; index < runs.length; index++){
             run = runs[index]
-            if(run.id === runID){
-                day = index + 1
+            if(run.id != runID && run.isdeleted != true){
+                day = day + 1
             }
         }
+        day = day + 1
+        
         
         let gps = []
         let startLat = 0
