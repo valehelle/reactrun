@@ -42,7 +42,7 @@ Run.schema = {
     date:  'date',
     time: 'int',
     type: 'string',
-    photo: 'string',
+    photo: {type: 'string', default: ''},
     distance: 'int',
     isdeleted: {type: 'bool', default: false},
     gps: {type: 'list', objectType: 'Gps'},

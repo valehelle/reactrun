@@ -42,6 +42,7 @@ class FinishActivity extends Component{
                             zoomEnabled={false}
                             pitchEnabled={false}
                             rotateEnabled={false}
+                            onRegionChangeComplete={()=> this.fitToAll()}
                             lineJoin= {'miter'}
                         >
                             <MapView.Polyline

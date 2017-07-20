@@ -41,7 +41,7 @@ class Treadmill extends Component{
 
     onTextDistanceChanged(distance) {
         // code to remove non-numeric characters from text
-        let pattern = /[+-]?([0-9]*[.])?[0-9]+/
+        let pattern = /^[0-9]*(?:\.[0-9]*)?$/
         var res = pattern.test(distance);
         if(res){
             this.setState({distance: distance})
@@ -123,6 +123,9 @@ class Treadmill extends Component{
     
 
     savePressed(){
+        if(this.state.bannerName != null){
+            
+        }
          this.props.screenProps.saveTreadmill(this.state)
     }
     componentDidUpdate() {
@@ -325,6 +328,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return{
         goToFinish: state.runDetail.goToFinish,
+        unit: state.user.unit
     }
 }
 
