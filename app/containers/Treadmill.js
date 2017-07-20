@@ -30,7 +30,7 @@ class Treadmill extends Component{
     constructor(props) {
         super(props);
         this.state = { 
-            distance: '0',
+            distance: '',
             bannerSource: { uri: '' },
             bannerName: 'null',
             hour: '',
@@ -123,10 +123,21 @@ class Treadmill extends Component{
     
 
     savePressed(){
-        if(this.state.bannerName != null){
+        let time = this.state.hour + this.state.minute + this.state.second
+        if(this.state.distance === '' || parseFloat(this.state.distance) <= 0 ){
+            alert('Please input the correct distance.')
+        }
+        else if( time <= 0){
+            alert('Please input the correct time.')
+        }
+        else if(this.state.bannerName === 'null'){
+            alert('Please choose a photo.')
+        }
+        else{
+            this.props.screenProps.saveTreadmill(this.state)
             
         }
-         this.props.screenProps.saveTreadmill(this.state)
+         
     }
     componentDidUpdate() {
         if(this.props.goToFinish){
@@ -207,6 +218,7 @@ class Treadmill extends Component{
                                 value = {this.state.distance}
                                 label= { 'Distance ('  + unitText(this.props.unit) + ')' }
                                 onSubmitEditing={ ()=> this.dismissKeyboardAction()}
+                                placeholder= '0'
                             /> 
                             <View style = {styles.timePickerWrapper}>
                                 <View style = {styles.timeWrapper}>
