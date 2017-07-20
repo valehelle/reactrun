@@ -108,11 +108,16 @@ class Activity extends Component{
         this.finishAlert()
     }
 
+    componentDidUpdate() {
+        if(this.props.runSaved){
+            this.props.navigation.navigate('FinishActivity',{})
+        }
+    }
+
+
     runFinish(){
         if(this.props.isActive && this.props.totalDistance > 0){
             this.props.screenProps.saveRun()
-            
-            this.props.navigation.navigate('FinishActivity',{})
         }else{
             const backAction = NavigationActions.back({
             })
@@ -460,6 +465,7 @@ function mapStateToProps(state){
         gps: state.location.allLatLng,
         unit: state.user.unit,
         accuracy: state.location.accuracy,
+        runSaved: state.location.runSaved,
     }
 }
 

@@ -9,6 +9,7 @@ export const location = createReducer({
     'startLat': 37.78825,
     'startLng': -122.4324,
     'accuracy': 0,
+    'runSaved': false,
 }, {
   [types.SET_INITIAL_LOCATION](state, action) {
         return Object.assign({}, state, {
@@ -49,6 +50,16 @@ export const location = createReducer({
     [types.START_JOGGING](state, action) {
         return Object.assign({}, state, {
             allLatLng: [action.prevLatLng],
+        })
+    },
+    [types.SAVE_RUN](state, action) {
+        return Object.assign({}, state, {
+            runSaved: true,
+        })
+    },
+    [types.GET_RUN_DETAIL](state, action) {
+        return Object.assign({}, state, {
+            runSaved: false,
         })
     },
 })
