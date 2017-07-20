@@ -3,12 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
 import { Root } from './Router'
-
+import { MenuContext } from 'react-native-menu'
 
 class AppContainer extends Component {
 
     render(){
-        return <Root screenProps={{ ...this.props }}/>
+        return (
+             <MenuContext style={{ flex: 1 }}>
+                 <Root screenProps={{ ...this.props }}/>
+            </MenuContext>
+        )
     }
 }
 

@@ -17,6 +17,7 @@ Event.schema = {
     distanceTravelled: 'int',
     bibNumber: 'string',
     bannerSrc: 'string',
+    isdeleted: {type: 'bool', default: false},
     runs: {type: 'list', objectType: 'Run'},
   }
 }
@@ -43,6 +44,7 @@ Run.schema = {
     type: 'string',
     photo: 'string',
     distance: 'int',
+    isdeleted: {type: 'bool', default: false},
     gps: {type: 'list', objectType: 'Gps'},
     laps:  {type: 'list', objectType: 'Lapse'},
   }
@@ -68,4 +70,4 @@ Lapse.schema = {
   }
 }
 
-export default new Realm({schema: [Gps, Lapse, Run, Event, User],schemaVersion: 1})
+export default new Realm({schema: [Gps, Lapse, Run, Event, User],schemaVersion: 3})

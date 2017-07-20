@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter, getToday, unitText, mToCurrentUnit, } from '../lib/lib'
 import PrimaryButton from  '../components/PrimaryButton'
 import { secondary } from '../lib/colors'
-
+import Menu, { MenuContext, MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu'
 const {
     View,
     TouchableHighlight,
@@ -14,6 +14,7 @@ const {
     FlatList,
     ScrollView,
     Image,
+    Alert,
 } = ReactNative
 
 class EventDetail extends Component{
@@ -39,7 +40,7 @@ class EventDetail extends Component{
 
         
     runs(){
-        return Object.keys(this.props.runs).map( key => this.props.runs[key])
+        return Object.keys(this.props.runs).map(key => this.props.runs[key])
     }
 
     _renderBanner(){
@@ -98,6 +99,31 @@ class EventDetail extends Component{
         }
 
     }
+    deleteRun(runID){
+        let runDetail =
+        {
+            runID : runID,
+        }
+        this.props.screenProps.deleteRun(runDetail)
+    }
+    handleDelete(runID){
+        Alert.alert(
+            'Alert',
+            'Are you sure you want to delete this run?',
+            [
+                {text: 'NO', onPress: () => null},
+                {text: 'YES', onPress: () => this.deleteRun(runID)},
+            ],
+            { cancelable: false }
+        )
+    }
+    handleMenu(value,runID){
+        if(value === 1){
+            this.handleDelete(runID)
+        }
+    }
+
+
 
     render(){
         return (
@@ -140,6 +166,18 @@ class EventDetail extends Component{
                                             <Text>{ mToCurrentUnit(this.props.unit,runs.distance) } {unitText(this.props.unit)}</Text>
                                             <Text style = { styles.runTime }>{ TimeNiceFormatter(runs.time) }</Text>
                                         </View>
+                                       
+                                            <Menu style = {styles.runDetailButtonWrapper} onSelect={(value) => this.handleMenu(value,runs.id)}>
+                                                <MenuTrigger style = {styles.runDetailButton}>
+                                                    <Text style={{ fontSize: 20 }}>&#8942;</Text>
+                                                </MenuTrigger>
+                                                <MenuOptions>
+                                                    <MenuOption value={1}>
+                                                    <Text>Delete</Text>
+                                                    </MenuOption>
+                                                </MenuOptions>
+                                            </Menu>
+                                       
                                     </TouchableOpacity>
                                 </View>
                             )
@@ -223,6 +261,17 @@ const styles = StyleSheet.create({
     },
     runDetailWrapper:{
         flex: 8,
+    },
+    runDetailButtonWrapper:{
+        flex: 1,
+        alignItems: 'center',
+    },
+    runDetailButton:{
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 5,
+        paddingBottom: 5,
+        flex: 1,
     },
     runImageWrapper:{
         flex: 2,

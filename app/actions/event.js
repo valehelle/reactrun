@@ -107,7 +107,7 @@ export function getLatestEvent(){
     try{
         let eventID = latestEvent.id
         let days = daysLeft(latestEvent.dateend)
-        let allruns = latestEvent.runs
+        let allruns = latestEvent.runs.filtered('isdeleted = $0',false).sorted('date',true);
         let overallDistanceTravelled = 0
         if(allruns.length > 0){
             for(let i = 0;i<allruns.length;i++){
@@ -181,6 +181,14 @@ export function getLatestEvent(){
     }
 }
 
+export function deleteRun(state){
+    let runID = state.runID
+    realm.write(() => {
+        let run = realm.objectForPrimaryKey('Run', runID)
+        run.isdeleted = true
+    });
+    return getEventDetails()
+}
 
 export function getEventDetails(){
 
@@ -190,7 +198,7 @@ export function getEventDetails(){
         try{
             let eventID = currentEvent.id
             let days = daysLeft(currentEvent.dateend)
-            let allruns = currentEvent.runs.sorted('date',true);
+            let allruns = currentEvent.runs.filtered('isdeleted = $0',false).sorted('date',true);
             let overallDistanceTravelled = 0
             let runs = []
             if(allruns.length > 0){
@@ -244,9 +252,10 @@ export function getEventDetails(){
                     android: () => 'file://' + RNFS.DocumentDirectoryPath + '/' + currentEvent.bannerSrc,
                 })();
             }
+            let dateS = currentEvent.datestart
+            let dateE = currentEvent.dateend
             return dispatch({
                 type: types.GET_CURRENT_EVENT,
-                event: currentEvent,
                 eventID: eventID,
                 daysLeft: days,
                 overallDistanceTravelled: overallDistanceTravelled,
@@ -254,8 +263,8 @@ export function getEventDetails(){
                 name: name,
                 totalDistance: totalDistance,
                 runs: runs,
-                dateStart: currentEvent.datestart,
-                dateEnd: currentEvent.dateend,
+                dateStart: dateS,
+                dateEnd: dateE,
                 distanceWeeklyLeft: distanceWeeklyLeft,
                 distanceWeekly: distanceWeekly,
                 distanceWeeklyRun: distanceWeeklyRun,
