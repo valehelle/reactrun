@@ -6,7 +6,6 @@ const RNFS = require('react-native-fs')
 import { Platform } from 'react-native'
 
 
-
 export function saveRun(){
 
     return(dispatch, getState) => {

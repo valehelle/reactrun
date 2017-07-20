@@ -95,7 +95,7 @@ export function redirectEventDetailsDone(){
 
 
 export function getEvents(){
-    let events = realm.objects('Event').sorted('datecreated',true);
+    let events = realm.objects('Event').filtered('isdeleted = $0',false).sorted('datecreated',true);
     return {
         type: types.GET_EVENT_LIST,
         events: events,
@@ -103,7 +103,7 @@ export function getEvents(){
 }
 
 export function getLatestEvent(){
-    let latestEvent = realm.objects('Event').sorted('datecreated',true)[0]
+    let latestEvent = realm.objects('Event').filtered('isdeleted = $0',false).sorted('datecreated',true)[0]
     try{
         let eventID = latestEvent.id
         let days = daysLeft(latestEvent.dateend)
@@ -187,7 +187,20 @@ export function deleteRun(state){
         let run = realm.objectForPrimaryKey('Run', runID)
         run.isdeleted = true
     });
-    return getEventDetails()
+    return {
+        type: types.DELETE_RUN,
+    }
+}
+
+export function deleteEvent(state){
+    let eventID = state.eventID
+    realm.write(() => {
+        let run = realm.objectForPrimaryKey('Event', eventID)
+        run.isdeleted = true
+    });
+    return {
+        type: types.DELETE_EVENT,
+    }
 }
 
 export function getEventDetails(){

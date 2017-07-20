@@ -5,6 +5,7 @@ import { DateFormatter, mToKM, TimeNiceFormatter, DateNiceFormatter, getToday, u
 import PrimaryButton from  '../components/PrimaryButton'
 import { secondary } from '../lib/colors'
 import Menu, { MenuContext, MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu'
+
 const {
     View,
     TouchableHighlight,
@@ -24,7 +25,11 @@ class EventDetail extends Component{
         this.props.screenProps.redirectEventDetailsDone()
         
     }
-
+    componentDidUpdate() {
+        if(this.props.runDeleted){
+            this.props.screenProps.getEventDetails()
+        }
+    }
     startButtonPress(){
         this.props.navigation.navigate('Activity',{ name: this.props.name })
     }
@@ -325,7 +330,8 @@ function mapStateToProps(state){
         bibNumber: state.currentEvent.bibNumber,
         bannerSource: state.currentEvent.bannerSource,
         isRunComplete: state.currentEvent.isRunComplete,
-        unit: state.user.unit
+        unit: state.user.unit,
+        runDeleted: state.currentEvent.runDeleted,
     }
 }
 

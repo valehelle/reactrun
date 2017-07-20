@@ -22,7 +22,11 @@ class Home extends Component{
         this.props.screenProps.getLatestEvent()
         this.props.screenProps.startTracking()
     }
-
+    componentDidUpdate() {
+        if(this.props.eventDeleted || this.props.runSaved || this.props.runDeleted){
+            this.props.screenProps.getLatestEvent()
+        }
+    }
 
     startButtonPress(){
         if(this.props.eventID != ''){
@@ -283,7 +287,10 @@ function mapStateToProps(state){
         bannerSource: state.latestEvent.bannerSource,
         isRunComplete: state.latestEvent.isRunComplete,
         dateStart: state.latestEvent.dateStart,
-        unit: state.user.unit
+        unit: state.user.unit,
+        eventDeleted: state.event.eventDeleted,
+        runDeleted: state.latestEvent.runDeleted,
+        runSaved: state.latestEvent.runSaved,
     }
 }
 
