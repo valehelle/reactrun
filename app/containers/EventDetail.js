@@ -233,10 +233,11 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     runWrapper: {
-        padding: 10,
+        padding: 3,
         backgroundColor: 'white',
         marginBottom: 5,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     startContainer: {
         flexDirection: 'row',
@@ -266,16 +267,14 @@ const styles = StyleSheet.create({
     },
     runDetailWrapper:{
         flex: 8,
+        
     },
     runDetailButtonWrapper:{
         flex: 1,
         alignItems: 'center',
     },
     runDetailButton:{
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingTop: 5,
-        paddingBottom: 5,
+        padding: 10,
         flex: 1,
     },
     runImageWrapper:{

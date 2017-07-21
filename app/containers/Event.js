@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
     eventList:{
         backgroundColor: 'white',
         marginBottom: 2,
-        padding: 10,
+        padding: 1,
+        paddingLeft: 10,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -145,14 +146,14 @@ const styles = StyleSheet.create({
     },
     nameWrapper: {
         flex: 9,
+        
     },
     eventDetailButtonWrapper:{
         flex: 1,
         alignItems: 'center',
     },
     eventDetailButton:{
-        paddingLeft: 15,
-        paddingRight: 15,
+        padding:10,
         flex: 1,
     },
 
