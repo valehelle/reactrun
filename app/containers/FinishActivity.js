@@ -57,7 +57,7 @@ class FinishActivity extends Component{
         }else{
             return(
             <View style = { styles.bannerContainer } >
-                <Image source={ { uri: this.props.bannerSource } }  style={ styles.bannerImage } />  
+                <Image source={ { uri: this.props.bannerSource } }  style={ styles.bannerImage } resizeMode="contain"/>  
             </View>
             )
         }
@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     },
     bannerImage:{
         flex: 1,
-        height: 200,
     },
 })
 
